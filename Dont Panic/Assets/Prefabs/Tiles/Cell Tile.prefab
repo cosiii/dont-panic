@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3294204807231185011
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3163951778648483869, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_Color.b
+      value: 0.28315237
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163951778648483869, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_Color.g
+      value: 0.28315237
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163951778648483869, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9528302
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636595226377613808, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_Name
+      value: Cell Tile
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+--- !u!212 &459297551387510894 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3163951778648483869, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+  m_PrefabInstance: {fileID: 3294204807231185011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2287993292039147907 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3636595226377613808, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+  m_PrefabInstance: {fileID: 3294204807231185011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2445129515857956318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2287993292039147907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d24d0f220d2f34a8fa23b422a3fb11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 0.9150943, g: 0.21150766, b: 0.21150766, a: 0.8}
+  _offsetColor: {r: 0.21698111, g: 0.023540407, b: 0.023540407, a: 0.9647059}
+  _renderer: {fileID: 459297551387510894}
