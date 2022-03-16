@@ -86,9 +86,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45afa51c1e68a5438703f532a999bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _renderer: {fileID: 6442305215794680952}
+  isWalkable: 1
+  OccupiedUnit: {fileID: 0}
   _baseColor: {r: 0.6156863, g: 0.84313726, b: 0.9372549, a: 1}
   _offsetColor: {r: 0.4784314, g: 0.73333335, b: 0.8705883, a: 1}
-  _renderer: {fileID: 6442305215794680952}
 --- !u!212 &6442305215794680952 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3163951778648483869, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
@@ -18,8 +17,31 @@ public class UnitManager : MonoBehaviour
         for (int i = 0; i < playerCount; i++)
         {
             var randomPrefab = GetRandomUnit<BasePlayer>(Faction.Player);
-            var spawnedHero = Instantiate(randomPrefab);
+            var spawnedPlayer = Instantiate(randomPrefab);
+            // get the tile of the player from GridManager
+            var randomSpawnTile = GridManager.Instance.GetPlayerSpawnTile();
+
+            randomSpawnTile.SetUnit(spawnedPlayer);
+
         }
+
+        GameManager.Instance.ChangeState(GameState.SpawnPatrol);
+    }
+
+    public void SpawnPatrols(){
+        var patrolCount =1;
+        for (int i = 0; i < patrolCount; i++)
+        {
+            var randomPrefab = GetRandomUnit<BasePatrol>(Faction.Patrol);
+            var spawnedPatrol = Instantiate(randomPrefab);
+            // get the tile of the player from GridManager
+            var randomSpawnTile = GridManager.Instance.GetPatrolSpawnTile();
+
+            randomSpawnTile.SetUnit(spawnedPatrol);
+
+        }
+
+        GameManager.Instance.ChangeState(GameState.PlayersTurn);
     }
 
 
