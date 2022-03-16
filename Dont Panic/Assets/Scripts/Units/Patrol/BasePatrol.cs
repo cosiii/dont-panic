@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasePatrol : MonoBehaviour
+public class BasePatrol : BaseUnit
 {
     // Start is called before the first frame update
     void Start()
