@@ -1447,6 +1447,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: patrol (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5546431145789583442, guid: 90b54b1c9a95bac4f9d84d4dc2ebfdef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6626217572768344572, guid: 90b54b1c9a95bac4f9d84d4dc2ebfdef, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1963,7 +1967,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &674247378
 Transform:
   m_ObjectHideFlags: 0
@@ -3769,7 +3773,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1454504615
 Transform:
   m_ObjectHideFlags: 0
