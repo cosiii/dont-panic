@@ -86,6 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45afa51c1e68a5438703f532a999bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TileName: Floor
   _renderer: {fileID: 6442305215794680952}
   isWalkable: 1
   OccupiedUnit: {fileID: 0}

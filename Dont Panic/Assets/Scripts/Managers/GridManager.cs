@@ -30,7 +30,7 @@ public void GenerateGrid()
                 var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
 
-                spawnedTile.Init(x, y); //?
+                spawnedTile.Init(x, y); 
                 tiles[new Vector2(x,y)] = spawnedTile;
             }
         }

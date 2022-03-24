@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Patrol1
   m_EditorClassIdentifier: 
   Faction: 1
+  UnitPrefab: {fileID: 8062869715125541907, guid: f13fcd1fe225bbd41ba2cb93ab1e198e, type: 3}

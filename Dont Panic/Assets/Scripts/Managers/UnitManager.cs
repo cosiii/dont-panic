@@ -6,6 +6,9 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
     private List<ScriptableUnit> units;
+
+    public BasePlayer SelectedPlayer;
+
     void Awake(){
         Instance = this;
         // goes through Units Folder and look thorugh all the subfolders fpr any type of scriptable unit
@@ -48,5 +51,10 @@ public class UnitManager : MonoBehaviour
     private T GetRandomUnit<T>(Faction faction) where T : BaseUnit {
         // going thorugh our list, wanting all the units of the faction we*re telling it, randomly shuffling them around (why?), take the first and just get the Prefab
         return (T)units.Where(u => u.Faction == faction).OrderBy( o => Random.value).First().UnitPrefab;
+    }
+
+    public void SetSelectedPlayer(BasePlayer player){
+        SelectedPlayer = player;
+        MenuManager.Instance.ShowSelectedPlayer(player);
     }
 }

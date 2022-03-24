@@ -97,3 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2dc72551f7f310468eafb75828c0587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OccupiedTile: {fileID: 0}
+  Faction: 1
+  UnitName: patrol

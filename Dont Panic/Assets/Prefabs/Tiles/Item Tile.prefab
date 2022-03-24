@@ -91,7 +91,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b0d2fd26a9347459f50cab735d6b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TileName: Item
   _renderer: {fileID: 301978853689062643}
+  isWalkable: 0
+  OccupiedUnit: {fileID: 0}
   _baseColor: {r: 0.6156863, g: 0.84313726, b: 0.9372549, a: 1}
   _offsetColor: {r: 0.4784314, g: 0.73333335, b: 0.8705883, a: 1}
 --- !u!4 &6041779676489040386 stripped
