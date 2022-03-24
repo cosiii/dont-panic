@@ -8,6 +8,9 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> units;
 
     public BasePlayer SelectedPlayer;
+    public BasePlayer Player1;
+    public BasePlayer Player2;
+    
 
     void Awake(){
         Instance = this;
@@ -17,13 +20,20 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnPlayers(){
         var playerCount =2;
+        
         for (int i = 0; i < playerCount; i++)
         {
-            var randomPrefab = GetRandomUnit<BasePlayer>(Faction.Player);
-            var spawnedPlayer = Instantiate(randomPrefab);
+            // Player 1 & 2
+            var player = Player1;
+            if(i == 0){
+                  player = Player1;
+            } else if(i == 1){
+                player = Player2;
+            }
+            // spawning player
+            var spawnedPlayer = Instantiate(player);
             // get the tile of the player from GridManager
             var randomSpawnTile = GridManager.Instance.GetPlayerSpawnTile();
-
             randomSpawnTile.SetUnit(spawnedPlayer);
 
         }
@@ -44,7 +54,7 @@ public class UnitManager : MonoBehaviour
 
         }
 
-        GameManager.Instance.ChangeState(GameState.PlayersTurn);
+        GameManager.Instance.ChangeState(GameState.Player1Turn);
     }
 
 

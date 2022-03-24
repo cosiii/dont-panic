@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileName: Item
   _renderer: {fileID: 301978853689062643}
-  isWalkable: 0
+  isWalkable: 1
   OccupiedUnit: {fileID: 0}
   _baseColor: {r: 0.6156863, g: 0.84313726, b: 0.9372549, a: 1}
   _offsetColor: {r: 0.4784314, g: 0.73333335, b: 0.8705883, a: 1}

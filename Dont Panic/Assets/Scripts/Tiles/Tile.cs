@@ -20,7 +20,7 @@ public abstract class Tile : MonoBehaviour
     public void OnMouseEnter(){  //works only on clicks now
         MenuManager.Instance.ShowTileInfo(this);
         Debug.Log("on mouse enter");
-    }
+    } 
 
     void OnMouseExit(){ //works only on clicks now
         MenuManager.Instance.ShowTileInfo(null);
@@ -29,13 +29,20 @@ public abstract class Tile : MonoBehaviour
 
     void OnMouseDown(){
         Debug.Log("on mouse down");
-        // only care about it when its players turn
-        if(GameManager.Instance.GameState != GameState.PlayersTurn) return;
 
-        // when its occupied
-        if( OccupiedUnit != null){
+        // PLAYER ONE
+        // only care about it when its player ones turn
+        //if(GameManager.Instance.GameState != GameState.Player1Turn) return;
+
+        // when its occupied by a player or anything else
+        if( OccupiedUnit != null ){
             if(OccupiedUnit.Faction == Faction.Player){
-                UnitManager.Instance.SetSelectedPlayer((BasePlayer)OccupiedUnit);
+                if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1" ){
+                    UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
+                } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
+                    UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
+                }
+                
             } 
             else {
                 if(UnitManager.Instance.SelectedPlayer != null){
@@ -49,11 +56,20 @@ public abstract class Tile : MonoBehaviour
         else {
             // already got a selected Unit
             if(UnitManager.Instance.SelectedPlayer != null){
-                SetUnit(UnitManager.Instance.SelectedPlayer);
-                UnitManager.Instance.SetSelectedPlayer(null);
+               
+                    SetUnit(UnitManager.Instance.SelectedPlayer);
+                     UnitManager.Instance.SetSelectedPlayer(null);
+
+
+                if(GameManager.Instance.GameState == GameState.Player1Turn){
+                     GameManager.Instance.ChangeState(GameState.Player2Turn);
+                } else if(GameManager.Instance.GameState == GameState.Player2Turn){
+                     GameManager.Instance.ChangeState(GameState.Player1Turn);
+                }
 
             }
         }
+
 
     } 
 

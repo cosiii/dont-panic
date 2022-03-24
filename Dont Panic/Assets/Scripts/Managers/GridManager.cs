@@ -14,6 +14,7 @@ public class GridManager : MonoBehaviour
 
     private Dictionary<Vector2, Tile> tiles;
 
+
 void Awake(){
     Instance = this;
 }
@@ -26,12 +27,19 @@ public void GenerateGrid()
         {
             for (int y = 0; y < _height; y++)
             {
-                var randomTile = Random.Range(0,21) == 3 ? itemTile : floorTile;
-                var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
+                // spawn items
+                if (x ==3 && y == 3 || x ==2 && y == 1 || x ==6 && y == 1){
+    	        var spawnedTile = Instantiate(itemTile, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
-
                 spawnedTile.Init(x, y); 
                 tiles[new Vector2(x,y)] = spawnedTile;
+                } else { // spawn floor
+                var spawnedTile = Instantiate(floorTile, new Vector3(x, y), Quaternion.identity);
+                spawnedTile.name = $"Tile {x} {y}";
+                spawnedTile.Init(x, y); 
+                tiles[new Vector2(x,y)] = spawnedTile;
+                }
+                
             }
         }
 
