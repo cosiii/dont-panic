@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Item1
   m_EditorClassIdentifier: 
   Faction: 2
-  UnitPrefab: {fileID: -5126762163296401755, guid: 6806216ece177584cbd773680909dbcd, type: 3}
+  UnitPrefab: {fileID: -7167732269808480363, guid: 6806216ece177584cbd773680909dbcd, type: 3}

@@ -60,7 +60,7 @@ public Tile GetPlayerSpawnTile(){
 
     public Tile GetItemSpawnTile(){
     // left side of map and is walkable
-    return tiles.Where(t => t.Key.x < _width/3 && t.Value.Walkable).OrderBy(t=> Random.value).First().Value;
+    return tiles.Where(t => t.Key.x < _width && t.Value.Walkable).OrderBy(t=> Random.value).First().Value;
     }
     
 public Tile GetTileAtPosition(Vector2 pos){

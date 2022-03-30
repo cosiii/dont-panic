@@ -35,7 +35,7 @@ public abstract class Tile : MonoBehaviour
         //if(GameManager.Instance.GameState != GameState.Player1Turn) return;
 
         // when its occupied by a player or anything else
-        if( OccupiedUnit != null ){
+        if( OccupiedUnit != null ){ //when tile is occupied
             if(OccupiedUnit.Faction == Faction.Player){
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1" ){
                     UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
@@ -44,12 +44,13 @@ public abstract class Tile : MonoBehaviour
                 }
                 
             } 
-            else {
-                if(UnitManager.Instance.SelectedPlayer != null){
-                    var patrol = (BasePatrol) OccupiedUnit;
-                    Destroy(patrol.gameObject);
+            else { 
+                if(UnitManager.Instance.SelectedPlayer != null){ // if we have a selected player AND we click on another occupied unit
+                    Destroy(OccupiedUnit.gameObject);
                     //deselect selected Unit
-                    UnitManager.Instance.SetSelectedPlayer(null);
+                    SetUnit(UnitManager.Instance.SelectedPlayer);
+                     UnitManager.Instance.SetSelectedPlayer(null);
+                     ChangePlayerTurn();
                 }
 
             }
@@ -61,12 +62,8 @@ public abstract class Tile : MonoBehaviour
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
 
-
-                if(GameManager.Instance.GameState == GameState.Player1Turn){
-                     GameManager.Instance.ChangeState(GameState.Player2Turn);
-                } else if(GameManager.Instance.GameState == GameState.Player2Turn){
-                     GameManager.Instance.ChangeState(GameState.Player1Turn);
-                }
+                ChangePlayerTurn();
+                
 
             }
         }
@@ -79,5 +76,13 @@ public abstract class Tile : MonoBehaviour
         unit.transform.position =transform.position;
         OccupiedUnit = unit;
         unit.OccupiedTile = this;
+    }
+
+    public void ChangePlayerTurn(){
+if(GameManager.Instance.GameState == GameState.Player1Turn){
+                     GameManager.Instance.ChangeState(GameState.Player2Turn);
+                } else if(GameManager.Instance.GameState == GameState.Player2Turn){
+                     GameManager.Instance.ChangeState(GameState.Player1Turn);
+                }
     }
 }
