@@ -19,16 +19,13 @@ public abstract class Tile : MonoBehaviour
 
     public void OnMouseEnter(){  //works only on clicks now
         MenuManager.Instance.ShowTileInfo(this);
-        Debug.Log("on mouse enter");
     } 
 
     void OnMouseExit(){ //works only on clicks now
         MenuManager.Instance.ShowTileInfo(null);
-        Debug.Log("on mouse exit");
     }
 
     void OnMouseDown(){
-        Debug.Log("on mouse down");
 
         // PLAYER ONE
         // only care about it when its player ones turn
@@ -50,6 +47,7 @@ public abstract class Tile : MonoBehaviour
                     //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
+                     //InventoryManager.Instance.ItemCollision();
                      ChangePlayerTurn();
                 }
 
