@@ -10,6 +10,8 @@ public class UnitManager : MonoBehaviour
     public BasePlayer SelectedPlayer;
     public BasePlayer Player1;
     public BasePlayer Player2;
+
+    public BaseItem Item1;
     
 
     void Awake(){
@@ -55,6 +57,22 @@ public class UnitManager : MonoBehaviour
         }
 
         GameManager.Instance.ChangeState(GameState.Player1Turn);
+    }
+
+    public void SpawnItems(){
+        var itemCount =2;
+        for (int i = 0; i < itemCount; i++)
+        {
+            
+            // spawning item
+             var randomPrefab = GetRandomUnit<BaseItem>(Faction.Item);
+            var spawnedItem = Instantiate(randomPrefab);
+            // get the tile of the item from GridManager
+            var randomSpawnTile = GridManager.Instance.GetItemSpawnTile();
+            randomSpawnTile.SetUnit(spawnedItem);
+
+        }
+
     }
 
 

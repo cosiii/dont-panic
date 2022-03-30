@@ -51,6 +51,7 @@ public abstract class Tile : MonoBehaviour
                     //deselect selected Unit
                     UnitManager.Instance.SetSelectedPlayer(null);
                 }
+
             }
         }
         else {

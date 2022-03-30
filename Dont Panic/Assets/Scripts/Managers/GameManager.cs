@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
                 GridManager.Instance.GenerateGrid();
                 break;
             case GameState.SpawnPlayers:
+            
+            UnitManager.Instance.SpawnItems();
             UnitManager.Instance.SpawnPlayers();
                 break;
             case GameState.SpawnPatrol:

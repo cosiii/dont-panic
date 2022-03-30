@@ -11,9 +11,10 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int _width, _height;
     [SerializeField] private Tile floorTile, itemTile;
     [SerializeField] private Transform _cam;
+    [SerializeField] private int x1, y1;
 
     private Dictionary<Vector2, Tile> tiles;
-
+    
 
 void Awake(){
     Instance = this;
@@ -28,7 +29,7 @@ public void GenerateGrid()
             for (int y = 0; y < _height; y++)
             {
                 // spawn items
-                if (x ==3 && y == 3 || x ==2 && y == 1 || x ==6 && y == 1){
+                if (x == x1 && y == y1 || x ==2 && y == 1 || x ==6 && y == 1){
     	        var spawnedTile = Instantiate(itemTile, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.Init(x, y); 
@@ -55,6 +56,11 @@ public Tile GetPlayerSpawnTile(){
     public Tile GetPatrolSpawnTile(){
     // left side of map and is walkable
     return tiles.Where(t => t.Key.x > _width/2 && t.Value.Walkable).OrderBy(t=> Random.value).First().Value;
+    }
+
+    public Tile GetItemSpawnTile(){
+    // left side of map and is walkable
+    return tiles.Where(t => t.Key.x < _width/3 && t.Value.Walkable).OrderBy(t=> Random.value).First().Value;
     }
     
 public Tile GetTileAtPosition(Vector2 pos){
