@@ -51,7 +51,15 @@ public abstract class Tile : MonoBehaviour
                     // destroy any kind of gameobject (should be just Items)
                     //Debug.Log(OccupiedUnit);
                     InventoryManager.Instance.ItemCollision();
-                    Destroy(OccupiedUnit.gameObject);
+
+                    
+                        if(InventoryManager.Instance.isFull[2] == false){ // item cannot be added to inventory
+                              Destroy(OccupiedUnit.gameObject);
+                        }
+                    
+
+
+                  
                     //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);

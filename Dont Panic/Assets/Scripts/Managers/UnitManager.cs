@@ -10,6 +10,7 @@ public class UnitManager : MonoBehaviour
     public BasePlayer SelectedPlayer;
     public BasePlayer Player1;
     public BasePlayer Player2;
+    public int itemCount =7;
 
     
     void Awake(){
@@ -58,7 +59,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnItems(){
-        var itemCount =7;
+        
         for (int i = 0; i < itemCount; i++)
         {
             
