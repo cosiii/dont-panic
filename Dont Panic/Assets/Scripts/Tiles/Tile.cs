@@ -5,12 +5,17 @@ using UnityEngine;
 public abstract class Tile : MonoBehaviour
 {
     public string TileName;
+    
+    public static Tile Instance;
     [SerializeField] protected SpriteRenderer _renderer;  // affectively private, but derived tiles can access it
     [SerializeField]private bool isWalkable;
 
     public BaseUnit OccupiedUnit;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
 
+    void Awake(){
+        Instance = this;
+    }
     public virtual void Init(int x, int y)  // will run on every tile, but each individula tile has the option to overwrite it
     {
       
@@ -43,11 +48,13 @@ public abstract class Tile : MonoBehaviour
             } 
             else { 
                 if(UnitManager.Instance.SelectedPlayer != null){ // if we have a selected player AND we click on another occupied unit
+                    // destroy any kind of gameobject (should be just Items)
+                    //Debug.Log(OccupiedUnit);
+                    InventoryManager.Instance.ItemCollision();
                     Destroy(OccupiedUnit.gameObject);
                     //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
-                     //InventoryManager.Instance.ItemCollision();
                      ChangePlayerTurn();
                 }
 

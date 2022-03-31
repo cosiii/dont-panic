@@ -11,9 +11,7 @@ public class UnitManager : MonoBehaviour
     public BasePlayer Player1;
     public BasePlayer Player2;
 
-    public BaseItem Item;
     
-
     void Awake(){
         Instance = this;
         // goes through Units Folder and look thorugh all the subfolders fpr any type of scriptable unit
@@ -44,7 +42,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnPatrols(){
-        var patrolCount =1;
+        var patrolCount =0;
         for (int i = 0; i < patrolCount; i++)
         {
             var randomPrefab = GetRandomUnit<BasePatrol>(Faction.Patrol);
