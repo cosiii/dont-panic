@@ -51,15 +51,7 @@ public abstract class Tile : MonoBehaviour
                     // destroy any kind of gameobject (should be just Items)
                     //Debug.Log(OccupiedUnit);
                     InventoryManager.Instance.ItemCollision();
-
-                    
-                        if(InventoryManager.Instance.isFull[2] == false){ // item cannot be added to inventory
-                              Destroy(OccupiedUnit.gameObject);
-                        }
-                    
-
-
-                  
+                    DestroyUnit();
                     //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
@@ -91,6 +83,9 @@ public abstract class Tile : MonoBehaviour
         unit.OccupiedTile = this;
     }
 
+    public void DestroyUnit(){
+        Destroy(OccupiedUnit.gameObject);
+    }
     public void ChangePlayerTurn(){
 if(GameManager.Instance.GameState == GameState.Player1Turn){
                      GameManager.Instance.ChangeState(GameState.Player2Turn);
