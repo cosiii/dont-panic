@@ -50,7 +50,8 @@ public abstract class Tile : MonoBehaviour
                 if(UnitManager.Instance.SelectedPlayer != null){ // if we have a selected player AND we click on another occupied unit = destroy any kind of gameobject (should be just Items)
                     
                     // just destroy it when the inventory of the player isnt completely full
-                    if(InventoryManager.Instance.inventoryIsFullPlayerOne == false){
+                    if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
+                       InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
                     DestroyUnit();
                     }
                     

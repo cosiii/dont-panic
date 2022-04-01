@@ -14,6 +14,7 @@ public GameObject[] inventoryPlayerOne;
 public GameObject[] inventoryPlayerTwo;
 
 public bool inventoryIsFullPlayerOne;
+public bool inventoryIsFullPlayerTwo;
 
 public GameObject inventoryPoint;
 
