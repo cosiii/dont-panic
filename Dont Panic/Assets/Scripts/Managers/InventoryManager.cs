@@ -9,9 +9,13 @@ public class InventoryManager : MonoBehaviour
  public bool[] isFullPlayerOne;
  public bool[] isFullPlayerTwo;
  public GameObject[] slotsPlayerOne;
-  public GameObject[] slotsPlayerTwo;
+public GameObject[] slotsPlayerTwo;
+public GameObject[] inventoryPlayerOne;
+public GameObject[] inventoryPlayerTwo;
 
- public GameObject inventoryPoint;
+public bool inventoryIsFullPlayerOne;
+
+public GameObject inventoryPoint;
 
 void Awake(){
         Instance = this;
@@ -19,14 +23,12 @@ void Awake(){
 
  public void ItemCollision(){
 
-
-
 Debug.Log("item picked up by " + MenuManager.Instance.selectedPlayerObject.GetComponentInChildren<Text>().text);
 
 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){  //PLAYER ONE
     for (int i = 0; i < slotsPlayerOne.Length; i++)
     {
-        if(isFullPlayerOne[i] == false){ // item can be added to inventory
+        if(isFullPlayerOne[i] == false ){ // item can be added to inventory
             // parented to slots[i]
             Instantiate(inventoryPoint, slotsPlayerOne[i].transform, false);
             isFullPlayerOne[i] = true;
@@ -45,6 +47,10 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){  //PLAYER ONE
     }
 }
 
+ if(isFullPlayerOne[slotsPlayerOne.Length -1] == true){
+                Debug.Log("inventory full");
+                inventoryIsFullPlayerOne = true;
+            }
 
  }
 

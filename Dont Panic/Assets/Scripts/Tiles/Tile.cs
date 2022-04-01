@@ -47,11 +47,15 @@ public abstract class Tile : MonoBehaviour
                 
             } 
             else { 
-                if(UnitManager.Instance.SelectedPlayer != null){ // if we have a selected player AND we click on another occupied unit
-                    // destroy any kind of gameobject (should be just Items)
-                    //Debug.Log(OccupiedUnit);
-                    InventoryManager.Instance.ItemCollision();
+                if(UnitManager.Instance.SelectedPlayer != null){ // if we have a selected player AND we click on another occupied unit = destroy any kind of gameobject (should be just Items)
+                    
+                    // just destroy it when the inventory of the player isnt completely full
+                    if(InventoryManager.Instance.inventoryIsFullPlayerOne == false){
                     DestroyUnit();
+                    }
+                    
+                    InventoryManager.Instance.ItemCollision();
+
                     //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
@@ -85,6 +89,7 @@ public abstract class Tile : MonoBehaviour
 
     public void DestroyUnit(){
         Destroy(OccupiedUnit.gameObject);
+        //Debug.Log(OccupiedUnit.gameObject);
     }
     public void ChangePlayerTurn(){
 if(GameManager.Instance.GameState == GameState.Player1Turn){

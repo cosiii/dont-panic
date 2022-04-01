@@ -1088,6 +1088,13 @@ MonoBehaviour:
   SelectedPlayer: {fileID: 0}
   Player1: {fileID: 8018250621830881957, guid: ad887c737835b4d408601202241c2936, type: 3}
   Player2: {fileID: 4535703045489435959, guid: d0ee5375b468eb84d8bb06995c78b476, type: 3}
+  Item1: {fileID: -7167732269808480363, guid: 6806216ece177584cbd773680909dbcd, type: 3}
+  Item2: {fileID: 6219432629882866560, guid: 2cfa533162a66c149b728c631013123f, type: 3}
+  Item3: {fileID: -7877355766923930559, guid: 9f296d4a9d2a9e24084ac7a83cb69705, type: 3}
+  Item4: {fileID: -1503517866478607962, guid: cb4e6bfec7c6e3c4e9699a2accec8472, type: 3}
+  Item5: {fileID: -1472291207033253815, guid: 7938771e6e4ad5449961b475b575dc22, type: 3}
+  Item6: {fileID: 2466455530328393500, guid: f2018e3483f737c4db0642bdc74d644e, type: 3}
+  Item7: {fileID: 194658853040619555, guid: 0a0a49fba456b0a4bb3ace60e9945b1b, type: 3}
   itemCount: 7
 --- !u!4 &905539860
 Transform:
@@ -2392,6 +2399,9 @@ MonoBehaviour:
   - {fileID: 1071958925}
   - {fileID: 1803299844}
   - {fileID: 1276008637}
+  inventoryPlayerOne: []
+  inventoryPlayerTwo: []
+  inventoryIsFullPlayerOne: 0
   inventoryPoint: {fileID: 1136762052479842728, guid: 52afc12a3089ebe4c9efba7183d56acc, type: 3}
 --- !u!1 &1954151231
 GameObject:
