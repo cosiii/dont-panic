@@ -28,18 +28,18 @@ public void GenerateGrid()
         {
             for (int y = 0; y < _height; y++)
             {
-                // spawn items
+                /* spawn items
                 if (x == x1 && y == y1 || x ==2 && y == 1 || x ==6 && y == 1){
     	        var spawnedTile = Instantiate(itemTile, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.Init(x, y); 
                 tiles[new Vector2(x,y)] = spawnedTile;
-                } else { // spawn floor
+                } else { // spawn floor */
                 var spawnedTile = Instantiate(floorTile, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.Init(x, y); 
                 tiles[new Vector2(x,y)] = spawnedTile;
-                }
+               // }
                 
             }
         }

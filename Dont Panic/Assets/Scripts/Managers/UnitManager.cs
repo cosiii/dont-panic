@@ -10,6 +10,8 @@ public class UnitManager : MonoBehaviour
     public BasePlayer SelectedPlayer;
     public BasePlayer Player1;
     public BasePlayer Player2;
+
+    public BaseItem Item1, Item2, Item3, Item4, Item5, Item6, Item7;
     public int itemCount =7;
 
     
@@ -62,13 +64,28 @@ public class UnitManager : MonoBehaviour
         
         for (int i = 0; i < itemCount; i++)
         {
-            
-            // spawning item
-             var randomPrefab = GetRandomUnit<BaseItem>(Faction.Item);
-            var spawnedItem = Instantiate(randomPrefab);
-            // get the tile of the item from GridManager
-            var randomSpawnTile = GridManager.Instance.GetItemSpawnTile();
-            randomSpawnTile.SetUnit(spawnedItem);
+            // Player 1 & 2
+            var itemLook = Item1;
+            if(i == 0){
+                  itemLook = Item1;
+            } else if(i == 1){
+                itemLook = Item2;
+            } else if(i == 2){
+                itemLook = Item3;
+            } else if(i == 3){
+                itemLook = Item4;
+            } else if(i == 4){
+                itemLook = Item5;
+            } else if(i == 5){
+                itemLook = Item6;
+            } else if(i == 6){
+                itemLook = Item7;
+            }
+            // spawning player
+            var spawnedPlayer = Instantiate(itemLook);
+            // get the tile of the player from GridManager
+            var randomSpawnTile = GridManager.Instance.GetPlayerSpawnTile();
+            randomSpawnTile.SetUnit(spawnedPlayer);
 
         }
 
