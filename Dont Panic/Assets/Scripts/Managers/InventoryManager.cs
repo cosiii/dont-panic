@@ -56,8 +56,13 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){  //PLAYER ONE
 }
 
  if(isFullPlayerOne[slotsPlayerOne.Length -1] == true){
-                Debug.Log("inventory full");
+                Debug.Log("inventory full pl1");
                 inventoryIsFullPlayerOne = true;
+            }
+
+ if(isFullPlayerTwo[slotsPlayerTwo.Length -1] == true){
+                Debug.Log("inventory full pl2");
+                inventoryIsFullPlayerTwo = true;
             }
 
  }

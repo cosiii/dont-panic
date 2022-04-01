@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Player2 : BasePlayer
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+ 
+    public static Player2 Instance;
+   [SerializeField] public GameObject highlight;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   void Awake(){
+       Instance = this;
+   }
 }

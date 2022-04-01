@@ -12,7 +12,10 @@ public class UnitManager : MonoBehaviour
     public BasePlayer Player2;
 
     public BaseItem Item1, Item2, Item3, Item4, Item5, Item6, Item7;
+
+    public BaseDoor Door1;
     public int itemCount =7;
+    public int doorCount =5;
 
     
     void Awake(){
@@ -82,10 +85,25 @@ public class UnitManager : MonoBehaviour
                 itemLook = Item7;
             }
             // spawning player
-            var spawnedPlayer = Instantiate(itemLook);
+            var spawnedItem = Instantiate(itemLook);
+            // get the tile of the player from GridManager
+            var randomSpawnTile = GridManager.Instance.GetItemSpawnTile();
+            randomSpawnTile.SetUnit(spawnedItem);
+
+        }
+
+    }
+
+        public void SpawnDoors(){
+        
+        for (int i = 0; i < doorCount; i++)
+        {
+            var door = Door1;
+            // spawning player
+            var spawnedDoor = Instantiate(door);
             // get the tile of the player from GridManager
             var randomSpawnTile = GridManager.Instance.GetPlayerSpawnTile();
-            randomSpawnTile.SetUnit(spawnedPlayer);
+            randomSpawnTile.SetUnit(door);
 
         }
 

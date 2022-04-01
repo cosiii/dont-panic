@@ -10,11 +10,14 @@ public abstract class Tile : MonoBehaviour
     public static Tile Instance;
     [SerializeField] protected SpriteRenderer _renderer;  // affectively private, but derived tiles can access it
     [SerializeField]private bool isWalkable;
+    
 
     public BaseUnit OccupiedUnit;
 
     public BaseUnit LastDestroyed;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
+
+
 
     void Awake(){
         Instance = this;
@@ -44,10 +47,11 @@ public abstract class Tile : MonoBehaviour
             if(OccupiedUnit.Faction == Faction.Player){
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1" ){
                     UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
+                    Player1.Instance.highlight.SetActive(true);
                 } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
+                    Player2.Instance.highlight.SetActive(true);
                 }
-                
             } 
             else { 
                 if(UnitManager.Instance.SelectedPlayer != null){ // if we have a selected player AND we click on another occupied unit = destroy any kind of gameobject (should be just Items)
@@ -61,7 +65,12 @@ public abstract class Tile : MonoBehaviour
 
                     //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
-                     UnitManager.Instance.SetSelectedPlayer(null);
+                    UnitManager.Instance.SetSelectedPlayer(null);
+
+                    // dehighlight all
+                    Player1.Instance.highlight.SetActive(false);
+                    Player2.Instance.highlight.SetActive(false);
+
                      ChangePlayerTurn();
                 }
 
@@ -70,9 +79,13 @@ public abstract class Tile : MonoBehaviour
         else {
             // already got a selected Unit
             if(UnitManager.Instance.SelectedPlayer != null){
-               
+                    //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
+
+                    // dehighlight all
+                    Player1.Instance.highlight.SetActive(false);
+                    Player2.Instance.highlight.SetActive(false);
 
                 ChangePlayerTurn();
                 
