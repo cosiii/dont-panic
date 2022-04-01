@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Tile : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public abstract class Tile : MonoBehaviour
     [SerializeField]private bool isWalkable;
 
     public BaseUnit OccupiedUnit;
+
+    public BaseUnit LastDestroyed;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
 
     void Awake(){
@@ -54,7 +57,6 @@ public abstract class Tile : MonoBehaviour
                        InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
                     DestroyUnit();
                     }
-                    
                     InventoryManager.Instance.ItemCollision();
 
                     //deselect selected Unit
@@ -90,7 +92,9 @@ public abstract class Tile : MonoBehaviour
 
     public void DestroyUnit(){
         Destroy(OccupiedUnit.gameObject);
-        //Debug.Log(OccupiedUnit.gameObject);
+        InventoryManager.Instance.lastDestroyedItem = OccupiedUnit.UnitName;
+        
+        
     }
     public void ChangePlayerTurn(){
 if(GameManager.Instance.GameState == GameState.Player1Turn){

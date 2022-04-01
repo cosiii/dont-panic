@@ -10,9 +10,12 @@ public class InventoryManager : MonoBehaviour
  public bool[] isFullPlayerTwo;
  public GameObject[] slotsPlayerOne;
 public GameObject[] slotsPlayerTwo;
-public GameObject[] inventoryPlayerOne;
-public GameObject[] inventoryPlayerTwo;
+public string[] inventoryPlayerOne;
 
+public string[] inventoryPlayerTwo;
+
+
+public string lastDestroyedItem;
 public bool inventoryIsFullPlayerOne;
 public bool inventoryIsFullPlayerTwo;
 
@@ -33,9 +36,12 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){  //PLAYER ONE
             // parented to slots[i]
             Instantiate(inventoryPoint, slotsPlayerOne[i].transform, false);
             isFullPlayerOne[i] = true;
+            inventoryPlayerOne[i] = lastDestroyedItem;
             break;
         }
     }
+
+
 } else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ //PLAYER TWO
     for (int i = 0; i < slotsPlayerTwo.Length; i++)
     {
@@ -43,6 +49,7 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){  //PLAYER ONE
             // parented to slots[i]
             Instantiate(inventoryPoint, slotsPlayerTwo[i].transform, false);
             isFullPlayerTwo[i] = true;
+            inventoryPlayerTwo[i] = lastDestroyedItem;
             break;
         }
     }
