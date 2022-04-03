@@ -8,7 +8,7 @@ using System.Linq;
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance;
-    [SerializeField] private int _width, _height;
+    [SerializeField] public int _width, _height;
     [SerializeField] private Tile floorTile, itemTile;
     [SerializeField] private Transform _cam;
     [SerializeField] private int x1, y1;

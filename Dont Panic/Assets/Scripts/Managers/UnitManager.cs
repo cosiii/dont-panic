@@ -11,9 +11,11 @@ public class UnitManager : MonoBehaviour
     public BasePlayer Player1;
     public BasePlayer Player2;
 
-    public BaseItem Item1, Item2, Item3, Item4, Item5, Item6, Item7;
+    public BaseItem Item1, Item2, Item3, Item4, Item5, Item6, Item7; 
 
     public BaseDoor DoorDown, DoorLeft, DoorRight, DoorUp;
+
+    public int doorLeftValue, doorUpValue1, doorUpValue2, doorRightValue, doorDownValue;
     public int itemCount =7;
     public int doorCount =5;
 
@@ -24,6 +26,7 @@ public class UnitManager : MonoBehaviour
         units = Resources.LoadAll<ScriptableUnit>("Units").ToList();
     }
 
+// SPAWNING PLAYERS
     public void SpawnPlayers(){
         var playerCount =2;
         
@@ -47,6 +50,7 @@ public class UnitManager : MonoBehaviour
         GameManager.Instance.ChangeState(GameState.SpawnPatrol);
     }
 
+// SPAWNING PATROLS
     public void SpawnPatrols(){
         var patrolCount =0;
         for (int i = 0; i < patrolCount; i++)
@@ -63,6 +67,7 @@ public class UnitManager : MonoBehaviour
         GameManager.Instance.ChangeState(GameState.Player1Turn);
     }
 
+// SPAWNING ITEMS
     public void SpawnItems(){
         
         for (int i = 0; i < itemCount; i++)
@@ -94,16 +99,33 @@ public class UnitManager : MonoBehaviour
 
     }
 
+// SPAWNING DOORS
         public void SpawnDoors(){
-        
         for (int i = 0; i < doorCount; i++)
         {
             var door = DoorDown;
-            // spawning player
-            var spawnedDoor = Instantiate(door);
-            // get the tile of the player from GridManager
             var randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(i, i);
-            randomSpawnTile.SetUnit(door);
+            if(i == 0){
+                door = DoorLeft;
+                randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(0, doorLeftValue);
+            } else if( i == 1){
+                door = DoorUp;
+                randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(doorUpValue1, GridManager.Instance._height -1);
+            } else if( i == 2){
+                door = DoorUp;
+                randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(doorUpValue2, GridManager.Instance._height -1);
+            } else if( i == 3){
+                door = DoorRight;
+                randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(GridManager.Instance. _width -1, doorRightValue);
+            } else if( i == 4){
+                door = DoorDown;
+                randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(doorDownValue, 0);
+            }
+            
+            // spawning door
+            var spawnedDoor = Instantiate(door);
+            // get the tile of the door from GridManager
+            randomSpawnTile.SetUnit(spawnedDoor);
 
         }
 
