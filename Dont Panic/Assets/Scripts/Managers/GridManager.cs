@@ -48,20 +48,26 @@ public void GenerateGrid()
 
         GameManager.Instance.ChangeState(GameState.SpawnPlayers);
     }
-public Tile GetPlayerSpawnTile(){
+    public Tile GetPlayerSpawnTile(){
     // left side of map and is walkable
     return tiles.Where(t => t.Key.x < _width/2 && t.Value.Walkable).OrderBy(t=> Random.value).First().Value;
     }
 
     public Tile GetPatrolSpawnTile(){
-    // left side of map and is walkable
+    // right side of map and is walkable
     return tiles.Where(t => t.Key.x > _width/2 && t.Value.Walkable).OrderBy(t=> Random.value).First().Value;
     }
-
     public Tile GetItemSpawnTile(){
-    // left side of map and is walkable
+    //map and is walkable
     return tiles.Where(t => t.Key.x < _width && t.Value.Walkable).OrderBy(t=> Random.value).First().Value;
     }
+
+     public Tile GetDoorSpawnTile(int x, int y){
+    //map and is walkable
+    return tiles.Where(t => t.Key.x == x && t.Key.y == y ).OrderBy(t=> Random.value).First().Value;
+    }
+
+    
     
 public Tile GetTileAtPosition(Vector2 pos){
     if(tiles.TryGetValue(pos, out var tile)){

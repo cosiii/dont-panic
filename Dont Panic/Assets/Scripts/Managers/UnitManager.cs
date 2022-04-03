@@ -13,7 +13,7 @@ public class UnitManager : MonoBehaviour
 
     public BaseItem Item1, Item2, Item3, Item4, Item5, Item6, Item7;
 
-    public BaseDoor Door1;
+    public BaseDoor DoorDown, DoorLeft, DoorRight, DoorUp;
     public int itemCount =7;
     public int doorCount =5;
 
@@ -98,11 +98,11 @@ public class UnitManager : MonoBehaviour
         
         for (int i = 0; i < doorCount; i++)
         {
-            var door = Door1;
+            var door = DoorDown;
             // spawning player
             var spawnedDoor = Instantiate(door);
             // get the tile of the player from GridManager
-            var randomSpawnTile = GridManager.Instance.GetPlayerSpawnTile();
+            var randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(i, i);
             randomSpawnTile.SetUnit(door);
 
         }

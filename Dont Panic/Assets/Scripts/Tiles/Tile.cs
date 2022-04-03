@@ -104,10 +104,10 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void DestroyUnit(){
-        Destroy(OccupiedUnit.gameObject);
+        if(OccupiedUnit.Faction == Faction.Item){
+            Destroy(OccupiedUnit.gameObject);
         InventoryManager.Instance.lastDestroyedItem = OccupiedUnit.UnitName;
-        
-        
+        } 
     }
     public void ChangePlayerTurn(){
 if(GameManager.Instance.GameState == GameState.Player1Turn){
