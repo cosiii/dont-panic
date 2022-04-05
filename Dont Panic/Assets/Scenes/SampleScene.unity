@@ -1095,7 +1095,18 @@ MonoBehaviour:
   Item5: {fileID: -1472291207033253815, guid: 7938771e6e4ad5449961b475b575dc22, type: 3}
   Item6: {fileID: 2466455530328393500, guid: f2018e3483f737c4db0642bdc74d644e, type: 3}
   Item7: {fileID: 194658853040619555, guid: 0a0a49fba456b0a4bb3ace60e9945b1b, type: 3}
+  DoorDown: {fileID: 1302191782429892107, guid: 5dce85479572de840a974a05e04c2a6a, type: 3}
+  DoorLeft: {fileID: 161257061466579237, guid: 988287995abba3d4c9d50068b4455ae1, type: 3}
+  DoorRight: {fileID: 6372104363100012027, guid: 9ad81d0b6dfc78b4c8e1640a2bf0c4cf, type: 3}
+  DoorUp1: {fileID: -4958996933943257292, guid: 8643cbb2ea87991489c2d3cd7e4f41f1, type: 3}
+  DoorUp2: {fileID: 6353616003383323689, guid: f3f6faea18f3e3243abba8a7bbf846c3, type: 3}
+  doorLeftValue: 1
+  doorUpValue1: 1
+  doorUpValue2: 2
+  doorRightValue: 1
+  doorDownValue: 1
   itemCount: 7
+  doorCount: 5
 --- !u!4 &905539860
 Transform:
   m_ObjectHideFlags: 0
@@ -2052,7 +2063,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1713837746
 Transform:
   m_ObjectHideFlags: 0
@@ -2106,6 +2117,7 @@ Transform:
   - {fileID: 803243390}
   - {fileID: 439648094}
   - {fileID: 1943309550}
+  - {fileID: 2022942756}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2399,9 +2411,17 @@ MonoBehaviour:
   - {fileID: 1071958925}
   - {fileID: 1803299844}
   - {fileID: 1276008637}
-  inventoryPlayerOne: []
-  inventoryPlayerTwo: []
+  inventoryPlayerOne:
+  - 
+  - 
+  - 
+  inventoryPlayerTwo:
+  - 
+  - 
+  - 
+  lastDestroyedItem: 
   inventoryIsFullPlayerOne: 0
+  inventoryIsFullPlayerTwo: 0
   inventoryPoint: {fileID: 1136762052479842728, guid: 52afc12a3089ebe4c9efba7183d56acc, type: 3}
 --- !u!1 &1954151231
 GameObject:
@@ -2487,6 +2507,66 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2022942755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2022942756}
+  - component: {fileID: 2022942757}
+  m_Layer: 0
+  m_Name: DoorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2022942756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022942755}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1754164287}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2022942757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022942755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad6fa242400fc947a4589b4cc2b5c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastVisitedDoor: 
+  keyItems1:
+  - 
+  - 
+  keyItems2:
+  - 
+  - 
+  keyItems3:
+  - 
+  - 
+  keyItems4:
+  - 
+  - 
+  keyItems5:
+  - 
+  - 
 --- !u!1 &2073884923
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
    public static MenuManager Instance;
-   [SerializeField] public GameObject selectedPlayerObject, tileObject, tileUnitObject; // normally private
+   [SerializeField] public GameObject selectedPlayerObject, tileObject, tileUnitObject; 
 
 void Awake(){
     Instance = this;

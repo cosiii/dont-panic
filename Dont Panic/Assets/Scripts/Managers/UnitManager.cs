@@ -13,7 +13,7 @@ public class UnitManager : MonoBehaviour
 
     public BaseItem Item1, Item2, Item3, Item4, Item5, Item6, Item7; 
 
-    public BaseDoor DoorDown, DoorLeft, DoorRight, DoorUp;
+    public BaseDoor DoorDown, DoorLeft, DoorRight, DoorUp1, DoorUp2;
 
     public int doorLeftValue, doorUpValue1, doorUpValue2, doorRightValue, doorDownValue;
     public int itemCount =7;
@@ -109,10 +109,10 @@ public class UnitManager : MonoBehaviour
                 door = DoorLeft;
                 randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(0, doorLeftValue);
             } else if( i == 1){
-                door = DoorUp;
+                door = DoorUp1;
                 randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(doorUpValue1, GridManager.Instance._height -1);
             } else if( i == 2){
-                door = DoorUp;
+                door = DoorUp2;
                 randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(doorUpValue2, GridManager.Instance._height -1);
             } else if( i == 3){
                 door = DoorRight;

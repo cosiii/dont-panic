@@ -99,4 +99,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}
   Faction: 3
-  UnitName: down
+  UnitName: door5

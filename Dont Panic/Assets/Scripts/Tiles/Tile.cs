@@ -10,11 +10,13 @@ public abstract class Tile : MonoBehaviour
     public static Tile Instance;
     [SerializeField] protected SpriteRenderer _renderer;  // affectively private, but derived tiles can access it
     [SerializeField]private bool isWalkable;
+
+    private bool playerOnDoor;
     
 
     public BaseUnit OccupiedUnit;
 
-    public BaseUnit LastDestroyed;
+    public string LastDoor;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
 
 
@@ -56,19 +58,25 @@ public abstract class Tile : MonoBehaviour
             else { 
                 if(UnitManager.Instance.SelectedPlayer != null){ // if we have a selected player AND we click on another occupied unit
                     
-                    // just destroy it when the inventory of the player isnt completely full
-
-                    if(OccupiedUnit.Faction == Faction.Item){
-                        if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
-                           InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
-                            DestroyUnit();
+                        // COLLISION ITEM
+                        if(OccupiedUnit.Faction == Faction.Item){ // just destroy it when the inventory of the player isnt completely full
+                            if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
+                            InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
+                               DestroyUnit();
+                            }
+                        InventoryManager.Instance.ItemCollision();
                         }
-                    InventoryManager.Instance.ItemCollision();
-                    }
+                        
+                        
+                        // COLLISION DOOR
+                        if(OccupiedUnit.Faction == Faction.Door){
+                            //Debug.Log("just one?");
+                            DoorManager.Instance.lastVisitedDoor = OccupiedUnit.UnitName;
+                            LastDoor = OccupiedUnit.UnitName;
+                            DoorManager.Instance.DoorCollision();
+                            playerOnDoor = true;
+                        }
 
-                    if(OccupiedUnit.Faction == Faction.Door){
-                        Debug.Log("you are on door");
-                    }
                     //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                     UnitManager.Instance.SetSelectedPlayer(null);
@@ -76,7 +84,6 @@ public abstract class Tile : MonoBehaviour
                     // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
-
                      ChangePlayerTurn();
                 }
 
@@ -85,6 +92,8 @@ public abstract class Tile : MonoBehaviour
         else {
             // already got a selected Unit
             if(UnitManager.Instance.SelectedPlayer != null){
+
+                
                     //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
@@ -94,6 +103,12 @@ public abstract class Tile : MonoBehaviour
                     Player2.Instance.highlight.SetActive(false);
 
                 ChangePlayerTurn();
+                
+                if (playerOnDoor ==true){
+                    Debug.Log("player on door the second time");
+                    DoorManager.Instance.lastVisitedDoor = LastDoor;
+                            DoorManager.Instance.DoorCollision();
+                }
                 
 
             }
@@ -113,6 +128,10 @@ public abstract class Tile : MonoBehaviour
         Destroy(OccupiedUnit.gameObject);
         InventoryManager.Instance.lastDestroyedItem = OccupiedUnit.UnitName;
     }
+
+    public void GetDoorName(){
+    }
+
     public void ChangePlayerTurn(){
 if(GameManager.Instance.GameState == GameState.Player1Turn){
                      GameManager.Instance.ChangeState(GameState.Player2Turn);
