@@ -10,6 +10,7 @@ public abstract class Tile : MonoBehaviour
     public static Tile Instance;
     [SerializeField] protected SpriteRenderer _renderer;  // affectively private, but derived tiles can access it
     [SerializeField]private bool isWalkable;
+     [SerializeField] public GameObject highlight;
 
     private bool playerOnDoor;
     
@@ -50,10 +51,13 @@ public abstract class Tile : MonoBehaviour
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1" ){
                     UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
                     Player1.Instance.highlight.SetActive(true);
+                    ShowWalkableTiles(Player1.Instance);
                 } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
                     Player2.Instance.highlight.SetActive(true);
                 }
+
+
             } 
             else { 
                 if(UnitManager.Instance.SelectedPlayer != null){ // if we have a selected player AND we click on another occupied unit
@@ -76,6 +80,8 @@ public abstract class Tile : MonoBehaviour
                             DoorManager.Instance.DoorCollision();
                             playerOnDoor = true;
                         }
+                    
+                    
 
                     //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
@@ -84,10 +90,13 @@ public abstract class Tile : MonoBehaviour
                     // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
-                     ChangePlayerTurn();
+
+                    ChangePlayerTurn();
                 }
 
             }
+
+    	    
         }
         else {
             // already got a selected Unit
@@ -133,10 +142,56 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void ChangePlayerTurn(){
-if(GameManager.Instance.GameState == GameState.Player1Turn){
-                     GameManager.Instance.ChangeState(GameState.Player2Turn);
-                } else if(GameManager.Instance.GameState == GameState.Player2Turn){
-                     GameManager.Instance.ChangeState(GameState.Player1Turn);
+    if(GameManager.Instance.GameState == GameState.Player1Turn){
+        UpdatePosition(Player1.Instance);
+        HideWalkableTiles();
+        GameManager.Instance.ChangeState(GameState.Player2Turn);
+        } else if(GameManager.Instance.GameState == GameState.Player2Turn){
+        UpdatePosition(Player2.Instance);
+        GameManager.Instance.ChangeState(GameState.Player1Turn);
+        }
+    }
+
+    public void UpdatePosition(BasePlayer player){
+    char cx = player.OccupiedTile.name[5];
+    char cy = player.OccupiedTile.name[7];
+    player.posx = cx -48;
+    player.posy = cy -48;
+    Debug.Log("player stands on Tile " + player.posx + " " + player.posy);
+    }
+
+    public void ShowWalkableTiles(BasePlayer player){
+    // die tiles nur walkable die in der nähe sind
+    
+    
+    if(Player1.Instance.OccupiedTile.name == "Tile 5 5"){
                 }
+
+
+    for (int x = 0; x < player.walkingDistance; x++)
+        {
+            for (int y = 0; y < player.walkingDistance; y++)
+            {
+                //hier noch prüfen dass es im dictionary is 
+                GridManager.Instance.tiles[new Vector2(Player1.Instance.posx - x, Player1.Instance.posy - y )].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(Player1.Instance.posx + x, Player1.Instance.posy - y )].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(Player1.Instance.posx - x, Player1.Instance.posy + y )].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(Player1.Instance.posx + x, Player1.Instance.posy + y )].highlight.SetActive(true);
+                
+            }
+        }
+    }
+
+    public void HideWalkableTiles(){
+
+        for (int x = 0; x < GridManager.Instance._width; x++)
+        {
+            for (int y = 0; y < GridManager.Instance._height; y++)
+            {
+                GridManager.Instance.tiles[new Vector2(x, y )].highlight.SetActive(false);
+                
+            }
+        }
+
     }
 }

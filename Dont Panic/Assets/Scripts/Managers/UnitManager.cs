@@ -34,15 +34,21 @@ public class UnitManager : MonoBehaviour
         {
             // Player 1 & 2
             var player = Player1;
+            var playerposx = 1;
+            var playerposy = 2;
             if(i == 0){
                   player = Player1;
+                  playerposx = Player1.posx;
+                  playerposy = Player1.posy;
             } else if(i == 1){
                 player = Player2;
+                playerposx = Player2.posx;
+                playerposy = Player2.posy;
             }
             // spawning player
             var spawnedPlayer = Instantiate(player);
             // get the tile of the player from GridManager
-            var randomSpawnTile = GridManager.Instance.GetPlayerSpawnTile();
+            var randomSpawnTile = GridManager.Instance.GetPlayerSpawnTileNew(playerposx,playerposy);
             randomSpawnTile.SetUnit(spawnedPlayer);
 
         }

@@ -89,10 +89,16 @@ MonoBehaviour:
   TileName: Floor
   _renderer: {fileID: 6442305215794680952}
   isWalkable: 1
+  highlight: {fileID: 5959832221173958494}
   OccupiedUnit: {fileID: 0}
-  LastDestroyed: {fileID: 0}
+  LastDoor: 
   _baseColor: {r: 0.6156863, g: 0.84313726, b: 0.9372549, a: 1}
   _offsetColor: {r: 0.4784314, g: 0.73333335, b: 0.8705883, a: 1}
+--- !u!1 &5959832221173958494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2322349716342848315, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+  m_PrefabInstance: {fileID: 8254877214434688101}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &6442305215794680952 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3163951778648483869, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}

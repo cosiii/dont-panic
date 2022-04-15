@@ -56,10 +56,10 @@ public string[] RandomItems = {"Item1","Item2", "Item3", "Item4", "Item5", "Item
                  Debug.Log("you, player one has this item, the next item is " + itemToHaveNext);
              }
 
-             if (x.Equals (itemToHaveNext))
+            /* if (x.Equals (itemToHaveNext)) erst wenn man das erste auch hat, einfach in if oben
              {
-                 Debug.Log("xou also have the next item");
-             }
+                 Debug.Log("you also have the next item");
+             } */
          }
       }
       

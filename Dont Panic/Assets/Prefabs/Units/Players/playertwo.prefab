@@ -101,6 +101,9 @@ MonoBehaviour:
   OccupiedTile: {fileID: 0}
   Faction: 0
   UnitName: player 2
+  posx: 4
+  posy: 4
+  walkingDistance: 2
   highlight: {fileID: 8084885339305789121}
 --- !u!1 &8084885339305789121
 GameObject:

@@ -1924,7 +1924,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: xcvbnm,.-
+  m_Text: 
 --- !u!1 &1682733459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2567,6 +2567,14 @@ MonoBehaviour:
   keyItems5:
   - 
   - 
+  RandomItems:
+  - Item1
+  - Item2
+  - Item3
+  - Item4
+  - Item5
+  - Item6
+  - Item7
 --- !u!1 &2073884923
 GameObject:
   m_ObjectHideFlags: 0
@@ -2723,7 +2731,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "sdfghjlk\xF6\xE4\n"
+  m_Text: 
 --- !u!1 &2084911643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2803,4 +2811,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: hallo
+  m_Text: 
