@@ -163,38 +163,60 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void ShowWalkableTiles(BasePlayer player){
-    // die tiles nur walkable die in der nähe sind für alle tiles in t die ghighlighted sind
+// make sure everything is not walkable at first
    for (int x = 0; x < GridManager.Instance._width; x++)
         {
             for (int y = 0; y < GridManager.Instance._height; y++)
             {
-               
                 GridManager.Instance.tiles[new Vector2(x,y)].isWalkable = false;
             }
         }
+
    // walking straight
             for (int y = 1; y < player.walkingDistance; y++)
             {
+                if(player.posy -y >= 0){
                 GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].highlight.SetActive(true);
                 GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].isWalkable = true;
-
+                }
+                
+                if(player.posx + y < GridManager.Instance._width){
                 GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].highlight.SetActive(true);
                 GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].isWalkable = true;
-
+                }
+                
+                if(player.posx -y >= 0){
                 GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].highlight.SetActive(true);
                 GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].isWalkable = true;
+                }
 
+                if(player.posy + y < GridManager.Instance._height){
                 GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].highlight.SetActive(true);
                 GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].isWalkable = true;
+                }
             }
     // walking diagonal
             for (int y = 1; y < player.walkingDistance - 1; y++)
             {
+                if(player.posx - y >= 0 && player.posy -y >= 0){
                 GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy - y )].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy - y )].isWalkable = true;
+                }
+                if(player.posx + y < GridManager.Instance._width && player.posy + y < GridManager.Instance._height ){
                 GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy + y)].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy + y)].isWalkable = true;
+                }
+                
+                if(player.posx -y >= 0 && player.posy + y < GridManager.Instance._height){
                 GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy + y )].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy + y )].isWalkable = true;
+                }
+                if(player.posx + y < GridManager.Instance._width && player.posy -y >= 0){
                 GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy - y)].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy - y)].isWalkable = true;
+                }
             }
+        // if statements for not reaching out of the table
     }
 
     public void HideWalkableTiles(){
