@@ -8,6 +8,9 @@ public class MenuManager : MonoBehaviour
    public static MenuManager Instance;
    [SerializeField] public GameObject selectedPlayerObject, tileObject, tileUnitObject; 
 
+   [SerializeField] public GameObject Item1Object, Item2Object, doorNameObject; 
+   [SerializeField] public GameObject doorModal; 
+
 void Awake(){
     Instance = this;
 }
@@ -35,5 +38,21 @@ public void ShowSelectedPlayer(BasePlayer player){
     
 selectedPlayerObject.GetComponentInChildren<Text>().text = player.UnitName;
 selectedPlayerObject.SetActive(true);
+}
+
+public void ShowDoorModal(){
+    doorModal.SetActive(true);
+    Item1Object.SetActive(true);
+    doorNameObject.SetActive(true);
+    // Item2Object.SetActive(true);
+}
+
+public void ShowSecondItem(){
+    Item2Object.SetActive(true);
+}
+
+public void HideDoorInfo(){
+    doorModal.SetActive(false);
+    // Item2Object.SetActive(true);
 }
 }
