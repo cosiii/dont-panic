@@ -55,12 +55,13 @@ public abstract class Tile : MonoBehaviour
                 } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
                     Player2.Instance.highlight.SetActive(true);
+                    ShowWalkableTiles(Player2.Instance);
                 }
 
 
             } 
             else { 
-                if(UnitManager.Instance.SelectedPlayer != null){ // if we have a selected player AND we click on another occupied unit
+                if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){ // if we have a selected player AND we click on another occupied unit
                     
                         // COLLISION ITEM
                         if(OccupiedUnit.Faction == Faction.Item){ // just destroy it when the inventory of the player isnt completely full
@@ -100,7 +101,7 @@ public abstract class Tile : MonoBehaviour
         }
         else {
             // already got a selected Unit
-            if(UnitManager.Instance.SelectedPlayer != null){
+            if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){
 
                 
                     //deselect selected Unit
@@ -148,6 +149,7 @@ public abstract class Tile : MonoBehaviour
         GameManager.Instance.ChangeState(GameState.Player2Turn);
         } else if(GameManager.Instance.GameState == GameState.Player2Turn){
         UpdatePosition(Player2.Instance);
+        HideWalkableTiles();
         GameManager.Instance.ChangeState(GameState.Player1Turn);
         }
     }
@@ -161,25 +163,38 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void ShowWalkableTiles(BasePlayer player){
-    // die tiles nur walkable die in der nähe sind
-    
-    
-    if(Player1.Instance.OccupiedTile.name == "Tile 5 5"){
-                }
-
-
-    for (int x = 0; x < player.walkingDistance; x++)
+    // die tiles nur walkable die in der nähe sind für alle tiles in t die ghighlighted sind
+   for (int x = 0; x < GridManager.Instance._width; x++)
         {
-            for (int y = 0; y < player.walkingDistance; y++)
+            for (int y = 0; y < GridManager.Instance._height; y++)
             {
-                //hier noch prüfen dass es im dictionary is 
-                GridManager.Instance.tiles[new Vector2(Player1.Instance.posx - x, Player1.Instance.posy - y )].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(Player1.Instance.posx + x, Player1.Instance.posy - y )].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(Player1.Instance.posx - x, Player1.Instance.posy + y )].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(Player1.Instance.posx + x, Player1.Instance.posy + y )].highlight.SetActive(true);
-                
+               
+                GridManager.Instance.tiles[new Vector2(x,y)].isWalkable = false;
             }
         }
+   // walking straight
+            for (int y = 1; y < player.walkingDistance; y++)
+            {
+                GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].isWalkable = true;
+
+                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].isWalkable = true;
+
+                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].isWalkable = true;
+
+                GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].isWalkable = true;
+            }
+    // walking diagonal
+            for (int y = 1; y < player.walkingDistance - 1; y++)
+            {
+                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy - y )].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy + y)].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy + y )].highlight.SetActive(true);
+                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy - y)].highlight.SetActive(true);
+            }
     }
 
     public void HideWalkableTiles(){

@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour
 {
     public static GridManager Instance;
     [SerializeField] public int _width, _height;
-    [SerializeField] private Tile floorTile, itemTile;
+    [SerializeField] public Tile floorTile, itemTile;
     [SerializeField] private Transform _cam;
     [SerializeField] private int x1, y1;
 
