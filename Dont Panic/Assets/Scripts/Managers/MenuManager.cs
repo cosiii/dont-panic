@@ -51,6 +51,10 @@ public void ShowSecondItem(){
     Item2Object.SetActive(true);
 }
 
+public void HideSecondItem(){
+    Item2Object.SetActive(false);
+}
+
 public void HideDoorInfo(){
     doorModal.SetActive(false);
     // Item2Object.SetActive(true);

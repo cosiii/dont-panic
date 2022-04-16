@@ -11,8 +11,7 @@ public class DoorManager : MonoBehaviour
   public string[] keyItems1, keyItems2, keyItems3, keyItems4, keyItems5;
 
   public string doorName1, doorName2, doorName3, doorName4, doorName5;
-
-  
+  public bool firstUnlocked = false;
 public string[] RandomItems = {"Item1","Item2", "Item3", "Item4", "Item5", "Item6", "Item7" };
 
 public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery room"};
@@ -38,6 +37,7 @@ public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery
 
   public void DoorCollision(){
 
+      // SETUPS FOR EACH DOOR
         if (lastVisitedDoor == "door1"){
             Debug.Log(doorName1 + keyItems1[0]);
             SearchItem(keyItems1[0], keyItems1[1]);
@@ -70,33 +70,52 @@ public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery
             MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = doorName5;
         }
       
+    // SHOWING MODAL AND HIDING ITEMS
      MenuManager.Instance.ShowDoorModal();
+     if( firstUnlocked == true){
+        MenuManager.Instance.ShowSecondItem();
+    } else if (firstUnlocked == false){
+        MenuManager.Instance.HideSecondItem();
+    }
   }
 
 
-  public void SearchItem(string stringToCheck, string itemToHaveNext){
+  public void SearchItem(string itemOne, string itemToHaveNext){
+
+
+    // CHECK ITEMS PLAYER ONE
       if(GameManager.Instance.GameState == GameState.Player1Turn){
+          firstUnlocked = false;
           foreach (string x in InventoryManager.Instance.inventoryPlayerOne)
          {
-             if (x.Equals (stringToCheck))
+             if (x.Equals (itemOne))
              {
                  Debug.Log("you, player one has this item, the next item is " + itemToHaveNext);
-             }
+                 firstUnlocked = true;
+             } 
 
-            /* if (x.Equals (itemToHaveNext)) erst wenn man das erste auch hat, einfach in if oben
+             if (x.Equals (itemToHaveNext) && firstUnlocked == true)
              {
-                 Debug.Log("you also have the next item");
-             } */
+                 Debug.Log("you have both items " );
+             } 
          }
       }
-      
+    
+    // CHECK ITEMS PLAYER TWO
     if(GameManager.Instance.GameState == GameState.Player2Turn){
-        foreach (string x in InventoryManager.Instance.inventoryPlayerTwo)
+        firstUnlocked = false;
+          foreach (string x in InventoryManager.Instance.inventoryPlayerTwo)
          {
-             if (x.Equals (stringToCheck))
+             if (x.Equals (itemOne))
              {
-                 Debug.Log("you, player two has this item,  the next item is" + itemToHaveNext);
-             }
+                 Debug.Log("you, player two has this item, the next item is " + itemToHaveNext);
+                 firstUnlocked = true;
+             } 
+
+             if (x.Equals (itemToHaveNext) && firstUnlocked == true)
+             {
+                 Debug.Log("you have both items " );
+             } 
          }
     }
   }

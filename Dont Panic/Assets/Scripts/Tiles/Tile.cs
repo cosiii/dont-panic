@@ -75,7 +75,6 @@ public abstract class Tile : MonoBehaviour
                         
                         // COLLISION DOOR
                         if(OccupiedUnit.Faction == Faction.Door){
-                            //Debug.Log("just one?");
                             DoorManager.Instance.lastVisitedDoor = OccupiedUnit.UnitName;
                             LastDoor = OccupiedUnit.UnitName;
                             DoorManager.Instance.DoorCollision();
@@ -112,15 +111,15 @@ public abstract class Tile : MonoBehaviour
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
 
-                ChangePlayerTurn();
-                
-                if (playerOnDoor ==true){
+
+                 if (playerOnDoor ==true){
                     Debug.Log("player on door the second time");
                     DoorManager.Instance.lastVisitedDoor = LastDoor;
-                            DoorManager.Instance.DoorCollision();
+                    DoorManager.Instance.DoorCollision();
                 }
-                
 
+                ChangePlayerTurn();
+                
             }
         }
 
