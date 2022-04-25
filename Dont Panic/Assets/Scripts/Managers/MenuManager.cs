@@ -9,7 +9,7 @@ public class MenuManager : MonoBehaviour
    [SerializeField] public GameObject selectedPlayerObject, tileObject, tileUnitObject; 
 
    [SerializeField] public GameObject Item1Object, Item2Object, doorNameObject; 
-   [SerializeField] public GameObject doorModal, itemModal, inventoryIsFullText; 
+   [SerializeField] public GameObject doorModal, itemModal, inventoryIsFullText, itemImage; 
 void Awake(){
     Instance = this;
 }
@@ -65,9 +65,11 @@ public void HideItemModal(){
 
 public void ShowItemModal(){
     itemModal.SetActive(true);
+    itemImage.SetActive(true);
 }
 public void ShowInventoryIsFullText(){
     itemModal.SetActive(true);
     inventoryIsFullText.SetActive(true);
+    itemImage.SetActive(false);
 }
 }
