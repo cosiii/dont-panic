@@ -48,7 +48,7 @@ public class UnitManager : MonoBehaviour
             // spawning player
             var spawnedPlayer = Instantiate(player);
             // get the tile of the player from GridManager
-            var randomSpawnTile = GridManager.Instance.GetPlayerSpawnTileNew(playerposx,playerposy);
+            var randomSpawnTile = GridManager.Instance.GetSpawnTile(playerposx,playerposy);
             randomSpawnTile.SetUnit(spawnedPlayer);
 
         }
@@ -95,9 +95,9 @@ public class UnitManager : MonoBehaviour
             } else if(i == 6){
                 itemLook = Item7;
             }
-            // spawning player
+            // spawning item
             var spawnedItem = Instantiate(itemLook);
-            // get the tile of the player from GridManager
+            // get the tile of the item from GridManager
             var randomSpawnTile = GridManager.Instance.GetItemSpawnTile();
             randomSpawnTile.SetUnit(spawnedItem);
 

@@ -16,6 +16,8 @@ public string[] inventoryPlayerTwo;
 
 
 public string lastDestroyedItem;
+
+public string lastDroppedItem;
 public bool inventoryIsFullPlayerOne;
 public bool inventoryIsFullPlayerTwo;
 
@@ -26,9 +28,6 @@ void Awake(){
     }
 
  public void ItemCollision(){
-
-Debug.Log("item picked up by " + MenuManager.Instance.selectedPlayerObject.GetComponentInChildren<Text>().text);
-
 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){  //PLAYER ONE
     for (int i = 0; i < slotsPlayerOne.Length; i++)
     {
@@ -64,7 +63,41 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){  //PLAYER ONE
                 Debug.Log("inventory full pl2");
                 inventoryIsFullPlayerTwo = true;
             }
-
  }
 
+public void DropItem(){
+    Debug.Log("item dropped");
+
+     //PLAYER ONE
+    for (int i = 0; i < slotsPlayerOne.Length; i++)
+    {
+        if(isFullPlayerOne[slotsPlayerOne.Length-1 -i] == true ){ // item can be added to inventory
+            // parented to slots[i]
+            Destroy(slotsPlayerOne[slotsPlayerOne.Length-1 -i].transform.GetChild(0).gameObject);
+            // Destroy(slotsPlayerOne[i], 0f); zwei punkte weg
+            isFullPlayerOne[slotsPlayerOne.Length-1 -i] = false;
+            lastDroppedItem = inventoryPlayerOne[slotsPlayerOne.Length-1 -i];
+            inventoryPlayerOne[slotsPlayerOne.Length-1 -i] = "";
+            break;
+        }
+    }
+
+    if (lastDroppedItem == "Item4"){
+        // spawning item
+            var spawnedItem = Instantiate(UnitManager.Instance.Item4);
+            // get the tile of the item from GridManager
+            var randomSpawnTile = GridManager.Instance.GetSpawnTile(Player1.Instance.posx,Player1.Instance.posy);
+            randomSpawnTile.SetUnit(spawnedItem);
+            Destroy(Player1.Instance.gameObject);
+
+
+           // char cx =UnitManager.Instance.Item4.OccupiedTile.name[5];
+            //char cy = UnitManager.Instance.Item4.OccupiedTile.name[7];
+
+            Instantiate(UnitManager.Instance.Player1);
+            //Tile.Instance.SetUnit(UnitManager.Instance.SelectedPlayer);
+            //SpawnTile.SetUnit(spawnedPlayer);
+    }
+
+}
 }

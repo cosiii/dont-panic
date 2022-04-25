@@ -48,12 +48,9 @@ public void GenerateGrid()
 
         GameManager.Instance.ChangeState(GameState.SpawnPlayers);
     }
-    public Tile GetPlayerSpawnTile(){
-    // left side of map and is walkable
-    return tiles.Where(t => t.Key.x < _width/2 && t.Value.Walkable).OrderBy(t=> Random.value).First().Value;
-    }
+   
 
-    public Tile GetPlayerSpawnTileNew(int x, int y){
+    public Tile GetSpawnTile(int x, int y){
     // left side of map and is walkable
     return tiles.Where(t => t.Key.x == x && t.Key.y == y).OrderBy(t=> Random.value).First().Value;
     }

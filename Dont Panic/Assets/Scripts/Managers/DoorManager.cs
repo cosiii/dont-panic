@@ -39,50 +39,36 @@ public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery
 
       // SETUPS FOR EACH DOOR
         if (lastVisitedDoor == "door1"){
-            Debug.Log(doorName1 + keyItems1[0]);
-            SearchItem(keyItems1[0], keyItems1[1]);
-            MenuManager.Instance.Item1Object.GetComponentInChildren<Text>().text = keyItems1[0];
-            MenuManager.Instance.Item2Object.GetComponentInChildren<Text>().text = keyItems1[1];
-            MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = doorName1;
+            SetupDoor(keyItems1, doorName1);
         } else if (lastVisitedDoor == "door2"){
-            Debug.Log(doorName2 + keyItems2[0]);
-            SearchItem(keyItems2[0],keyItems2[1]);
-            MenuManager.Instance.Item1Object.GetComponentInChildren<Text>().text = keyItems2[0];
-            MenuManager.Instance.Item2Object.GetComponentInChildren<Text>().text = keyItems2[1];
-            MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = doorName2;
+            SetupDoor(keyItems2, doorName2);
         }  else if (lastVisitedDoor == "door3"){
-            Debug.Log(doorName3 + keyItems3[0]);
-            SearchItem(keyItems3[0], keyItems3[1]);
-            MenuManager.Instance.Item1Object.GetComponentInChildren<Text>().text = keyItems3[0];
-            MenuManager.Instance.Item2Object.GetComponentInChildren<Text>().text = keyItems3[1];
-            MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = doorName3;
+           SetupDoor(keyItems3, doorName3);
         } else if (lastVisitedDoor == "door4"){
-            Debug.Log(doorName4 + keyItems4[0]);
-            SearchItem(keyItems4[0], keyItems4[1]);
-            MenuManager.Instance.Item1Object.GetComponentInChildren<Text>().text = keyItems4[0];
-            MenuManager.Instance.Item2Object.GetComponentInChildren<Text>().text = keyItems4[1];
-            MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = doorName4;
+            SetupDoor(keyItems4, doorName4);
         } else if (lastVisitedDoor == "door5"){
-            Debug.Log(doorName5 + keyItems5[0]);
-            SearchItem(keyItems5[0], keyItems5[1]);
-            MenuManager.Instance.Item1Object.GetComponentInChildren<Text>().text = keyItems5[0];
-            MenuManager.Instance.Item2Object.GetComponentInChildren<Text>().text = keyItems5[1];
-            MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = doorName5;
+            SetupDoor(keyItems5, doorName5);
         }
       
     // SHOWING MODAL AND HIDING ITEMS
      MenuManager.Instance.ShowDoorModal();
-     if( firstUnlocked == true){
-        MenuManager.Instance.ShowSecondItem();
-    } else if (firstUnlocked == false){
-        MenuManager.Instance.HideSecondItem();
-    }
   }
 
+public void SetupDoor(string[] keyItem, string doorName){
+            Debug.Log(doorName + keyItem[0]);
+            SearchItem(keyItem[0], keyItem[1]);
+            MenuManager.Instance.Item1Object.GetComponentInChildren<Text>().text = keyItem[0];
+            MenuManager.Instance.Item2Object.GetComponentInChildren<Text>().text = keyItem[1];
+            // only show second item and doorName when FiRST ONE IS IN INVENTORY
+            if(firstUnlocked == true){
+                MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = doorName;
+                MenuManager.Instance.ShowSecondItem();
+            } else if (firstUnlocked == false){
+                MenuManager.Instance.HideSecondItem();
+    }
+}
 
   public void SearchItem(string itemOne, string itemToHaveNext){
-
-
     // CHECK ITEMS PLAYER ONE
       if(GameManager.Instance.GameState == GameState.Player1Turn){
           firstUnlocked = false;

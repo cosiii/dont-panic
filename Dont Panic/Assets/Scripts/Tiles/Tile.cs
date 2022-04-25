@@ -64,12 +64,19 @@ public abstract class Tile : MonoBehaviour
                 if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){ // if we have a selected player AND we click on another occupied unit
                     
                         // COLLISION ITEM
-                        if(OccupiedUnit.Faction == Faction.Item){ // just destroy it when the inventory of the player isnt completely full
+                        if(OccupiedUnit.Faction == Faction.Item){ 
+                            // just destroy it when the inventory of the player isnt completely full
                             if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
                             InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
                                DestroyUnit();
+                               InventoryManager.Instance.ItemCollision();
+                               ItemManager.Instance.ChangeModalImage();
+                               MenuManager.Instance.ShowItemModal();
+                            } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
+                            InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
+                                // if inventory is full
+                                MenuManager.Instance.ShowInventoryIsFullText();
                             }
-                        InventoryManager.Instance.ItemCollision();
                         }
                         
                         
