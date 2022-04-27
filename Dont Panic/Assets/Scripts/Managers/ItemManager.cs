@@ -7,8 +7,8 @@ public class ItemManager : MonoBehaviour
 {
 
     public static ItemManager Instance;
-    public Image oldImage;
-    public Sprite Item1, Item2, Item3, Item4, Item5, Item6, Item7;
+    public Image oldImage, oldImageDoorLeft, oldImageDoorRight;
+    public Sprite Item1, Item2, Item3, Item4, Item5, Item6, Item7, noImage;
   
   
    void Awake(){
@@ -35,5 +35,43 @@ public class ItemManager : MonoBehaviour
         oldImage.sprite = Item7;
     }
     
+}
+
+public void ChangeDoorItemImageLeft(string keyItem){
+    if(keyItem == "Item1" ){
+        oldImageDoorLeft.sprite = Item1;
+    } else if(keyItem == "Item2"){
+        oldImageDoorLeft.sprite = Item2;
+    } else if(keyItem == "Item3"){
+        oldImageDoorLeft.sprite = Item3;
+    } else if(keyItem == "Item4"){
+        oldImageDoorLeft.sprite = Item4;
+    } else if(keyItem == "Item5"){
+        oldImageDoorLeft.sprite = Item5;
+    } else if(keyItem == "Item6"){
+        oldImageDoorLeft.sprite = Item6;
+    } else if(keyItem == "Item7"){
+        oldImageDoorLeft.sprite = Item7;
+    }
+}
+
+public void ChangeDoorItemImageRight(string keyItem){
+    if(keyItem == "Item1" ){
+        oldImageDoorRight.sprite = Item1;
+    } else if(keyItem == "Item2"){
+        oldImageDoorRight.sprite = Item2;
+    } else if(keyItem == "Item3"){
+        oldImageDoorRight.sprite = Item3;
+    } else if(keyItem == "Item4"){
+        oldImageDoorRight.sprite = Item4;
+    } else if(keyItem == "Item5"){
+        oldImageDoorRight.sprite = Item5;
+    } else if(keyItem == "Item6"){
+        oldImageDoorRight.sprite = Item6;
+    } else if(keyItem == "Item7"){
+        oldImageDoorRight.sprite = Item7;
+    } else if(keyItem == "none"){
+        oldImageDoorRight.sprite = noImage;
+    }
 }
 }

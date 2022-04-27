@@ -68,12 +68,15 @@ public void SetupDoor(string[] keyItem, string doorName){
             SearchItem(keyItem[0], keyItem[1]);
             MenuManager.Instance.Item1Object.GetComponentInChildren<Text>().text = keyItem[0];
             MenuManager.Instance.Item2Object.GetComponentInChildren<Text>().text = keyItem[1];
+            ItemManager.Instance.ChangeDoorItemImageLeft(keyItem[0]);
             // only show second item and doorName when FiRST ONE IS IN INVENTORY
             if(firstUnlocked == true){
                 MenuManager.Instance.ShowSecondItem();
+                ItemManager.Instance.ChangeDoorItemImageRight(keyItem[1]);
                 firstUnlocked = false;
             } else if (firstUnlocked == false){
                 MenuManager.Instance.HideSecondItem();
+                ItemManager.Instance.ChangeDoorItemImageRight("none");
     }
 }
 

@@ -9,6 +9,7 @@ public class MenuManager : MonoBehaviour
    [SerializeField] public GameObject selectedPlayerObject, tileObject, tileUnitObject; 
 
    [SerializeField] public GameObject Item1Object, Item2Object, doorNameObject; 
+
    [SerializeField] public GameObject doorModal, itemModal, inventoryIsFullText, itemImage; 
 
    [SerializeField] public GameObject yourTurnSign1, yourTurnSign2; 
