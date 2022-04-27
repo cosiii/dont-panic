@@ -10,6 +10,8 @@ public class MenuManager : MonoBehaviour
 
    [SerializeField] public GameObject Item1Object, Item2Object, doorNameObject; 
    [SerializeField] public GameObject doorModal, itemModal, inventoryIsFullText, itemImage; 
+
+   [SerializeField] public GameObject yourTurnSign1, yourTurnSign2; 
 void Awake(){
     Instance = this;
 }
@@ -72,4 +74,15 @@ public void ShowInventoryIsFullText(){
     inventoryIsFullText.SetActive(true);
     itemImage.SetActive(false);
 }
+
+public void ShowPlayersTurn(){
+    if( GameManager.Instance.GameState == GameState.Player1Turn){
+        yourTurnSign1.SetActive(true);
+        yourTurnSign2.SetActive(false);
+    } else if( GameManager.Instance.GameState == GameState.Player2Turn){
+        yourTurnSign1.SetActive(false);
+        yourTurnSign2.SetActive(true);
+    }
+}
+
 }

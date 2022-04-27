@@ -31,8 +31,10 @@ public class GameManager : MonoBehaviour
             UnitManager.Instance.SpawnPatrols();
                 break;
             case GameState.Player1Turn:
+                 MenuManager.Instance.ShowPlayersTurn();
                 break;
             case GameState.Player2Turn:
+                 MenuManager.Instance.ShowPlayersTurn();
                 break;
             case GameState.PatrolTurn:
                 break;

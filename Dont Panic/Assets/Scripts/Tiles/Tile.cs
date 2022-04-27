@@ -40,11 +40,6 @@ public abstract class Tile : MonoBehaviour
     }
 
     void OnMouseDown(){
-
-        // PLAYER ONE
-        // only care about it when its player ones turn
-        //if(GameManager.Instance.GameState != GameState.Player1Turn) return;
-
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied
             if(OccupiedUnit.Faction == Faction.Player){
