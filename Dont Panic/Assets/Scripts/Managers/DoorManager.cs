@@ -17,13 +17,12 @@ public string[] RandomItems = {"Item1","Item2", "Item3", "Item4", "Item5", "Item
 public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery room"};
   void Awake(){
       Instance = this;
-
-      // TAKE JUST ONE AND LET IT OUT OF aaRAy
-      doorName1 = DoorNames[Random.Range(0,DoorNames.Length )];
-      doorName2 = DoorNames[Random.Range(0,DoorNames.Length )];
-      doorName3 = DoorNames[Random.Range(0,DoorNames.Length )];
-      doorName4 = DoorNames[Random.Range(0,DoorNames.Length )];
-      doorName5 = DoorNames[Random.Range(0,DoorNames.Length )];
+        Shuffle();
+        doorName1 = DoorNames[0];
+        doorName2 = DoorNames[1];
+        doorName3 = DoorNames[2];
+        doorName4 = DoorNames[3];
+        doorName5 = DoorNames[4];
 
       for (int i = 0; i < 2; i++)
       {
@@ -34,7 +33,15 @@ public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery
       keyItems5[i] = RandomItems[Random.Range(0,RandomItems.Length )];
       }
   }
-
+public void Shuffle() {
+         for (int i = 0; i < DoorNames.Length; i++) {
+             int rnd = Random.Range(0, DoorNames.Length);
+             var tempGO = DoorNames[rnd];
+             DoorNames[rnd] = DoorNames[i];
+             DoorNames[i] = tempGO;
+         }
+     }
+    
   public void DoorCollision(){
 
       // SETUPS FOR EACH DOOR
