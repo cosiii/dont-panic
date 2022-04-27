@@ -62,14 +62,16 @@ public void Shuffle() {
   }
 
 public void SetupDoor(string[] keyItem, string doorName){
+            // Name from doorX to ACTUALDOORNAME
+            lastVisitedDoor= doorName;
             Debug.Log(doorName + keyItem[0]);
             SearchItem(keyItem[0], keyItem[1]);
             MenuManager.Instance.Item1Object.GetComponentInChildren<Text>().text = keyItem[0];
             MenuManager.Instance.Item2Object.GetComponentInChildren<Text>().text = keyItem[1];
             // only show second item and doorName when FiRST ONE IS IN INVENTORY
             if(firstUnlocked == true){
-                MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = doorName;
                 MenuManager.Instance.ShowSecondItem();
+                firstUnlocked = false;
             } else if (firstUnlocked == false){
                 MenuManager.Instance.HideSecondItem();
     }
@@ -85,11 +87,13 @@ public void SetupDoor(string[] keyItem, string doorName){
              {
                  Debug.Log("you, player one has this item, the next item is " + itemToHaveNext);
                  firstUnlocked = true;
+                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = "You have the first Item! Go search for the second to open the door" + lastVisitedDoor;
              } 
 
-             if (x.Equals (itemToHaveNext) && firstUnlocked == true)
+             if (x.Equals (itemToHaveNext) && x.Equals (itemOne))
              {
                  Debug.Log("you have both items " );
+                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = "congrats! you have both items" + lastVisitedDoor;
              } 
          }
       }
@@ -103,11 +107,13 @@ public void SetupDoor(string[] keyItem, string doorName){
              {
                  Debug.Log("you, player two has this item, the next item is " + itemToHaveNext);
                  firstUnlocked = true;
+                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = "You have the first Item! Go search for the second to open the door" + lastVisitedDoor;
              } 
 
              if (x.Equals (itemToHaveNext) && firstUnlocked == true)
              {
                  Debug.Log("you have both items " );
+                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = "congrats! you have both items" + lastVisitedDoor;
              } 
          }
     }
