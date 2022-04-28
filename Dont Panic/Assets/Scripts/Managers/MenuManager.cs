@@ -8,11 +8,13 @@ public class MenuManager : MonoBehaviour
    public static MenuManager Instance;
    [SerializeField] public GameObject selectedPlayerObject, tileObject, tileUnitObject; 
 
-   [SerializeField] public GameObject Item1Object, Item2Object, doorNameObject; 
+   [SerializeField] public GameObject Item1Object, Item2Object, doorNameObject, doorTextObject; 
 
    [SerializeField] public GameObject doorModal, itemModal, inventoryIsFullText, itemImage; 
 
    [SerializeField] public GameObject yourTurnSign1, yourTurnSign2; 
+   public bool itemModalRotated = false; 
+   public bool doorModalRotated = false;
 void Awake(){
     Instance = this;
 }
@@ -42,11 +44,13 @@ selectedPlayerObject.GetComponentInChildren<Text>().text = player.UnitName;
 selectedPlayerObject.SetActive(true);
 }
 
+
+// DOOR MODAL
 public void ShowDoorModal(){
     doorModal.SetActive(true);
     Item1Object.SetActive(true);
     doorNameObject.SetActive(true);
-    // Item2Object.SetActive(true);
+    doorTextObject.SetActive(true);
 }
 
 public void ShowSecondItem(){
@@ -62,6 +66,7 @@ public void HideDoorInfo(){
     // Item2Object.SetActive(true);
 }
 
+// ITEM MODAL
 public void HideItemModal(){
     itemModal.SetActive(false);
 }
@@ -70,6 +75,22 @@ public void ShowItemModal(){
     itemModal.SetActive(true);
     itemImage.SetActive(true);
 }
+
+public void RotateItemModalToPlayer1(){
+    if( itemModalRotated == true){
+        itemModal.transform.Rotate(180, 180, 0);
+    } 
+    itemModalRotated = false;
+}
+
+public void RotateItemModalToPlayer2(){
+    // wenns schon rotiert is dann net
+    if( itemModalRotated == false){
+        itemModal.transform.Rotate(180, 180, 0);
+    } 
+    itemModalRotated = true;
+}
+
 public void ShowInventoryIsFullText(){
     itemModal.SetActive(true);
     inventoryIsFullText.SetActive(true);
@@ -84,6 +105,20 @@ public void ShowPlayersTurn(){
         yourTurnSign1.SetActive(false);
         yourTurnSign2.SetActive(true);
     }
+}
+
+public void RotateDoorModalToPlayer1(){
+    if( doorModalRotated == true){
+        doorModal.transform.Rotate(180, 180, 0);
+    } 
+    doorModalRotated = false;
+}
+
+public void RotateDoorModalToPlayer2(){
+    if( doorModalRotated == false){
+        doorModal.transform.Rotate(180, 180, 0);
+    } 
+    doorModalRotated = true;
 }
 
 }

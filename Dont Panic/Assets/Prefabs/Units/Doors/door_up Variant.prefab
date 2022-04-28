@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: UnitName
       value: door3
       objectReference: {fileID: 0}
+    - target: {fileID: 5462301693296012238, guid: 8643cbb2ea87991489c2d3cd7e4f41f1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 941da8c0d7e47d7448e9584c714223bc, type: 3}
     - target: {fileID: 6365809522525323958, guid: 8643cbb2ea87991489c2d3cd7e4f41f1, type: 3}
       propertyPath: m_Name
       value: door_up Variant

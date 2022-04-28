@@ -28,7 +28,10 @@ void Awake(){
     }
 
  public void ItemCollision(){
-if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){  //PLAYER ONE
+if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
+    //PLAYER ONE
+    // rotate ItemModal
+    MenuManager.Instance.RotateItemModalToPlayer1();
     for (int i = 0; i < slotsPlayerOne.Length; i++)
     {
         if(isFullPlayerOne[i] == false ){ // item can be added to inventory
@@ -42,6 +45,8 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){  //PLAYER ONE
 
 
 } else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ //PLAYER TWO
+    // rotate itemModal
+    MenuManager.Instance.RotateItemModalToPlayer2();
     for (int i = 0; i < slotsPlayerTwo.Length; i++)
     {
         if(isFullPlayerTwo[i] == false){ // item can be added to inventory

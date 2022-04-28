@@ -6,15 +6,12 @@ using UnityEngine.UI;
 public abstract class Tile : MonoBehaviour
 {
     public string TileName;
-    
     public static Tile Instance;
     [SerializeField] protected SpriteRenderer _renderer;  // affectively private, but derived tiles can access it
     [SerializeField]private bool isWalkable;
-     [SerializeField] public GameObject highlight;
-
+    [SerializeField] public GameObject highlight;
     private bool playerOnDoor;
     
-
     public BaseUnit OccupiedUnit;
 
     public string LastDoor;
@@ -138,9 +135,6 @@ public abstract class Tile : MonoBehaviour
     public void DestroyUnit(){
         Destroy(OccupiedUnit.gameObject);
         InventoryManager.Instance.lastDestroyedItem = OccupiedUnit.UnitName;
-    }
-
-    public void GetDoorName(){
     }
 
     public void ChangePlayerTurn(){

@@ -11,7 +11,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] public int _width, _height;
     [SerializeField] public Tile floorTile, itemTile;
     [SerializeField] private Transform _cam;
-    [SerializeField] private int x1, y1;
 
     public Dictionary<Vector2, Tile> tiles;
     

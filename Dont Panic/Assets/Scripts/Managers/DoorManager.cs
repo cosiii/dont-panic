@@ -57,7 +57,8 @@ public void Shuffle() {
             SetupDoor(keyItems5, doorName5);
         }
       
-    // SHOWING MODAL AND HIDING ITEMS
+    // ROTATING AND SHOWING MODAL AND HIDING ITEMS
+    // buggt wenn man ein zweites mal aufs door kommt
      MenuManager.Instance.ShowDoorModal();
   }
 
@@ -82,21 +83,29 @@ public void SetupDoor(string[] keyItem, string doorName){
 
   public void SearchItem(string itemOne, string itemToHaveNext){
     // CHECK ITEMS PLAYER ONE
+
+    // einheitlicher machen
       if(GameManager.Instance.GameState == GameState.Player1Turn){
           firstUnlocked = false;
+          // ROTATE MODAL
+          Debug.Log("rotate modal to player 1");
+          MenuManager.Instance.RotateDoorModalToPlayer1();
+          // SEARCH FOR THE ITEMS
           foreach (string x in InventoryManager.Instance.inventoryPlayerOne)
          {
              if (x.Equals (itemOne))
              {
                  Debug.Log("you, player one has this item, the next item is " + itemToHaveNext);
                  firstUnlocked = true;
-                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = "You have the first Item! Go search for the second to open the door" + lastVisitedDoor;
+                 MenuManager.Instance.doorTextObject.GetComponentInChildren<Text>().text = "You have the first Item! Go search for the second to open the door";
+                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = lastVisitedDoor;
              } 
 
-             if (x.Equals (itemToHaveNext) && x.Equals (itemOne))
+             if (x.Equals (itemToHaveNext) && x.Equals (itemOne)) // mal schauen
              {
                  Debug.Log("you have both items " );
-                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = "congrats! you have both items" + lastVisitedDoor;
+                 MenuManager.Instance.doorTextObject.GetComponentInChildren<Text>().text = "congrats! you have both items";
+                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = lastVisitedDoor;
              } 
          }
       }
@@ -104,19 +113,23 @@ public void SetupDoor(string[] keyItem, string doorName){
     // CHECK ITEMS PLAYER TWO
     if(GameManager.Instance.GameState == GameState.Player2Turn){
         firstUnlocked = false;
+        Debug.Log("rotate modal to player 2");
+        MenuManager.Instance.RotateDoorModalToPlayer2();
           foreach (string x in InventoryManager.Instance.inventoryPlayerTwo)
          {
              if (x.Equals (itemOne))
              {
                  Debug.Log("you, player two has this item, the next item is " + itemToHaveNext);
                  firstUnlocked = true;
-                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = "You have the first Item! Go search for the second to open the door" + lastVisitedDoor;
+                 MenuManager.Instance.doorTextObject.GetComponentInChildren<Text>().text = "You have the first Item! Go search for the second to open the door";
+                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = lastVisitedDoor;
              } 
 
              if (x.Equals (itemToHaveNext) && firstUnlocked == true)
              {
                  Debug.Log("you have both items " );
-                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = "congrats! you have both items" + lastVisitedDoor;
+                 MenuManager.Instance.doorTextObject.GetComponentInChildren<Text>().text = "congrats! you have both items";
+                 MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = lastVisitedDoor;
              } 
          }
     }
