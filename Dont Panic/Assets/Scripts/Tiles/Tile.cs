@@ -42,12 +42,18 @@ public abstract class Tile : MonoBehaviour
             if(OccupiedUnit.Faction == Faction.Player){
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1" ){
                     UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
+                    //if(MultipleTouch.Instance.objectOneRecognized == true){
                     Player1.Instance.highlight.SetActive(true);
                     ShowWalkableTiles(Player1.Instance);
+                    // }
+                    
                 } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
+                    //if(MultipleTouch.Instance.objectTwoRecognized == true){
                     Player2.Instance.highlight.SetActive(true);
                     ShowWalkableTiles(Player2.Instance);
+                   // }
+                    
                 }
 
 
