@@ -7,7 +7,7 @@ public class Patrol : MonoBehaviour
     public float speed;
     private float waitTime;
     public float startWaitTime;
-    public MultipleTouch multipleTouch;
+    //public MultipleTouch multipleTouch;
 
     public Transform[] moveSpots;
     private int randomSpot;
@@ -29,11 +29,11 @@ public class Patrol : MonoBehaviour
         }
       }
 
-      if (multipleTouch.onTablet == true){
+     /* if (multipleTouch.onTablet == true){
         speed = 0;
       } else if (multipleTouch.onTablet == false){
         speed = 1;   // am besten das was am anfang wäre
-      }
+      } */
 
     }
 }

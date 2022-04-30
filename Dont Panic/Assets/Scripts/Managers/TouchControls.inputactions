@@ -1,0 +1,94 @@
+{
+    "name": "TouchControls",
+    "maps": [
+        {
+            "name": "Main",
+            "id": "36ce131f-27b0-4154-808d-4127f7cd87da",
+            "actions": [
+                {
+                    "name": "Indirect Touch?",
+                    "type": "Button",
+                    "id": "9c45b215-ea46-44d9-982f-ce033d623c91",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Press",
+                    "type": "Button",
+                    "id": "4b726138-fd44-4981-87d8-57fe04d4c506",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Touch Contact?",
+                    "type": "Button",
+                    "id": "78eca3b3-7a5a-4b2c-b0e5-d9c76c9e9120",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Tap",
+                    "type": "Button",
+                    "id": "8e88e577-4825-4f42-ac9f-b0e8c47d3360",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "866783e4-ae2c-40a7-9019-4dd6a033a6d3",
+                    "path": "<Touchscreen>/primaryTouch/indirectTouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Indirect Touch?",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a7d3605-dccc-4fd9-8f1a-f89256a921dd",
+                    "path": "<Touchscreen>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83bfbbcc-1924-44b2-9b58-6ab2e41688e8",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch Contact?",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "94f5094b-f8ae-41d6-a50b-96bb08f479f7",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
