@@ -8,6 +8,8 @@ public class multipleTouch : MonoBehaviour {
 
     public bool obejectOneIsMoving, objectTwoIsMoving;
 
+    public Touch t1, t2;
+
 	// Update is called once per frame
 	public void Update () {
 
@@ -16,13 +18,15 @@ public class multipleTouch : MonoBehaviour {
             Touch t = Input.GetTouch(i);
             // PlAYER 1
             if(i == 0){
+                t1 = t;
             if(t.phase == TouchPhase.Began){
                 Debug.Log("touch began");
                 obejectOneIsMoving = true;
                 objectTwoIsMoving = false;
                 Player1.Instance.highlight.SetActive(true);
                 Player2.Instance.highlight.SetActive(false);
-            }else if(t.phase == TouchPhase.Ended){
+
+            } else if(t.phase == TouchPhase.Ended){
                 Debug.Log("touch1 ended");
                 obejectOneIsMoving = false;
                 Player1.Instance.highlight.SetActive(false);
@@ -47,6 +51,10 @@ public class multipleTouch : MonoBehaviour {
                 Player2.Instance.highlight.SetActive(false);
             }else if(t.phase == TouchPhase.Moved){
                 Debug.Log("touch2 is moving");
+                // second touch position
+                Debug.Log(t.position);
+                // first touch position
+                Debug.Log(t1.position);
             }
             }
 

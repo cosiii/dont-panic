@@ -99,4 +99,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OccupiedTile: {fileID: 0}
   Faction: 2
-  UnitName: item2
+  UnitName: Item2
