@@ -543,7 +543,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169970579}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -398.7634, y: -299.0873, z: 0}
+  m_LocalPosition: {x: -398.693, y: -299.153, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1336,6 +1336,7 @@ MonoBehaviour:
   circle2: {fileID: 3491116918544919370, guid: d0ee5375b468eb84d8bb06995c78b476, type: 3}
   obejectOneIsMoving: 0
   objectTwoIsMoving: 0
+  touch3Object: {fileID: 5974241949777390332, guid: 08772584c32eef344955ddd9500e8375, type: 3}
 --- !u!1 &538405807
 GameObject:
   m_ObjectHideFlags: 0
