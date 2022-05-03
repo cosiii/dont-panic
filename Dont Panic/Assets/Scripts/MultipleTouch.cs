@@ -8,23 +8,16 @@ public class multipleTouch : MonoBehaviour {
 
     public bool obejectOneIsMoving, objectTwoIsMoving;
 
-    public Touch t1, t2;
+    public bool touch3ObjectRight, touch3ObjectLeft, touch3ObjectUp, touch3ObjectDown;
+
+    public Touch t1, t2, farestT;
 
     public GameObject touch3Object;
 
-    public List<touchLocation> touches = new List<touchLocation>();
-
-    public Vector2 c;
+    public Vector2 c, c2;
 
 	// Update is called once per frame
 	public void Update () {
-    GameObject createCircle(Touch t){
-        GameObject c = Instantiate(circle) as GameObject;
-        c.name = "Touch" + t.fingerId;
-        c.transform.position = getTouchPosition(t.position);
-        return c;
-    }
-
         int i = 0;
          while(i < Input.touchCount){
             Touch t = Input.GetTouch(i);
@@ -74,66 +67,53 @@ public class multipleTouch : MonoBehaviour {
 
         // three touch points
         if(i == 2){
-            if(t.phase == TouchPhase.Began){
-                Debug.Log("touch2 began");
-                objectTwoIsMoving = true;
-                obejectOneIsMoving = false;
-                Player2.Instance.highlight.SetActive(true);
-                Player1.Instance.highlight.SetActive(false);
 
-                //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
-                //Instantiate(touch3Object, touch3Object.transform.position, Quaternion.identity).transform.Rotate(5, 5, 90, Space.Self);
+            float dist = Vector3.Distance(t.position, t1.position);
+                
+            float dist2 = Vector3.Distance(t1.position, t2.position);
+                
+            float dist3 = Vector3.Distance(t2.position, t.position);
+
+            if(t.phase == TouchPhase.Began){
 
             }else if(t.phase == TouchPhase.Ended){
-                Debug.Log("touch2 ended");
-                objectTwoIsMoving = false; 
-                Player2.Instance.highlight.SetActive(false);
-                
-              
 
             }else if(t.phase == TouchPhase.Moved){
-
                 // second touch position
                 // Debug.Log(t.position + " " + t1.position + " " + t2.position);
                 
-                float dist = Vector3.Distance(t.position, t1.position);
-                
-                float dist2 = Vector3.Distance(t1.position, t2.position);
-                
-                float dist3 = Vector3.Distance(t2.position, t.position);
-
-                
-
-                // Debug.Log(dist + " " + dist2 + " " + dist3);
-
                 // shortest dist
                 float shortestDist = Mathf.Min(Mathf.Min(dist, dist2), dist3);
-                Debug.Log(shortestDist);
+                // Debug.Log(shortestDist);
                 float xAngle = 6;
-                float yAngle = 2;
                 if(dist == shortestDist){
-                  Debug.Log("dist is shortest");
+                  //Debug.Log("dist is shortest");
                   c= t1.position + (t.position - t1.position) / 2;
-                   xAngle = 4;
-                   yAngle = 2;
+                   xAngle = (t1.position.x- t.position.x/t1.position.y- t.position.y) ;
+                   farestT = t2;
               } else if(dist2 == shortestDist){
-                  Debug.Log("dist2 is shortest");
+                  //Debug.Log("dist2 is shortest");
                   c= t2.position + (t1.position - t2.position) / 2;
-                   xAngle = 7;
-                   yAngle = 1;
+                   xAngle = (t2.position.x- t1.position.x/t2.position.y- t1.position.y) ;
+                  farestT = t;
               } else if(dist3 == shortestDist){
-                  Debug.Log("dist3 is shortest");
+                  //Debug.Log("dist3 is shortest");
                   c= t.position + (t2.position - t.position) / 2;
-                   xAngle = 5;
-                   yAngle = 8;
+                   xAngle = (t.position.x- t2.position.x/t.position.y- t2.position.y) ;
+                   farestT = t1;
               }
 
-              
-
-                touch3Object.transform.position = getTouchPosition(c);
-                Instantiate(touch3Object, touch3Object.transform.position, Quaternion.identity).transform.Rotate(xAngle, yAngle, yAngle, Space.World);
-                //touch3Object.transform.Rotate(5, 5, 90, Space.Self);
-                // Debug.Log(xAngle/yAngle);
+                if(c.x >= farestT.position.x){
+                    touch3ObjectRight = true;
+                    touch3ObjectLeft = false;
+                    touch3ObjectUp = false;
+                    touch3ObjectDown = false;
+                } else if(c.x <= farestT.position.x){
+                    touch3ObjectLeft = true;
+                    touch3ObjectRight = false;
+                    touch3ObjectUp = false;
+                    touch3ObjectDown = false;
+                } 
             }
             }
 
