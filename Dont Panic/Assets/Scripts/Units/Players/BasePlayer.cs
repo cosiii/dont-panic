@@ -7,4 +7,5 @@ public class BasePlayer : BaseUnit
 
    [SerializeField] public int posx, posy;
    [SerializeField] public int walkingDistance;
+
 }

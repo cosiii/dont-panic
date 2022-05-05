@@ -897,6 +897,7 @@ GameObject:
   - component: {fileID: 388409656}
   - component: {fileID: 388409658}
   - component: {fileID: 388409657}
+  - component: {fileID: 388409659}
   m_Layer: 5
   m_Name: ItemModal
   m_TagString: Untagged
@@ -965,6 +966,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388409655}
   m_CullTransparentMesh: 1
+--- !u!95 &388409659
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388409655}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ad65927c5425c84695ec7bdacb02833, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &435300151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,9 +1362,9 @@ MonoBehaviour:
   touch3ObjectUp: 0
   touch3ObjectDown: 0
   touch3Object: {fileID: 3975015465303480453, guid: c75e62b31511ae04a96d10b8c2a9a7eb, type: 3}
-  objects: []
   c: {x: 0, y: 0}
   c2: {x: 0, y: 0}
+  newSprite: {fileID: 21300000, guid: 0a40ff83548d09a4b9358b66053c0687, type: 3}
 --- !u!1 &538405807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1811,6 +1832,8 @@ MonoBehaviour:
   doorDownValue: 1
   itemCount: 7
   doorCount: 5
+  playerOneSprite: {fileID: 21300000, guid: 2df99e7bf0d1af046a1a14dd1d3051c9, type: 3}
+  playerTwoSprite: {fileID: 21300000, guid: fbd7158019f5bca448e09ed55300c658, type: 3}
 --- !u!4 &905539860
 Transform:
   m_ObjectHideFlags: 0

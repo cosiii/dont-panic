@@ -5,6 +5,8 @@ using System.Linq;
 
 public class multipleTouch : MonoBehaviour {
     public GameObject circle, circle2;
+    
+    public static multipleTouch Instance;
 
     public bool obejectOneIsMoving, objectTwoIsMoving;
 
@@ -16,6 +18,9 @@ public class multipleTouch : MonoBehaviour {
 
     public Vector2 c, c2;
 
+    public void Awake(){
+        Instance = this;
+    }
 	// Update is called once per frame
 	public void Update () {
         int i = 0;
@@ -24,44 +29,11 @@ public class multipleTouch : MonoBehaviour {
             // PlAYER 1
             if(i == 0){
                 t1 = t;
-            if(t.phase == TouchPhase.Began){
-                Debug.Log("touch began");
-                obejectOneIsMoving = true;
-                objectTwoIsMoving = false;
-                Player1.Instance.highlight.SetActive(true);
-                Player2.Instance.highlight.SetActive(false);
-
-            } else if(t.phase == TouchPhase.Ended){
-                Debug.Log("touch1 ended");
-                obejectOneIsMoving = false;
-                Player1.Instance.highlight.SetActive(false);
-            }else if(t.phase == TouchPhase.Moved){
-                Debug.Log("touch1 is moving");
-            }
             }
             
             //Player 2
             if(i == 1){
                t2 = t;
-               // Debug.Log("TOUCHES " + touches);
-                // Debug.Log("TOUCH COUNT " + Input.touchCount);
-            if(t.phase == TouchPhase.Began){
-                Debug.Log("touch2 began");
-                objectTwoIsMoving = true;
-                obejectOneIsMoving = false;
-                Player2.Instance.highlight.SetActive(true);
-                Player1.Instance.highlight.SetActive(false);
-            }else if(t.phase == TouchPhase.Ended){
-                Debug.Log("touch2 ended");
-                objectTwoIsMoving = false; 
-                Player2.Instance.highlight.SetActive(false);
-                // second touch position
-                // Debug.Log(t.position);
-                // first touch position
-                // Debug.Log(t1.position);
-            }else if(t.phase == TouchPhase.Moved){
-                Debug.Log("touch2 is moving");
-            }
             }
 
 
@@ -106,13 +78,23 @@ public class multipleTouch : MonoBehaviour {
                 if(c.x >= farestT.position.x){
                     touch3ObjectRight = true;
                     touch3ObjectLeft = false;
-                    touch3ObjectUp = false;
-                    touch3ObjectDown = false;
-                } else if(c.x <= farestT.position.x){
+                    //oldImage.sprite = Item2;
+                } 
+                if(c.x <= farestT.position.x){
                     touch3ObjectLeft = true;
                     touch3ObjectRight = false;
+                    
+                } 
+                
+                if(c.y <= farestT.position.y){
                     touch3ObjectUp = false;
+                    touch3ObjectDown = true;
+                } 
+
+                if(c.y >= farestT.position.y){
+                    touch3ObjectUp = true;
                     touch3ObjectDown = false;
+                    //UnitManager.Instance.Player1.sprite = newSprite; NICHT IN RUNTIME..
                 } 
             }
             }

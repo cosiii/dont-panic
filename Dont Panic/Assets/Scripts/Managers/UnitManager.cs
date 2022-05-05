@@ -8,8 +8,8 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> units;
 
     public BasePlayer SelectedPlayer;
-    public BasePlayer Player1;
-    public BasePlayer Player2;
+    public BasePlayer Player1, playerOneSpriteObject;
+    public BasePlayer Player2, playerTwoSpriteObject;
 
     public BaseItem Item1, Item2, Item3, Item4, Item5, Item6, Item7; 
 
@@ -20,6 +20,10 @@ public class UnitManager : MonoBehaviour
     public int doorCount =5;
 
     
+    int playerCount =2;
+    public Sprite playerOneSprite, playerTwoSprite, playerTwoSpriteUp, playerTwoSpriteDown;
+
+    
     void Awake(){
         Instance = this;
         // goes through Units Folder and look thorugh all the subfolders fpr any type of scriptable unit
@@ -28,14 +32,12 @@ public class UnitManager : MonoBehaviour
 
 // SPAWNING PLAYERS
     public void SpawnPlayers(){
-        var playerCount =2;
-        
+        var player = Player1;
+        var playerposx = 1;
+        var playerposy = 2;
         for (int i = 0; i < playerCount; i++)
         {
             // Player 1 & 2
-            var player = Player1;
-            var playerposx = 1;
-            var playerposy = 2;
             if(i == 0){
                   player = Player1;
                   playerposx = Player1.posx;
@@ -47,14 +49,28 @@ public class UnitManager : MonoBehaviour
             }
             // spawning player
             var spawnedPlayer = Instantiate(player);
+
+             // Player 1 & 2
+            if(i == 0){
+                  playerOneSpriteObject = spawnedPlayer;
+            } else if(i == 1){
+                playerTwoSpriteObject = spawnedPlayer;
+            }
+
             // get the tile of the player from GridManager
             var randomSpawnTile = GridManager.Instance.GetSpawnTile(playerposx,playerposy);
             randomSpawnTile.SetUnit(spawnedPlayer);
-
         }
-
+        Debug.Log(playerTwoSprite);
         GameManager.Instance.ChangeState(GameState.SpawnPatrol);
     }
+
+public void UpdatePlayers(){
+playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSprite;
+playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSprite;
+Debug.Log("das ist ein update");
+
+}
 
 // SPAWNING PATROLS
     public void SpawnPatrols(){
