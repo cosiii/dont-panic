@@ -21,7 +21,10 @@ public class UnitManager : MonoBehaviour
 
     
     int playerCount =2;
-    public Sprite playerOneSprite, playerTwoSprite, playerTwoSpriteUp, playerTwoSpriteDown;
+
+    public Sprite playerOneSprite, playerOneSpriteUp, playerOneSpriteDown;
+    public Sprite playerTwoSprite, playerTwoSpriteUp, playerTwoSpriteDown;
+
 
     
     void Awake(){
@@ -61,15 +64,17 @@ public class UnitManager : MonoBehaviour
             var randomSpawnTile = GridManager.Instance.GetSpawnTile(playerposx,playerposy);
             randomSpawnTile.SetUnit(spawnedPlayer);
         }
-        Debug.Log(playerTwoSprite);
         GameManager.Instance.ChangeState(GameState.SpawnPatrol);
     }
 
-public void UpdatePlayers(){
-playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSprite;
-playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSprite;
-Debug.Log("das ist ein update");
-
+public void UpdatePlayerOne(){
+    if (multipleTouch.Instance.touch3ObjectDown == true){
+        
+playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteDown;
+    } else if (multipleTouch.Instance.touch3ObjectUp == true){
+        
+playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteUp;
+    }
 }
 
 // SPAWNING PATROLS

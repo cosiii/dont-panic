@@ -23,6 +23,7 @@ public class multipleTouch : MonoBehaviour {
     }
 	// Update is called once per frame
 	public void Update () {
+        UnitManager.Instance.UpdatePlayerOne();
         int i = 0;
          while(i < Input.touchCount){
             Touch t = Input.GetTouch(i);
@@ -94,7 +95,6 @@ public class multipleTouch : MonoBehaviour {
                 if(c.y >= farestT.position.y){
                     touch3ObjectUp = true;
                     touch3ObjectDown = false;
-                    //UnitManager.Instance.Player1.sprite = newSprite; NICHT IN RUNTIME..
                 } 
             }
             }

@@ -37,7 +37,6 @@ public abstract class Tile : MonoBehaviour
     }
 
     void OnMouseDown(){
-        UnitManager.Instance.UpdatePlayers();
         //UnitManager.Instance.Player1.gameObject.GetComponent<SpriteRenderer>().sprite = UnitManager.Instance.Player1.newSprite;
        // UnitManager.Instance.Player1.GetComponent<SpriteRenderer>().sprite = UnitManager.Instance.Player1.newSprite;
         //UnitManager.Instance.Player1.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/playertwo");
