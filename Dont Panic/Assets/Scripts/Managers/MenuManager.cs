@@ -6,34 +6,21 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
    public static MenuManager Instance;
-   [SerializeField] public GameObject selectedPlayerObject, tileObject, tileUnitObject; 
+   [SerializeField] public GameObject selectedPlayerObject; 
 
    [SerializeField] public GameObject Item1Object, Item2Object, doorNameObject, doorTextObject; 
 
-   [SerializeField] public GameObject doorModal, itemModal, inventoryIsFullText, itemImage; 
+   [SerializeField] public GameObject doorModal, itemModal, inventoryIsFullText, itemImage, TemporaryModals; 
 
    [SerializeField] public GameObject yourTurnSign1, yourTurnSign2; 
    public bool itemModalRotated = false; 
    public bool doorModalRotated = false;
+
+   public bool TemporaryModalsRotated = false;
 void Awake(){
     Instance = this;
 }
 
-public void ShowTileInfo(Tile tile){
-    if(tile == null){
-        tileObject.SetActive(false);
-        tileUnitObject.SetActive(false);
-        return;
-    }
-
-    tileObject.GetComponentInChildren<Text>().text = tile.TileName;
-    tileObject.SetActive(true);
-    // if tile has an pccupied unit
-    if(tile.OccupiedUnit){
-        tileUnitObject.GetComponentInChildren<Text>().text = tile.OccupiedUnit.UnitName;
-        tileUnitObject.SetActive(true);
-    }
-}
 public void ShowSelectedPlayer(BasePlayer player){
     if(player == null){
         selectedPlayerObject.SetActive(false);
@@ -82,19 +69,19 @@ public void AnimateItemModal(){
 }
 
 
-public void RotateItemModalToPlayer1(){
-    if( itemModalRotated == true){
-        itemModal.transform.Rotate(180, 180, 0);
+public void RotateModalsToPlayer1(){
+    if( TemporaryModalsRotated == true){
+        TemporaryModals.transform.Rotate(180, 180, 0);
     } 
-    itemModalRotated = false;
+    TemporaryModalsRotated = false;
 }
 
-public void RotateItemModalToPlayer2(){
+public void RotateModalsToPlayer2(){
     // wenns schon rotiert is dann net
-    if( itemModalRotated == false){
-        itemModal.transform.Rotate(180, 180, 0);
+    if( TemporaryModalsRotated == false){
+        TemporaryModals.transform.Rotate(180, 180, 0);
     } 
-    itemModalRotated = true;
+    TemporaryModalsRotated = true;
 }
 
 public void ShowInventoryIsFullText(){
@@ -114,17 +101,17 @@ public void ShowPlayersTurn(){
 }
 
 public void RotateDoorModalToPlayer1(){
-    if( doorModalRotated == true){
-        doorModal.transform.Rotate(180, 180, 0);
+    if( itemModalRotated == true){
+        itemModal.transform.Rotate(180, 180, 0);
     } 
-    doorModalRotated = false;
+    itemModalRotated = false;
 }
 
 public void RotateDoorModalToPlayer2(){
-    if( doorModalRotated == false){
-        doorModal.transform.Rotate(180, 180, 0);
+    if( itemModalRotated == false){
+        itemModal.transform.Rotate(180, 180, 0);
     } 
-    doorModalRotated = true;
+    itemModalRotated = true;
 }
 
 }

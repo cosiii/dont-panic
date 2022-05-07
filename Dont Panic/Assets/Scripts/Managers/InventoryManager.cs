@@ -31,7 +31,7 @@ void Awake(){
 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
     //PLAYER ONE
     // rotate ItemModal
-    MenuManager.Instance.RotateItemModalToPlayer1();
+    MenuManager.Instance.RotateModalsToPlayer1();
     for (int i = 0; i < slotsPlayerOne.Length; i++)
     {
         if(isFullPlayerOne[i] == false ){ // item can be added to inventory
@@ -46,7 +46,7 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
 
 } else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ //PLAYER TWO
     // rotate itemModal
-    MenuManager.Instance.RotateItemModalToPlayer2();
+    MenuManager.Instance.RotateModalsToPlayer2();
     for (int i = 0; i < slotsPlayerTwo.Length; i++)
     {
         if(isFullPlayerTwo[i] == false){ // item can be added to inventory

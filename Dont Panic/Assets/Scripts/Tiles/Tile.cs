@@ -29,11 +29,9 @@ public abstract class Tile : MonoBehaviour
 
 
     public void OnMouseEnter(){  //works only on clicks now
-        MenuManager.Instance.ShowTileInfo(this);
     } 
 
     void OnMouseExit(){ //works only on clicks now
-        MenuManager.Instance.ShowTileInfo(null);
     }
 
     void OnMouseDown(){
