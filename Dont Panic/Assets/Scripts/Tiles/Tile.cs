@@ -37,10 +37,6 @@ public abstract class Tile : MonoBehaviour
     }
 
     void OnMouseDown(){
-        //UnitManager.Instance.Player1.gameObject.GetComponent<SpriteRenderer>().sprite = UnitManager.Instance.Player1.newSprite;
-       // UnitManager.Instance.Player1.GetComponent<SpriteRenderer>().sprite = UnitManager.Instance.Player1.newSprite;
-        //UnitManager.Instance.Player1.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/playertwo");
-        //UnitManager.Instance.Player1.GetComponent<SpriteRenderer>().sprite = UnitManager.Instance.Player1.sprite;
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied
             if(OccupiedUnit.Faction == Faction.Player){
@@ -74,6 +70,7 @@ public abstract class Tile : MonoBehaviour
                                InventoryManager.Instance.ItemCollision();
                                ItemManager.Instance.ChangeModalImage();
                                MenuManager.Instance.ShowItemModal();
+                               MenuManager.Instance.AnimateItemModal();
                             } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
                             InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
                                 // if inventory is full

@@ -22,7 +22,7 @@ public class UnitManager : MonoBehaviour
     
     int playerCount =2;
 
-    public Sprite playerOneSprite, playerOneSpriteUp, playerOneSpriteDown;
+    public Sprite playerOneSprite, playerOneSpriteUp, playerOneSpriteDown, playerOneSpriteLeft, playerOneSpriteRight;
     public Sprite playerTwoSprite, playerTwoSpriteUp, playerTwoSpriteDown;
 
 
@@ -68,12 +68,21 @@ public class UnitManager : MonoBehaviour
     }
 
 public void UpdatePlayerOne(){
+    // SCALES SPRITE IN RIGHT POSITION
+    playerOneSpriteObject.transform.localScale = new Vector3(1, 1, 1);
     if (multipleTouch.Instance.touch3ObjectDown == true){
-        
-playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteDown;
-    } else if (multipleTouch.Instance.touch3ObjectUp == true){
-        
-playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteUp;
+        playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteDown;
+    } 
+    
+    if (multipleTouch.Instance.touch3ObjectUp == true){
+        playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteUp;
+    } 
+    
+    if (multipleTouch.Instance.touch3ObjectLeft == true){
+        playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteLeft;
+    } 
+    if (multipleTouch.Instance.touch3ObjectRight == true){
+        playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteRight;
     }
 }
 

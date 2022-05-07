@@ -76,6 +76,12 @@ public void ShowItemModal(){
     itemImage.SetActive(true);
 }
 
+public void AnimateItemModal(){
+    Animator animation = itemModal.GetComponent<Animator>();
+    animation.SetTrigger("ItemCollision");
+}
+
+
 public void RotateItemModalToPlayer1(){
     if( itemModalRotated == true){
         itemModal.transform.Rotate(180, 180, 0);

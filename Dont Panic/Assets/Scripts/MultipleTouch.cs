@@ -76,25 +76,36 @@ public class multipleTouch : MonoBehaviour {
                    farestT = t1;
               }
 
-                if(c.x >= farestT.position.x){
+              Debug.Log("c: " + c + "farestT: " + farestT.position.x + " / " + farestT.position.y);
+
+              // ROTATE ALL TO X INSTEAD OD +
+              
+
+                if(c.x >= farestT.position.x && c.y <= farestT.position.y ){
                     touch3ObjectRight = true;
                     touch3ObjectLeft = false;
-                    //oldImage.sprite = Item2;
+                    touch3ObjectUp = false;
+                    touch3ObjectDown = false;
                 } 
-                if(c.x <= farestT.position.x){
+                if(c.x <= farestT.position.x && c.y >= farestT.position.y ){
                     touch3ObjectLeft = true;
                     touch3ObjectRight = false;
-                    
+                    touch3ObjectUp = false;
+                    touch3ObjectDown = false;
                 } 
                 
-                if(c.y <= farestT.position.y){
+                if(c.x <= farestT.position.x && c.y <= farestT.position.y ){
                     touch3ObjectUp = false;
                     touch3ObjectDown = true;
+                    touch3ObjectLeft = false;
+                    touch3ObjectRight = false;
                 } 
 
-                if(c.y >= farestT.position.y){
+                if(c.x >= farestT.position.x && c.y >= farestT.position.y ){
                     touch3ObjectUp = true;
                     touch3ObjectDown = false;
+                    touch3ObjectLeft = false;
+                    touch3ObjectRight = false;
                 } 
             }
             }
