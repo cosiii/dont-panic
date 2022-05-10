@@ -10,11 +10,10 @@ public class MenuManager : MonoBehaviour
 
    [SerializeField] public GameObject Item1Object, Item2Object, doorNameObject, doorTextObject; 
 
-   [SerializeField] public GameObject doorModal, itemModal, inventoryIsFullText, itemImage, TemporaryModals; 
+   [SerializeField] public GameObject doorModal, itemModal, itemText, inventoryIsFullText, itemImage, TemporaryModals; 
 
    [SerializeField] public GameObject yourTurnSign1, yourTurnSign2; 
    public bool itemModalRotated = false; 
-   public bool doorModalRotated = false;
 
    public bool TemporaryModalsRotated = false;
 void Awake(){
@@ -54,10 +53,6 @@ public void HideDoorInfo(){
 }
 
 // ITEM MODAL
-public void HideItemModal(){
-    itemModal.SetActive(false);
-}
-
 public void ShowItemModal(){
     itemModal.SetActive(true);
     itemImage.SetActive(true);
@@ -98,20 +93,6 @@ public void ShowPlayersTurn(){
         yourTurnSign1.SetActive(false);
         yourTurnSign2.SetActive(true);
     }
-}
-
-public void RotateDoorModalToPlayer1(){
-    if( itemModalRotated == true){
-        itemModal.transform.Rotate(180, 180, 0);
-    } 
-    itemModalRotated = false;
-}
-
-public void RotateDoorModalToPlayer2(){
-    if( itemModalRotated == false){
-        itemModal.transform.Rotate(180, 180, 0);
-    } 
-    itemModalRotated = true;
 }
 
 }

@@ -15,26 +15,32 @@ public class ItemManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ChangeModalImage(){
+    public void ChangeModal(){
 
-    Debug.Log("item picked up by " + MenuManager.Instance.selectedPlayerObject.GetComponentInChildren<Text>().text + "    " + InventoryManager.Instance.lastDestroyedItem);
+    // Debug.Log("item picked up by " + MenuManager.Instance.selectedPlayerObject.GetComponentInChildren<Text>().text + "    " + InventoryManager.Instance.lastDestroyedItem);
 
     if(InventoryManager.Instance.lastDestroyedItem == "Item1"){
         oldImage.sprite = Item1;
+        MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "suicide note";
     } else if(InventoryManager.Instance.lastDestroyedItem == "Item2"){
         oldImage.sprite = Item2;
+        MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "bubbles";
     } else if(InventoryManager.Instance.lastDestroyedItem == "Item3"){
         oldImage.sprite = Item3;
+        MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "syringe";
     } else if(InventoryManager.Instance.lastDestroyedItem == "Item4"){
         oldImage.sprite = Item4;
+        MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "teddy bear";
     } else if(InventoryManager.Instance.lastDestroyedItem == "Item5"){
         oldImage.sprite = Item5;
+        MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "leatherbelt";
     } else if(InventoryManager.Instance.lastDestroyedItem == "Item6"){
         oldImage.sprite = Item6;
+        MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "guard ID";
     } else if(InventoryManager.Instance.lastDestroyedItem == "Item7"){
         oldImage.sprite = Item7;
+        MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "tooth";
     }
-    
 }
 
 public void ChangeDoorItemImageLeft(string keyItem){

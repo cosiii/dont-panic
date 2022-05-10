@@ -14,5 +14,6 @@ public enum Faction {
     Player = 0,
     Patrol = 1,
     Item = 2,
-    Door =3
+    Door =3,
+    PlayerDefense = 4
 }

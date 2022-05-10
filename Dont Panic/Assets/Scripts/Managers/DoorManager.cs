@@ -89,7 +89,7 @@ public void SetupDoor(string[] keyItem, string doorName){
           firstUnlocked = false;
           // ROTATE MODAL
           Debug.Log("rotate modal to player 1");
-          MenuManager.Instance.RotateDoorModalToPlayer1();
+          MenuManager.Instance.RotateModalsToPlayer1();
           // SEARCH FOR THE ITEMS
           foreach (string x in InventoryManager.Instance.inventoryPlayerOne)
          {
@@ -114,7 +114,7 @@ public void SetupDoor(string[] keyItem, string doorName){
     if(GameManager.Instance.GameState == GameState.Player2Turn){
         firstUnlocked = false;
         Debug.Log("rotate modal to player 2");
-        MenuManager.Instance.RotateDoorModalToPlayer2();
+        MenuManager.Instance.RotateModalsToPlayer2();
           foreach (string x in InventoryManager.Instance.inventoryPlayerTwo)
          {
              if (x.Equals (itemOne))

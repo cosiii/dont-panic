@@ -43,17 +43,19 @@ public abstract class Tile : MonoBehaviour
                     //if(MultipleTouch.Instance.objectOneRecognized == true){
                     Player1.Instance.highlight.SetActive(true);
                     ShowWalkableTiles(Player1.Instance);
-                    // }
+                    
                     
                 } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
                     //if(MultipleTouch.Instance.objectTwoRecognized == true){
                     Player2.Instance.highlight.SetActive(true);
                     ShowWalkableTiles(Player2.Instance);
-                   // }
                     
                 }
 
+                if(UnitManager.Instance.SelectedPlayer == UnitManager.Instance.Player1 && OccupiedUnit.UnitName == "player 2"){
+                            Debug.Log("grüß gott");
+                }
 
             } 
             else { 
@@ -66,7 +68,7 @@ public abstract class Tile : MonoBehaviour
                             InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
                                DestroyUnit();
                                InventoryManager.Instance.ItemCollision();
-                               ItemManager.Instance.ChangeModalImage();
+                               ItemManager.Instance.ChangeModal();
                                MenuManager.Instance.ShowItemModal();
                                MenuManager.Instance.AnimateItemModal();
                             } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
@@ -84,6 +86,30 @@ public abstract class Tile : MonoBehaviour
                             DoorManager.Instance.DoorCollision();
                             playerOnDoor = true;
                         }
+
+                           
+ /////
+                        // COLLISION OTHER PLAYER
+                        if(OccupiedUnit.Faction == Faction.Player){
+                            // same or just the other?
+                            Debug.Log("player on player");
+                            DestroyUnit();
+
+                            // get the tile of the player from GridManager
+                             var randomSpawnTile = GridManager.Instance.GetSpawnTile(1,1);
+
+
+                            if(GameManager.Instance.GameState == GameState.Player1Turn ){
+                                 var spawnedPlayer = Instantiate(UnitManager.Instance.Player2);
+                                 randomSpawnTile.SetUnit(spawnedPlayer);
+                            } else if (GameManager.Instance.GameState == GameState.Player2Turn){
+                                var spawnedPlayer = Instantiate(UnitManager.Instance.Player1);
+                                randomSpawnTile.SetUnit(spawnedPlayer);
+                            } 
+                            
+
+                        }
+                        
                     
                     
 
@@ -105,13 +131,13 @@ public abstract class Tile : MonoBehaviour
         else {
             // already got a selected Unit
             if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){
-
+                    
                 
-                    //deselect selected Unit
+                 //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
 
-                    // dehighlight all
+                 // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
 
