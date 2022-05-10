@@ -19,7 +19,7 @@ public class UnitManager : MonoBehaviour
     public int itemCount =7;
     public int doorCount =5;
 
-    
+    public int xPlayerOneSpawnTile, yPlayerOneSpawnTile, xPlayerTwoSpawnTile, yPlayerTwoSpawnTile;
     int playerCount =2;
 
     public Sprite playerOneSprite, playerOneSpriteUp, playerOneSpriteDown, playerOneSpriteLeft, playerOneSpriteRight;

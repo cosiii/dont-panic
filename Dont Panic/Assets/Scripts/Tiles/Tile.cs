@@ -14,8 +14,6 @@ public abstract class Tile : MonoBehaviour
     
     public BaseUnit OccupiedUnit;
 
-    public Tile PlayerOneSpawnTile, PlayerTwoSpawnTile;
-
     public string LastDoor;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
 
@@ -54,39 +52,62 @@ public abstract class Tile : MonoBehaviour
                     
                 } 
                 
+                // THROWING PLAYER 1
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" ){
-                     
+                     Debug.Log("player 2 auf player 1");
                      int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
                      int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
                     if(UnitManager.Instance.SelectedPlayer!= null){
                         GridManager.Instance.GetSpawnTile(i,j).SetUnit(Player1.Instance);
-                        Player2.Instance.OccupiedTile = GridManager.Instance.GetSpawnTile(i,j);
+                        //Player2.Instance.OccupiedTile = GridManager.Instance.GetSpawnTile(i,j);
                         GameObject playertwo = GameObject.Find("playertwo(Clone)");
                         playertwo.transform.position = new Vector3(i,j,0);
-                        GridManager.Instance.GetSpawnTile(1,1).SetUnit(Player1.Instance);
-                        Player1.Instance.posx =1;
-                        Player1.Instance.posy =1;
+                        GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(Player1.Instance);
+                        Player1.Instance.posx = UnitManager.Instance.xPlayerOneSpawnTile;
+                        Player1.Instance.posy = UnitManager.Instance.yPlayerOneSpawnTile;
                         OccupiedUnit = Player2.Instance;
-                        
-                        /*
-                        GameObject playerone = GameObject.Find("playerone(Clone)");
-                        playerone.transform.position = new Vector3(2,3,0);
-                        Player1.Instance.OccupiedTile = GridManager.Instance.GetSpawnTile(2,3);
-                        UnitManager.Instance.Player1.posx = 2; // player onepos
-                        UnitManager.Instance.Player1.posy = 3;
-                        
-                        GridManager.Instance.GetSpawnTile(2,3).SetUnit(OccupiedUnit); */
-                        //OccupiedUnit = null; 
+                    //deselect selected Unit
+                    SetUnit(UnitManager.Instance.SelectedPlayer);
+                    UnitManager.Instance.SetSelectedPlayer(null);
 
                     // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
-
                     ChangePlayerTurn();
                     }
 
                     if(UnitManager.Instance.SelectedPlayer == null){
                         Debug.Log("it's not your turn, player 1");
+                    }
+                    
+                }
+
+                // THROWING PLAYER 2
+                else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" ){
+                      Debug.Log("player 1 auf player 2");
+                     int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
+                     int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
+                    if(UnitManager.Instance.SelectedPlayer!= null){
+                        GridManager.Instance.GetSpawnTile(i,j).SetUnit(Player2.Instance);
+                        //Player1.Instance.OccupiedTile = GridManager.Instance.GetSpawnTile(i,j);
+                        GameObject playerone = GameObject.Find("playerone(Clone)");
+                        playerone.transform.position = new Vector3(i,j,0);
+                        GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(Player2.Instance);
+                        Player2.Instance.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
+                        Player2.Instance.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
+                        OccupiedUnit = Player1.Instance;
+                    
+                    SetUnit(UnitManager.Instance.SelectedPlayer);
+                    UnitManager.Instance.SetSelectedPlayer(null);
+
+                    // dehighlight all
+                    Player1.Instance.highlight.SetActive(false);
+                    Player2.Instance.highlight.SetActive(false);
+                    ChangePlayerTurn();
+                    }
+
+                    if(UnitManager.Instance.SelectedPlayer == null){
+                        Debug.Log("it's not your turn, player 2");
                     }
                     
                 }
