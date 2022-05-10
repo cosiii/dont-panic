@@ -196,6 +196,7 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
 } */
 
 public void DropItemPl1(){
+    Debug.Log("item droppen pl1");
     
     var spawnedItem = UnitManager.Instance.Item1;
     var randomSpawnTile = GridManager.Instance.GetSpawnTile(1,1);

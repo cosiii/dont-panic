@@ -49,7 +49,7 @@ public void GenerateGrid()
     }
    
 
-    public Tile GetSpawnTile(int x, int y){
+    public Tile GetSpawnTile(float x, float y){
     // left side of map and is walkable
     return tiles.Where(t => t.Key.x == x && t.Key.y == y).OrderBy(t=> Random.value).First().Value;
     }

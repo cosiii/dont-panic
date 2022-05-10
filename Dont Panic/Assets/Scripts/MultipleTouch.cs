@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 public class multipleTouch : MonoBehaviour {
-    public GameObject circle, circle2;
+    public GameObject circle;
     
     public static multipleTouch Instance;
 
@@ -24,15 +24,14 @@ public class multipleTouch : MonoBehaviour {
 	// Update is called once per frame
 	public void Update () {
         UnitManager.Instance.UpdatePlayerOne();
+        UnitManager.Instance.UpdatePlayerTwo();
         int i = 0;
          while(i < Input.touchCount){
             Touch t = Input.GetTouch(i);
-            // PlAYER 1
             if(i == 0){
                 t1 = t;
             }
             
-            //Player 2
             if(i == 1){
                t2 = t;
             }
@@ -110,6 +109,10 @@ public class multipleTouch : MonoBehaviour {
             }
             }
 
+            if (i == 3){
+                Debug.Log("4 touches");
+            }
+
             ++i;
         }
 
@@ -119,5 +122,10 @@ public class multipleTouch : MonoBehaviour {
     // GET TOUCH POSITION IN WORLD SPACE
     Vector2 getTouchPosition(Vector2 touchPosition){
         return GetComponent<Camera>().ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y, transform.position.z));
+    }
+
+    public void effect(){
+        Instantiate(circle, new Vector3(2,3,1), Quaternion.identity );
+        Debug.Log("hheeeee");
     }
 }

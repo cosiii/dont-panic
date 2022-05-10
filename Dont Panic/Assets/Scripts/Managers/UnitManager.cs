@@ -23,7 +23,7 @@ public class UnitManager : MonoBehaviour
     int playerCount =2;
 
     public Sprite playerOneSprite, playerOneSpriteUp, playerOneSpriteDown, playerOneSpriteLeft, playerOneSpriteRight;
-    public Sprite playerTwoSprite, playerTwoSpriteUp, playerTwoSpriteDown;
+    public Sprite playerTwoSprite, playerTwoSpriteUp, playerTwoSpriteDown, playerTwoSpriteLeft, playerTwoSpriteRight;
 
 
     
@@ -69,7 +69,7 @@ public class UnitManager : MonoBehaviour
 
 public void UpdatePlayerOne(){
     // SCALES SPRITE IN RIGHT POSITION
-    playerOneSpriteObject.transform.localScale = new Vector3(1, 1, 1);
+        playerOneSpriteObject.transform.localScale = new Vector3(1, 1, 1);
     if (multipleTouch.Instance.touch3ObjectDown == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteDown;
     } 
@@ -83,7 +83,26 @@ public void UpdatePlayerOne(){
     } 
     if (multipleTouch.Instance.touch3ObjectRight == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteRight;
-    }
+    }  
+}
+
+public void UpdatePlayerTwo(){
+    // SCALES SPRITE IN RIGHT POSITION
+        playerTwoSpriteObject.transform.localScale = new Vector3(1, 1, 1);
+    if (multipleTouch.Instance.touch3ObjectDown == true){
+        playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSpriteDown;
+    } 
+    
+    if (multipleTouch.Instance.touch3ObjectUp == true){
+        playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSpriteUp;
+    } 
+    
+    if (multipleTouch.Instance.touch3ObjectLeft == true){
+        playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSpriteLeft;
+    } 
+    if (multipleTouch.Instance.touch3ObjectRight == true){
+        playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSpriteRight;
+    }  
 }
 
 // SPAWNING PATROLS

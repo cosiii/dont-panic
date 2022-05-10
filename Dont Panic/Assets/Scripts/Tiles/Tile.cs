@@ -14,6 +14,8 @@ public abstract class Tile : MonoBehaviour
     
     public BaseUnit OccupiedUnit;
 
+    public Tile PlayerOneSpawnTile, PlayerTwoSpawnTile;
+
     public string LastDoor;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
 
@@ -38,77 +40,87 @@ public abstract class Tile : MonoBehaviour
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied
             if(OccupiedUnit.Faction == Faction.Player){
+                // CLICKING FOR MAKING TURN
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1" ){
                     UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
                     //if(MultipleTouch.Instance.objectOneRecognized == true){
                     Player1.Instance.highlight.SetActive(true);
-                    ShowWalkableTiles(Player1.Instance);
-                    
-                    
+                    ShowWalkableTiles(Player1.Instance);  
                 } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
                     //if(MultipleTouch.Instance.objectTwoRecognized == true){
                     Player2.Instance.highlight.SetActive(true);
                     ShowWalkableTiles(Player2.Instance);
                     
-                }
+                } 
+                
+                 if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" ){
+                     
+                     int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
+                     int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
+                    if(UnitManager.Instance.SelectedPlayer!= null){
+                        GridManager.Instance.GetSpawnTile(i,j).SetUnit(Player1.Instance);
+                        Player2.Instance.OccupiedTile = GridManager.Instance.GetSpawnTile(i,j);
+                        GameObject playertwo = GameObject.Find("playertwo(Clone)");
+                        playertwo.transform.position = new Vector3(i,j,0);
+                        GridManager.Instance.GetSpawnTile(1,1).SetUnit(Player1.Instance);
+                        Player1.Instance.posx =1;
+                        Player1.Instance.posy =1;
+                        OccupiedUnit = Player2.Instance;
+                        
+                        /*
+                        GameObject playerone = GameObject.Find("playerone(Clone)");
+                        playerone.transform.position = new Vector3(2,3,0);
+                        Player1.Instance.OccupiedTile = GridManager.Instance.GetSpawnTile(2,3);
+                        UnitManager.Instance.Player1.posx = 2; // player onepos
+                        UnitManager.Instance.Player1.posy = 3;
+                        
+                        GridManager.Instance.GetSpawnTile(2,3).SetUnit(OccupiedUnit); */
+                        //OccupiedUnit = null; 
 
-                if(UnitManager.Instance.SelectedPlayer == UnitManager.Instance.Player1 && OccupiedUnit.UnitName == "player 2"){
-                            Debug.Log("grüß gott");
+                    // dehighlight all
+                    Player1.Instance.highlight.SetActive(false);
+                    Player2.Instance.highlight.SetActive(false);
+
+                    ChangePlayerTurn();
+                    }
+
+                    if(UnitManager.Instance.SelectedPlayer == null){
+                        Debug.Log("it's not your turn, player 1");
+                    }
+                    
                 }
 
             } 
             else { 
-                if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){ // if we have a selected player AND we click on another occupied unit
+                if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){ // if we have a selected player AND we click on another occupied unit 
                     
-                        // COLLISION ITEM
-                        if(OccupiedUnit.Faction == Faction.Item){ 
-                            // just destroy it when the inventory of the player isnt completely full
-                            if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
-                            InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
-                               DestroyUnit();
-                               InventoryManager.Instance.ItemCollision();
-                               ItemManager.Instance.ChangeModal();
-                               MenuManager.Instance.ShowItemModal();
-                               MenuManager.Instance.AnimateItemModal();
-                            } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
-                            InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
-                                // if inventory is full
-                                MenuManager.Instance.ShowInventoryIsFullText();
+                // COLLISION ITEM
+                            if(OccupiedUnit.Faction == Faction.Item){ 
+                                // just destroy it when the inventory of the player isnt completely full
+                                if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
+                                InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
+                                DestroyUnit();
+                                InventoryManager.Instance.ItemCollision();
+                                ItemManager.Instance.ChangeModal();
+                                MenuManager.Instance.ShowItemModal();
+                                MenuManager.Instance.AnimateItemModal();
+                                } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
+                                InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
+                                    // if inventory is full
+                                    MenuManager.Instance.ShowInventoryIsFullText();
+                                }
                             }
-                        }
+
                         
-                        
-                        // COLLISION DOOR
+                // COLLISION DOOR
                         if(OccupiedUnit.Faction == Faction.Door){
                             DoorManager.Instance.lastVisitedDoor = OccupiedUnit.UnitName;
                             LastDoor = OccupiedUnit.UnitName;
                             DoorManager.Instance.DoorCollision();
                             playerOnDoor = true;
                         }
-
-                           
- /////
-                        // COLLISION OTHER PLAYER
-                        if(OccupiedUnit.Faction == Faction.Player){
-                            // same or just the other?
-                            Debug.Log("player on player");
-                            DestroyUnit();
-
-                            // get the tile of the player from GridManager
-                             var randomSpawnTile = GridManager.Instance.GetSpawnTile(1,1);
-
-
-                            if(GameManager.Instance.GameState == GameState.Player1Turn ){
-                                 var spawnedPlayer = Instantiate(UnitManager.Instance.Player2);
-                                 randomSpawnTile.SetUnit(spawnedPlayer);
-                            } else if (GameManager.Instance.GameState == GameState.Player2Turn){
-                                var spawnedPlayer = Instantiate(UnitManager.Instance.Player1);
-                                randomSpawnTile.SetUnit(spawnedPlayer);
-                            } 
-                            
-
-                        }
+                        
                         
                     
                     
@@ -189,40 +201,68 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void ShowWalkableTiles(BasePlayer player){
-// make sure everything is not walkable at first
-   for (int x = 0; x < GridManager.Instance._width; x++)
-        {
-            for (int y = 0; y < GridManager.Instance._height; y++)
-            {
-                GridManager.Instance.tiles[new Vector2(x,y)].isWalkable = false;
-            }
-        }
 
-   // walking straight
+   HideWalkableTiles();
             for (int y = 1; y < player.walkingDistance; y++)
             {
-                if(player.posy -y >= 0){
-                GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].isWalkable = true;
-                }
-                
-                if(player.posx + y < GridManager.Instance._width){
-                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].isWalkable = true;
-                }
-                
-                if(player.posx -y >= 0){
-                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].isWalkable = true;
-                }
+                    if(player.posy -y >= 0){
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].highlight.SetActive(true);
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].isWalkable = true;
+                    }
 
-                if(player.posy + y < GridManager.Instance._height){
-                GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].isWalkable = true;
-                }
+                    if(player.posy + y < GridManager.Instance._height){
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].highlight.SetActive(true);
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].isWalkable = true;
+                    }
+                    if(player.posx -y >= 0){
+                    GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].highlight.SetActive(true);
+                    GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].isWalkable = true;
+                    }
+                    if(player.posx + y < GridManager.Instance._width){
+                    GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].highlight.SetActive(true);
+                    GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].isWalkable = true;
+                    }
+/*
+                if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_down" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_down" ){
+                    // DOWN
+                    Debug.Log("down");
+                    if(player.posy -y >= 0){
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].highlight.SetActive(true);
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].isWalkable = true;
+                    }
+                 } else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_up" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_up"){
+                    // UP
+                    Debug.Log("up");
+                    if(player.posy + y < GridManager.Instance._height){
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].highlight.SetActive(true);
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].isWalkable = true;
+                    }
+                    
+                 } else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_left" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_left"){
+                    // LEFT
+                    Debug.Log("left");
+                    if(player.posx -y >= 0){
+                    GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].highlight.SetActive(true);
+                    GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].isWalkable = true;
+                    }
+                 } else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_right" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_right"){
+                     // RIGHT
+                     Debug.Log("right");
+                    if(player.posx + y < GridManager.Instance._width){
+                    GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].highlight.SetActive(true);
+                    GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].isWalkable = true;
+                    }
+                 }  */
+                
+                
+                
+                
+                
+
+               
             }
     // walking diagonal
-            for (int y = 1; y < player.walkingDistance - 1; y++)
+            /* for (int y = 1; y < player.walkingDistance - 1; y++)
             {
                 if(player.posx - y >= 0 && player.posy -y >= 0){
                 GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy - y )].highlight.SetActive(true);
@@ -241,20 +281,20 @@ public abstract class Tile : MonoBehaviour
                 GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy - y)].highlight.SetActive(true);
                 GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy - y)].isWalkable = true;
                 }
-            }
+            } */
         // if statements for not reaching out of the table
     }
 
     public void HideWalkableTiles(){
-
+// make sure everything is not walkable at first
         for (int x = 0; x < GridManager.Instance._width; x++)
         {
             for (int y = 0; y < GridManager.Instance._height; y++)
             {
+                GridManager.Instance.tiles[new Vector2(x,y)].isWalkable = false;
                 GridManager.Instance.tiles[new Vector2(x, y )].highlight.SetActive(false);
                 
             }
         }
-
     }
 }
