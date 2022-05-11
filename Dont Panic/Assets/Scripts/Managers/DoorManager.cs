@@ -47,14 +47,19 @@ public void Shuffle() {
       // SETUPS FOR EACH DOOR
         if (lastVisitedDoor == "door1"){
             SetupDoor(keyItems1, doorName1);
+            ShowDoorFeature(doorName1);
         } else if (lastVisitedDoor == "door2"){
             SetupDoor(keyItems2, doorName2);
+            ShowDoorFeature(doorName2);
         }  else if (lastVisitedDoor == "door3"){
            SetupDoor(keyItems3, doorName3);
+           ShowDoorFeature(doorName3);
         } else if (lastVisitedDoor == "door4"){
             SetupDoor(keyItems4, doorName4);
+            ShowDoorFeature(doorName4);
         } else if (lastVisitedDoor == "door5"){
             SetupDoor(keyItems5, doorName5);
+            ShowDoorFeature(doorName5);
         }
       
     // ROTATING AND SHOWING MODAL AND HIDING ITEMS
@@ -62,21 +67,25 @@ public void Shuffle() {
      MenuManager.Instance.ShowDoorModal();
   }
 
+public void ShowDoorFeature(string doorName){
+    if(doorName == "exit"){
+    } else if(doorName == "pantry"){
+    } else if(doorName == "dining hall"){
+    } else if(doorName == "hallway"){
+    } else if(doorName == "surgery room"){
+    }
+}
 public void SetupDoor(string[] keyItem, string doorName){
             // Name from doorX to ACTUALDOORNAME
             lastVisitedDoor= doorName;
-            Debug.Log(doorName + keyItem[0]);
+            // Debug.Log(doorName + keyItem[0]);
             SearchItem(keyItem[0], keyItem[1]);
-            MenuManager.Instance.Item1Object.GetComponentInChildren<Text>().text = keyItem[0];
-            MenuManager.Instance.Item2Object.GetComponentInChildren<Text>().text = keyItem[1];
             ItemManager.Instance.ChangeDoorItemImageLeft(keyItem[0]);
             // only show second item and doorName when FiRST ONE IS IN INVENTORY
             if(firstUnlocked == true){
-                MenuManager.Instance.ShowSecondItem();
                 ItemManager.Instance.ChangeDoorItemImageRight(keyItem[1]);
                 firstUnlocked = false;
             } else if (firstUnlocked == false){
-                MenuManager.Instance.HideSecondItem();
                 ItemManager.Instance.ChangeDoorItemImageRight("none");
     }
 }
@@ -88,7 +97,6 @@ public void SetupDoor(string[] keyItem, string doorName){
       if(GameManager.Instance.GameState == GameState.Player1Turn){
           firstUnlocked = false;
           // ROTATE MODAL
-          Debug.Log("rotate modal to player 1");
           MenuManager.Instance.RotateModalsToPlayer1();
           // SEARCH FOR THE ITEMS
           foreach (string x in InventoryManager.Instance.inventoryPlayerOne)
@@ -113,7 +121,6 @@ public void SetupDoor(string[] keyItem, string doorName){
     // CHECK ITEMS PLAYER TWO
     if(GameManager.Instance.GameState == GameState.Player2Turn){
         firstUnlocked = false;
-        Debug.Log("rotate modal to player 2");
         MenuManager.Instance.RotateModalsToPlayer2();
           foreach (string x in InventoryManager.Instance.inventoryPlayerTwo)
          {

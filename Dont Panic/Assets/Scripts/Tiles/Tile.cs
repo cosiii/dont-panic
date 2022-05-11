@@ -54,7 +54,6 @@ public abstract class Tile : MonoBehaviour
                 
                 // THROWING PLAYER 1
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" ){
-                     Debug.Log("player 2 auf player 1");
                      int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
                      int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
                     if(UnitManager.Instance.SelectedPlayer!= null){
@@ -84,7 +83,6 @@ public abstract class Tile : MonoBehaviour
 
                 // THROWING PLAYER 2
                 else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" ){
-                      Debug.Log("player 1 auf player 2");
                      int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
                      int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
                     if(UnitManager.Instance.SelectedPlayer!= null){

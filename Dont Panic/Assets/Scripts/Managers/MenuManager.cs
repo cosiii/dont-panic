@@ -8,12 +8,11 @@ public class MenuManager : MonoBehaviour
    public static MenuManager Instance;
    [SerializeField] public GameObject selectedPlayerObject; 
 
-   [SerializeField] public GameObject Item1Object, Item2Object, doorNameObject, doorTextObject; 
+   [SerializeField] public GameObject doorNameObject, doorTextObject; 
 
    [SerializeField] public GameObject doorModal, itemModal, itemText, inventoryIsFullText, itemImage, TemporaryModals; 
 
    [SerializeField] public GameObject yourTurnSign1, yourTurnSign2; 
-   public bool itemModalRotated = false; 
 
    public bool TemporaryModalsRotated = false;
 void Awake(){
@@ -34,22 +33,14 @@ selectedPlayerObject.SetActive(true);
 // DOOR MODAL
 public void ShowDoorModal(){
     doorModal.SetActive(true);
-    Item1Object.SetActive(true);
     doorNameObject.SetActive(true);
     doorTextObject.SetActive(true);
 }
 
-public void ShowSecondItem(){
-    Item2Object.SetActive(true);
-}
-
-public void HideSecondItem(){
-    Item2Object.SetActive(false);
-}
 
 public void HideDoorInfo(){
     doorModal.SetActive(false);
-    // Item2Object.SetActive(true);
+    Debug.Log("hidden doormodal");
 }
 
 // ITEM MODAL
