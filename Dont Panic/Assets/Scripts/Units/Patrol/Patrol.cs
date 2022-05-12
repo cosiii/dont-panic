@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Patrol : MonoBehaviour
+public class Patrol : BasePatrol
 {
+  public static Patrol Instance;
+ 
     public float speed;
     private float waitTime;
     public float startWaitTime;
@@ -11,11 +13,17 @@ public class Patrol : MonoBehaviour
 
     public Transform[] moveSpots;
     private int randomSpot;
-
+ void Awake(){
+       Instance = this;
+   }
     void Start(){
       waitTime = startWaitTime;
       randomSpot = Random.Range(0, moveSpots.Length);
     }
+
+  public void OnMouseDown(){
+    Debug.Log("clicked on patrol");
+  }
 
     void Update(){
       // transform.position is recent position
@@ -28,6 +36,9 @@ public class Patrol : MonoBehaviour
           waitTime -= Time.deltaTime;
         }
       }
+
+
+      //Debug.Log(Input.mousePosition);
 
      /* if (multipleTouch.onTablet == true){
         speed = 0;

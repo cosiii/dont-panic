@@ -11,6 +11,8 @@ public class UnitManager : MonoBehaviour
     public BasePlayer Player1, playerOneSpriteObject;
     public BasePlayer Player2, playerTwoSpriteObject;
 
+    public BasePatrol Patrol;
+
     public BaseItem Item1, Item2, Item3, Item4, Item5, Item6, Item7; 
 
     public BaseDoor DoorDown, DoorLeft, DoorRight, DoorUp1, DoorUp2;
@@ -107,16 +109,14 @@ public void UpdatePlayerTwo(){
 
 // SPAWNING PATROLS
     public void SpawnPatrols(){
-        var patrolCount =0;
+        var patrolCount = 1;
         for (int i = 0; i < patrolCount; i++)
         {
             var randomPrefab = GetRandomUnit<BasePatrol>(Faction.Patrol);
             var spawnedPatrol = Instantiate(randomPrefab);
             // get the tile of the player from GridManager
-            var randomSpawnTile = GridManager.Instance.GetPatrolSpawnTile();
-
+            var randomSpawnTile = GridManager.Instance.GetSpawnTile(2,2);
             randomSpawnTile.SetUnit(spawnedPatrol);
-
         }
 
         GameManager.Instance.ChangeState(GameState.Player1Turn);
