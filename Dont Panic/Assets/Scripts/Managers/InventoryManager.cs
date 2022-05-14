@@ -14,7 +14,7 @@ public string[] inventoryPlayerOne;
 
 public string[] inventoryPlayerTwo;
 
-
+public bool DropItem;
 public string lastDestroyedItem;
 
 public string lastDroppedItem;
@@ -22,6 +22,7 @@ public bool inventoryIsFullPlayerOne;
 public bool inventoryIsFullPlayerTwo;
 
 public GameObject inventoryPoint;
+public int[] nineTiles = new int[] { -1, 0, 1 };
 
 void Awake(){
         Instance = this;
@@ -70,142 +71,26 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
             } 
  }
 
-/*public void DropItem(){
-
-     //PLAYER ONE
-    for (int i = 0; i < slotsPlayerOne.Length; i++)
-    {
-        
-        if(isFullPlayerOne[slotsPlayerOne.Length-1 -i] == true && GameManager.Instance.GameState == GameState.Player1Turn ){ // item can be added to inventory
-            
-            Destroy(slotsPlayerOne[slotsPlayerOne.Length-1 -i].transform.GetChild(0).gameObject);
-            isFullPlayerOne[slotsPlayerOne.Length-1 -i] = false;
-            lastDroppedItem = inventoryPlayerOne[slotsPlayerOne.Length-1 -i];
-            inventoryPlayerOne[slotsPlayerOne.Length-1 -i] = "";
-            inventoryIsFullPlayerOne = false;
-            break;
-        }
-    }
-
-    //PLAYER TWO
-    for (int i = 0; i < slotsPlayerTwo.Length; i++)
-    {
-        if(isFullPlayerTwo[slotsPlayerTwo.Length-1 -i] == true && GameManager.Instance.GameState == GameState.Player2Turn ){ // item can be added to inventory
-            // parented to slots[i]
-            Destroy(slotsPlayerTwo[slotsPlayerTwo.Length-1 -i].transform.GetChild(0).gameObject);
-            // Destroy(slotsPlayerOne[i], 0f); zwei punkte weg
-            isFullPlayerTwo[slotsPlayerTwo.Length-1 -i] = false;
-            lastDroppedItem = inventoryPlayerTwo[slotsPlayerTwo.Length-1 -i];
-            inventoryPlayerTwo[slotsPlayerTwo.Length-1 -i] = "";
-            inventoryIsFullPlayerTwo = false;
-            break;
-        }
-    }
-
-    var spawnedItem = UnitManager.Instance.Item1;
-    var randomSpawnTile = GridManager.Instance.GetSpawnTile(1,1);
-
-    if (lastDroppedItem != ""){
-        if (lastDroppedItem == "Item1"){
-        // spawning item
-        spawnedItem = Instantiate(UnitManager.Instance.Item1);
-        // get the tile of the item from GridManager    
-        } else if (lastDroppedItem == "Item2"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item2);
-        } else if (lastDroppedItem == "Item3"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item3);
-        } else if (lastDroppedItem == "Item4"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item4);
-        } else if (lastDroppedItem == "Item5"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item5);
-        }else if (lastDroppedItem == "Item6"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item6);
-        }else if (lastDroppedItem == "Item7"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item7);
-        }
-
-        if( GameManager.Instance.GameState == GameState.Player1Turn){
-         randomSpawnTile = GridManager.Instance.GetSpawnTile(Player1.Instance.posx -1,Player1.Instance.posy-1);
-         if(isFullPlayerOne[0] == false){
-             Debug.Log("you don't have Items to drop");
-            }
-        } else if( GameManager.Instance.GameState == GameState.Player2Turn){
-         randomSpawnTile = GridManager.Instance.GetSpawnTile(Player2.Instance.posx -1,Player2.Instance.posy-1);
-         if(isFullPlayerTwo[0] == false){
-             Debug.Log("you don't have Items to drop");
-            }
-        }
-
-        randomSpawnTile.SetUnit(spawnedItem);
-        lastDroppedItem = "";
-    }
-    
-
-} */
-// slotsPlayerOne, isFullPlayerOne, GameState.Player1Turn, inventoryPlayerOne, inventoryIsFullPlayerOne // evtl instance bei player
-/* public void DropItemOf(BasePlayer player, GameObject[] slots, bool[] isFull, GameState state, string[] inventory, bool inventoryIsFull ){
-
-     //PLAYER ONE
-    for (int i = 0; i < slots.Length; i++)
-    {
-        
-        if(isFull[slots.Length-1 -i] == true && GameManager.Instance.GameState == state ){ // item can be added to inventory
-            
-            Destroy(slots[slots.Length-1 -i].transform.GetChild(0).gameObject);
-            isFull[slots.Length-1 -i] = false;
-            lastDroppedItem = inventory[slots.Length-1 -i];
-            inventory[slots.Length-1 -i] = "";
-            inventoryIsFull = false;
-            break;
-        }
-    }
-
-    var spawnedItem = UnitManager.Instance.Item1;
-    var randomSpawnTile = GridManager.Instance.GetSpawnTile(1,1);
-
-    if (lastDroppedItem != ""){
-        if (lastDroppedItem == "Item1"){
-        // spawning item
-        spawnedItem = Instantiate(UnitManager.Instance.Item1);
-        // get the tile of the item from GridManager    
-        } else if (lastDroppedItem == "Item2"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item2);
-        } else if (lastDroppedItem == "Item3"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item3);
-        } else if (lastDroppedItem == "Item4"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item4);
-        } else if (lastDroppedItem == "Item5"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item5);
-        }else if (lastDroppedItem == "Item6"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item6);
-        }else if (lastDroppedItem == "Item7"){
-        spawnedItem = Instantiate(UnitManager.Instance.Item7);
-        }
-
-        if( GameManager.Instance.GameState == state){
-         randomSpawnTile = GridManager.Instance.GetSpawnTile(player.posx -1,player.posy-1);
-         if(isFullPlayerOne[0] == false){
-             Debug.Log("you don't have Items to drop");
-            }
-        } 
-        randomSpawnTile.SetUnit(spawnedItem);
-        lastDroppedItem = "";
-    }
-    
-
-} */
 
 public void DropItemPl1(){
     Debug.Log("item droppen pl1");
+    // noch walkable und ohne null
     
+    // get tiles
     var spawnedItem = UnitManager.Instance.Item1;
-    var randomSpawnTile = GridManager.Instance.GetSpawnTile(1,1);
-    
-    if( GameManager.Instance.GameState == GameState.Player1Turn){
-         randomSpawnTile = GridManager.Instance.GetSpawnTile(Player1.Instance.posx -1,Player1.Instance.posy-1);
-         if(isFullPlayerOne[0] == false){
+   //var x = nineTiles[Random.Range(0,nineTiles.Length)];
+    //var y = nineTiles[Random.Range(0,nineTiles.Length)];
+
+    // nur wenn walkable und x und y dürfen nicht beide null sein
+    // x != 0 && y!= 0 else redo x und y neu
+    var randomSpawnTile = GridManager.Instance.GetSpawnTile(Player1.Instance.posx + 1, Player1.Instance.posy + 1);
+
+    if(isFullPlayerOne[0] == false){
              Debug.Log("you don't have Items to drop");
             }
+    
+    if( GameManager.Instance.GameState == GameState.Player1Turn && DropItem == true && isFullPlayerOne != null && GridManager.Instance.GetSpawnTile(Player1.Instance.posx + 1, Player1.Instance.posy + 1).Walkable == true){
+         
          //PLAYER ONE
     for (int i = 0; i < slotsPlayerOne.Length; i++)
     {
@@ -250,10 +135,11 @@ public void DropItemPl2(){
     
     var spawnedItem = UnitManager.Instance.Item1;
     var randomSpawnTile = GridManager.Instance.GetSpawnTile(1,1);
+   
     
     
     if( GameManager.Instance.GameState == GameState.Player2Turn){
-         randomSpawnTile = GridManager.Instance.GetSpawnTile(Player2.Instance.posx -1,Player2.Instance.posy-1);
+         randomSpawnTile = GridManager.Instance.GetSpawnTile(2,1);
          if(isFullPlayerTwo[0] == false){
              Debug.Log("you don't have Items to drop");
             }

@@ -25,7 +25,8 @@ public class multipleTouch : MonoBehaviour {
 	public void Update () {
         UnitManager.Instance.UpdatePlayerOne();
         UnitManager.Instance.UpdatePlayerTwo();
-        int i = 0;
+        if(Player1.Instance.deciding == true || Player2.Instance.deciding == true){
+            int i = 0;
          while(i < Input.touchCount){
             Touch t = Input.GetTouch(i);
             if(i == 0){
@@ -115,6 +116,8 @@ public class multipleTouch : MonoBehaviour {
 
             ++i;
         }
+        }
+        
 
       
 	}

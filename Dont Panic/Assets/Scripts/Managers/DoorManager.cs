@@ -12,9 +12,13 @@ public class DoorManager : MonoBehaviour
 
   public string doorName1, doorName2, doorName3, doorName4, doorName5;
   public bool firstUnlocked = false;
+
+  public bool hallwayFeatureP1, pantryFeatureP1, surgeryFeatureP1, diningFeatureP1;
+  public bool hallwayFeatureP2, pantryFeatureP2, surgeryFeatureP2, diningFeatureP2;
 public string[] RandomItems = {"Item1","Item2", "Item3", "Item4", "Item5", "Item6", "Item7" };
 
 public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery room"};
+
   void Awake(){
       Instance = this;
         Shuffle();
@@ -73,12 +77,23 @@ public void ShowDoorFeature(string doorName){
         // erstmal wenn man einfach nur draufkommt
         if (GameManager.Instance.GameState == GameState.Player1Turn){
             Player1.Instance.walkingDistance =4;
+            pantryFeatureP1 = true;
         } else if (GameManager.Instance.GameState == GameState.Player2Turn){
             Player2.Instance.walkingDistance =4;
+            pantryFeatureP2 = true;
         }
     } else if(doorName == "dining hall"){
     } else if(doorName == "hallway"){
     } else if(doorName == "surgery room"){
+        // erstmal wenn man einfach nur draufkommt
+        if (GameManager.Instance.GameState == GameState.Player1Turn){
+            // for every item pl2 has
+            //InventoryManager.Instance.DropItemPl2();
+            surgeryFeatureP1 = true;
+        } else if (GameManager.Instance.GameState == GameState.Player2Turn){
+            //InventoryManager.Instance.DropItemPl1();
+            surgeryFeatureP2 = true;
+        }
     }
 }
 public void SetupDoor(string[] keyItem, string doorName){

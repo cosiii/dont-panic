@@ -33,7 +33,7 @@ public class ItemManager : MonoBehaviour
         MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "teddy bear";
     } else if(InventoryManager.Instance.lastDestroyedItem == "Item5"){
         oldImage.sprite = Item5;
-        MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "leatherbelt";
+        MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "leather belt";
     } else if(InventoryManager.Instance.lastDestroyedItem == "Item6"){
         oldImage.sprite = Item6;
         MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "guard ID";

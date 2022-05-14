@@ -35,11 +35,9 @@ public abstract class Tile : MonoBehaviour
     }
 
     void OnMouseDown(){
+        //InventoryManager.Instance.DropItemPl1();
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied
-        if(OccupiedUnit.Faction == Faction.Patrol){
-            Debug.Log("this is patrol");
-        }
 
             if(OccupiedUnit.Faction == Faction.Player){
                 // CLICKING FOR MAKING TURN
@@ -48,11 +46,13 @@ public abstract class Tile : MonoBehaviour
                     //if(MultipleTouch.Instance.objectOneRecognized == true){
                     Player1.Instance.highlight.SetActive(true);
                     ShowWalkableTiles(Player1.Instance);  
+                    Player1.Instance.deciding = true;
                 } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
                     //if(MultipleTouch.Instance.objectTwoRecognized == true){
                     Player2.Instance.highlight.SetActive(true);
                     ShowWalkableTiles(Player2.Instance);
+                    Player2.Instance.deciding = true;
                     
                 } 
                 
@@ -76,6 +76,8 @@ public abstract class Tile : MonoBehaviour
                     // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
+                    Player1.Instance.deciding = false;
+                    Player2.Instance.deciding = false;
                     ChangePlayerTurn();
                     }
 
@@ -105,6 +107,8 @@ public abstract class Tile : MonoBehaviour
                     // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
+                    Player1.Instance.deciding = false;
+                    Player2.Instance.deciding = false;
                     ChangePlayerTurn();
                     }
 
@@ -157,6 +161,8 @@ public abstract class Tile : MonoBehaviour
                     // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
+                    Player1.Instance.deciding = false;
+                    Player2.Instance.deciding = false;
 
                     ChangePlayerTurn();
                 }
@@ -177,6 +183,8 @@ public abstract class Tile : MonoBehaviour
                  // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
+                    Player1.Instance.deciding = false;
+                    Player2.Instance.deciding = false;
 
 
                  if (playerOnDoor ==true){
