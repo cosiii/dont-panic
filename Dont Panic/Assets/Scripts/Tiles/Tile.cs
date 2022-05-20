@@ -165,6 +165,16 @@ public abstract class Tile : MonoBehaviour
                     Player2.Instance.deciding = false;
 
                     ChangePlayerTurn();
+
+                    // PANTRY FEATURE CHANGE TURNS AGAIN
+                    if(DoorManager.Instance.pantryFeatureP1 == true){
+                        ChangePlayerTurn();
+                        DoorManager.Instance.pantryFeatureP1 = false;
+                    } else if(DoorManager.Instance.pantryFeatureP2 == true ){
+                        ChangePlayerTurn();
+                        DoorManager.Instance.pantryFeatureP2 = false;
+                    }
+                    
                 }
 
             }

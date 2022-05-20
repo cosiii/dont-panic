@@ -74,15 +74,20 @@ public void Shuffle() {
 public void ShowDoorFeature(string doorName){
     if(doorName == "exit"){ // EXIT : YOU HAVE WON
     } else if(doorName == "pantry"){ // PANTRY: YOU CAN MOVE 1 TILE MORE EACH TURN
-        // erstmal wenn man einfach nur draufkommt
         if (GameManager.Instance.GameState == GameState.Player1Turn){
-            Player1.Instance.walkingDistance =4;
-            pantryFeatureP1 = true;
+                pantryFeatureP1 = true;
         } else if (GameManager.Instance.GameState == GameState.Player2Turn){
-            Player2.Instance.walkingDistance =4;
             pantryFeatureP2 = true;
         }
     } else if(doorName == "dining hall"){
+        // erstmal wenn man einfach nur draufkommt
+        if (GameManager.Instance.GameState == GameState.Player1Turn){
+            Player1.Instance.walkingDistance =4;
+            diningFeatureP1 = true;
+        } else if (GameManager.Instance.GameState == GameState.Player2Turn){
+            Player2.Instance.walkingDistance =4;
+            diningFeatureP2 = true;
+        }
     } else if(doorName == "hallway"){
     } else if(doorName == "surgery room"){
         // erstmal wenn man einfach nur draufkommt
