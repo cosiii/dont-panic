@@ -133,6 +133,7 @@ public void DropItemPl1(){
 
 public void DropItemPl2(){
     
+    Debug.Log("item droppen pl2");
     var spawnedItem = UnitManager.Instance.Item1;
     var randomSpawnTile = GridManager.Instance.GetSpawnTile(1,1);
    

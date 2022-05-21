@@ -76,9 +76,9 @@ public abstract class Tile : MonoBehaviour
                     // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
+                    ChangePlayerTurn();
                     Player1.Instance.deciding = false;
                     Player2.Instance.deciding = false;
-                    ChangePlayerTurn();
                     }
 
                     if(UnitManager.Instance.SelectedPlayer == null){
@@ -107,9 +107,10 @@ public abstract class Tile : MonoBehaviour
                     // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
+                    
+                    ChangePlayerTurn();
                     Player1.Instance.deciding = false;
                     Player2.Instance.deciding = false;
-                    ChangePlayerTurn();
                     }
 
                     if(UnitManager.Instance.SelectedPlayer == null){
@@ -146,6 +147,7 @@ public abstract class Tile : MonoBehaviour
                             LastDoor = OccupiedUnit.UnitName;
                             DoorManager.Instance.DoorCollision();
                             playerOnDoor = true;
+                            MenuManager.Instance.AnimatePlayerText();
                         }
                         
             // COLLISION PATROL       
@@ -161,9 +163,8 @@ public abstract class Tile : MonoBehaviour
                     // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
-                    Player1.Instance.deciding = false;
-                    Player2.Instance.deciding = false;
-
+                    
+                    
                     ChangePlayerTurn();
 
                     // PANTRY FEATURE CHANGE TURNS AGAIN
@@ -174,7 +175,8 @@ public abstract class Tile : MonoBehaviour
                         ChangePlayerTurn();
                         DoorManager.Instance.pantryFeatureP2 = false;
                     }
-                    
+                    Player1.Instance.deciding = false;
+                    Player2.Instance.deciding = false;
                 }
 
             }
@@ -193,8 +195,7 @@ public abstract class Tile : MonoBehaviour
                  // dehighlight all
                     Player1.Instance.highlight.SetActive(false);
                     Player2.Instance.highlight.SetActive(false);
-                    Player1.Instance.deciding = false;
-                    Player2.Instance.deciding = false;
+                    
 
 
                  if (playerOnDoor ==true){
@@ -204,7 +205,8 @@ public abstract class Tile : MonoBehaviour
                 }
 
                 ChangePlayerTurn();
-                
+                Player1.Instance.deciding = false;
+                Player2.Instance.deciding = false;
             }
         }
 

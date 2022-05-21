@@ -14,6 +14,8 @@ public class MenuManager : MonoBehaviour
 
    [SerializeField] public GameObject yourTurnSign1, yourTurnSign2; 
 
+   [SerializeField] public GameObject TextForPlayerModal, PlayerText; 
+
    public bool TemporaryModalsRotated = false;
 void Awake(){
     Instance = this;
@@ -39,8 +41,9 @@ public void ShowDoorModal(){
 
 
 public void HideDoorInfo(){
-    doorModal.SetActive(false);
+    
     Debug.Log("hidden doormodal");
+    doorModal.SetActive(false);
 }
 
 // ITEM MODAL
@@ -54,6 +57,10 @@ public void AnimateItemModal(){
     animation.SetTrigger("ItemCollision");
 }
 
+public void AnimatePlayerText(){
+    Animator animation = TextForPlayerModal.GetComponent<Animator>();
+    animation.SetTrigger("TextNeeded");
+}
 
 public void RotateModalsToPlayer1(){
     if( TemporaryModalsRotated == true){

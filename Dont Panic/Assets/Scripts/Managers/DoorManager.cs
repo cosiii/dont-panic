@@ -73,13 +73,16 @@ public void Shuffle() {
 
 public void ShowDoorFeature(string doorName){
     if(doorName == "exit"){ // EXIT : YOU HAVE WON
+    MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the exit";
     } else if(doorName == "pantry"){ // PANTRY: YOU CAN MOVE 1 TILE MORE EACH TURN
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the pantry";
         if (GameManager.Instance.GameState == GameState.Player1Turn){
                 pantryFeatureP1 = true;
         } else if (GameManager.Instance.GameState == GameState.Player2Turn){
             pantryFeatureP2 = true;
         }
     } else if(doorName == "dining hall"){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the dining hall";
         // erstmal wenn man einfach nur draufkommt
         if (GameManager.Instance.GameState == GameState.Player1Turn){
             Player1.Instance.walkingDistance =4;
@@ -89,13 +92,16 @@ public void ShowDoorFeature(string doorName){
             diningFeatureP2 = true;
         }
     } else if(doorName == "hallway"){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the hallway";
     } else if(doorName == "surgery room"){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the surgery room";
         // erstmal wenn man einfach nur draufkommt
         if (GameManager.Instance.GameState == GameState.Player1Turn){
             // for every item pl2 has
             //InventoryManager.Instance.DropItemPl2();
             surgeryFeatureP1 = true;
         } else if (GameManager.Instance.GameState == GameState.Player2Turn){
+            
             //InventoryManager.Instance.DropItemPl1();
             surgeryFeatureP2 = true;
         }
