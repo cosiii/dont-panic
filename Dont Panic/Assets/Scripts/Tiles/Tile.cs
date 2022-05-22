@@ -148,6 +148,7 @@ public abstract class Tile : MonoBehaviour
                             DoorManager.Instance.DoorCollision();
                             playerOnDoor = true;
                             MenuManager.Instance.AnimatePlayerText();
+                            MenuManager.Instance.AnimateDoorModal();
                         }
                         
             // COLLISION PATROL       

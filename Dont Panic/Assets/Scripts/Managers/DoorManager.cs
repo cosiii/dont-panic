@@ -97,12 +97,10 @@ public void ShowDoorFeature(string doorName){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the surgery room";
         // erstmal wenn man einfach nur draufkommt
         if (GameManager.Instance.GameState == GameState.Player1Turn){
-            // for every item pl2 has
-            //InventoryManager.Instance.DropItemPl2();
+            InventoryManager.Instance.DropItemPl2();
             surgeryFeatureP1 = true;
         } else if (GameManager.Instance.GameState == GameState.Player2Turn){
-            
-            //InventoryManager.Instance.DropItemPl1();
+            InventoryManager.Instance.DropItemPl1();
             surgeryFeatureP2 = true;
         }
     }

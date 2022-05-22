@@ -57,6 +57,11 @@ public void AnimateItemModal(){
     animation.SetTrigger("ItemCollision");
 }
 
+public void AnimateDoorModal(){
+    Animator animation = doorModal.GetComponent<Animator>();
+    animation.SetTrigger("DoorCollision");
+}
+
 public void AnimatePlayerText(){
     Animator animation = TextForPlayerModal.GetComponent<Animator>();
     animation.SetTrigger("TextNeeded");
