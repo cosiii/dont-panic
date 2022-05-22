@@ -85,14 +85,21 @@ public void ShowDoorFeature(string doorName){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the dining hall";
         // erstmal wenn man einfach nur draufkommt
         if (GameManager.Instance.GameState == GameState.Player1Turn){
-            Player1.Instance.walkingDistance =4;
             diningFeatureP1 = true;
         } else if (GameManager.Instance.GameState == GameState.Player2Turn){
-            Player2.Instance.walkingDistance =4;
             diningFeatureP2 = true;
         }
+
+        
     } else if(doorName == "hallway"){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the hallway";
+         if (GameManager.Instance.GameState == GameState.Player1Turn){
+            Player1.Instance.walkingDistance =4;
+            hallwayFeatureP1 = true;
+        } else if (GameManager.Instance.GameState == GameState.Player2Turn){
+            Player2.Instance.walkingDistance =4;
+            hallwayFeatureP2 = true;
+        }
     } else if(doorName == "surgery room"){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the surgery room";
         // erstmal wenn man einfach nur draufkommt

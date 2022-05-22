@@ -16,6 +16,8 @@ public class MenuManager : MonoBehaviour
 
    [SerializeField] public GameObject TextForPlayerModal, PlayerText; 
 
+    [SerializeField] public GameObject AdditionalInventory1, AdditionalInventory2; 
+
    public bool TemporaryModalsRotated = false;
 void Awake(){
     Instance = this;
@@ -35,10 +37,15 @@ selectedPlayerObject.SetActive(true);
 // DOOR MODAL
 public void ShowDoorModal(){
     doorModal.SetActive(true);
-    doorNameObject.SetActive(true);
-    doorTextObject.SetActive(true);
 }
 
+public void ShowAdditionalInventory1(){
+    AdditionalInventory1.SetActive(true);
+}
+
+public void ShowAdditionalInventory2(){
+    AdditionalInventory2.SetActive(true);
+}
 
 public void HideDoorInfo(){
     
