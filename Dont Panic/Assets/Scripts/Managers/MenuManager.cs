@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
@@ -15,12 +16,15 @@ public class MenuManager : MonoBehaviour
    [SerializeField] public GameObject yourTurnSign1, yourTurnSign2; 
 
    [SerializeField] public GameObject TextForPlayerModal, PlayerText; 
+    [SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 
 
     [SerializeField] public GameObject AdditionalInventory1, AdditionalInventory2; 
 
    public bool TemporaryModalsRotated = false;
 void Awake(){
     Instance = this;
+    NameTextPlayerOne.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText1.text;
+    NameTextPlayerTwo.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText2.text;
 }
 
 public void ShowSelectedPlayer(BasePlayer player){

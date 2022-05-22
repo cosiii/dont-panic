@@ -101,7 +101,7 @@ public void ShowDoorFeature(string doorName){
         }
 
 
-    } else if(doorName == "hallway"){
+    } else if(doorName == "hallway"){ // HALLWAY: YOU CAN WALK MORE 
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the hallway";
          if (GameManager.Instance.GameState == GameState.Player1Turn){
             Player1.Instance.walkingDistance =4;
