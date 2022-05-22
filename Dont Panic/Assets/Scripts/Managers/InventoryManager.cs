@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
  public static InventoryManager Instance;
- public bool[] isFullPlayerOne;
- public bool[] isFullPlayerTwo;
- public GameObject[] slotsPlayerOne;
-public GameObject[] slotsPlayerTwo;
-public string[] inventoryPlayerOne;
+ public List <bool> isFullPlayerOne;
+ public List <bool> isFullPlayerTwo;
+ public List <GameObject> slotsPlayerOne;
+public List <GameObject> slotsPlayerTwo;
+public List <string> inventoryPlayerOne;
 
-public string[] inventoryPlayerTwo;
+public List <string> inventoryPlayerTwo;
 
 public bool DropItem;
 public string lastDestroyedItem;
@@ -33,7 +33,7 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
     //PLAYER ONE
     // rotate ItemModal
     MenuManager.Instance.RotateModalsToPlayer1();
-    for (int i = 0; i < slotsPlayerOne.Length; i++)
+    for (int i = 0; i < slotsPlayerOne.Count; i++)
     {
         if(isFullPlayerOne[i] == false ){ // item can be added to inventory
             // parented to slots[i]
@@ -48,7 +48,7 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
 } else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ //PLAYER TWO
     // rotate itemModal
     MenuManager.Instance.RotateModalsToPlayer2();
-    for (int i = 0; i < slotsPlayerTwo.Length; i++)
+    for (int i = 0; i < slotsPlayerTwo.Count; i++)
     {
         if(isFullPlayerTwo[i] == false){ // item can be added to inventory
             // parented to slots[i]
@@ -60,12 +60,12 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
     }
 }
 
- if(isFullPlayerOne[slotsPlayerOne.Length -1] == true){
+ if(isFullPlayerOne[slotsPlayerOne.Count -1] == true){
                 Debug.Log("inventory full pl1");
                 inventoryIsFullPlayerOne = true;
             } 
 
- if(isFullPlayerTwo[slotsPlayerTwo.Length -1] == true){
+ if(isFullPlayerTwo[slotsPlayerTwo.Count -1] == true){
                 Debug.Log("inventory full pl2");
                 inventoryIsFullPlayerTwo = true;
             } 
@@ -92,13 +92,13 @@ public void DropItemPl1(){
     if( GameManager.Instance.GameState == GameState.Player1Turn && DropItem == true && isFullPlayerOne != null && GridManager.Instance.GetSpawnTile(Player1.Instance.posx + 1, Player1.Instance.posy + 1).Walkable == true){
          
          //PLAYER ONE
-    for (int i = 0; i < slotsPlayerOne.Length; i++)
+    for (int i = 0; i < slotsPlayerOne.Count; i++)
     {
-        if(isFullPlayerOne[slotsPlayerOne.Length-1 -i] == true && GameManager.Instance.GameState == GameState.Player1Turn ){ // item can be added to inventory
-            Destroy(slotsPlayerOne[slotsPlayerOne.Length-1 -i].transform.GetChild(0).gameObject);
-            isFullPlayerOne[slotsPlayerOne.Length-1 -i] = false;
-            lastDroppedItem = inventoryPlayerOne[slotsPlayerOne.Length-1 -i];
-            inventoryPlayerOne[slotsPlayerOne.Length-1 -i] = "";
+        if(isFullPlayerOne[slotsPlayerOne.Count-1 -i] == true && GameManager.Instance.GameState == GameState.Player1Turn ){ // item can be added to inventory
+            Destroy(slotsPlayerOne[slotsPlayerOne.Count-1 -i].transform.GetChild(0).gameObject);
+            isFullPlayerOne[slotsPlayerOne.Count-1 -i] = false;
+            lastDroppedItem = inventoryPlayerOne[slotsPlayerOne.Count-1 -i];
+            inventoryPlayerOne[slotsPlayerOne.Count-1 -i] = "";
             inventoryIsFullPlayerOne = false;
             break;
         }
@@ -145,15 +145,15 @@ public void DropItemPl2(){
              Debug.Log("you don't have Items to drop");
             }
     //PLAYER TWO
-    for (int i = 0; i < slotsPlayerTwo.Length; i++)
+    for (int i = 0; i < slotsPlayerTwo.Count; i++)
     {
-        if(isFullPlayerTwo[slotsPlayerTwo.Length-1 -i] == true && GameManager.Instance.GameState == GameState.Player2Turn ){ // item can be added to inventory
+        if(isFullPlayerTwo[slotsPlayerTwo.Count-1 -i] == true && GameManager.Instance.GameState == GameState.Player2Turn ){ // item can be added to inventory
             // parented to slots[i]
-            Destroy(slotsPlayerTwo[slotsPlayerTwo.Length-1 -i].transform.GetChild(0).gameObject);
+            Destroy(slotsPlayerTwo[slotsPlayerTwo.Count-1 -i].transform.GetChild(0).gameObject);
             // Destroy(slotsPlayerOne[i], 0f); zwei punkte weg
-            isFullPlayerTwo[slotsPlayerTwo.Length-1 -i] = false;
-            lastDroppedItem = inventoryPlayerTwo[slotsPlayerTwo.Length-1 -i];
-            inventoryPlayerTwo[slotsPlayerTwo.Length-1 -i] = "";
+            isFullPlayerTwo[slotsPlayerTwo.Count-1 -i] = false;
+            lastDroppedItem = inventoryPlayerTwo[slotsPlayerTwo.Count-1 -i];
+            inventoryPlayerTwo[slotsPlayerTwo.Count-1 -i] = "";
             inventoryIsFullPlayerTwo = false;
             break;
         }

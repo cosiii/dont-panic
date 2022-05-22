@@ -19,6 +19,9 @@ public string[] RandomItems = {"Item1","Item2", "Item3", "Item4", "Item5", "Item
 
 public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery room"};
 
+[SerializeField] public GameObject Player1Slot4, Player2Slot4; 
+
+
   void Awake(){
       Instance = this;
         Shuffle();
@@ -81,16 +84,23 @@ public void ShowDoorFeature(string doorName){
         } else if (GameManager.Instance.GameState == GameState.Player2Turn){
             pantryFeatureP2 = true;
         }
-    } else if(doorName == "dining hall"){
+    } else if(doorName == "dining hall"){ // DINING: YOU CAN CARRY MORE ITEMS
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the dining hall";
-        // erstmal wenn man einfach nur draufkommt
         if (GameManager.Instance.GameState == GameState.Player1Turn){
+            MenuManager.Instance.ShowAdditionalInventory1();
+            InventoryManager.Instance.inventoryPlayerOne.Add("");
+            InventoryManager.Instance.slotsPlayerOne.Add(Player1Slot4);
+            InventoryManager.Instance.isFullPlayerOne.Add(false);
             diningFeatureP1 = true;
         } else if (GameManager.Instance.GameState == GameState.Player2Turn){
+            MenuManager.Instance.ShowAdditionalInventory2();
+            InventoryManager.Instance.inventoryPlayerTwo.Add("");
+            InventoryManager.Instance.slotsPlayerTwo.Add(Player2Slot4);
+            InventoryManager.Instance.isFullPlayerTwo.Add(false);
             diningFeatureP2 = true;
         }
 
-        
+
     } else if(doorName == "hallway"){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the hallway";
          if (GameManager.Instance.GameState == GameState.Player1Turn){
