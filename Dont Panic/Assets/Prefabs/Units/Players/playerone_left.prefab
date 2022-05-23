@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1336381422374703416}
   - component: {fileID: 3118968596649758772}
+  - component: {fileID: 4554249793368446364}
   m_Layer: 0
   m_Name: playerone_left
   m_TagString: Untagged
@@ -81,6 +82,19 @@ SpriteRenderer:
   m_Size: {x: 3.55, y: 3.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &4554249793368446364
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5888718975018332099}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

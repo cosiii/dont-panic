@@ -55,37 +55,51 @@ public void Shuffle() {
         if (lastVisitedDoor == "door1"){
             SetupDoor(keyItems1, doorName1);
             ShowDoorFeature(doorName1);
+            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 1";
         } else if (lastVisitedDoor == "door2"){
             SetupDoor(keyItems2, doorName2);
             ShowDoorFeature(doorName2);
+            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 2";
         }  else if (lastVisitedDoor == "door3"){
            SetupDoor(keyItems3, doorName3);
            ShowDoorFeature(doorName3);
+           MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 3";
         } else if (lastVisitedDoor == "door4"){
             SetupDoor(keyItems4, doorName4);
             ShowDoorFeature(doorName4);
+            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 4";
         } else if (lastVisitedDoor == "door5"){
             SetupDoor(keyItems5, doorName5);
             ShowDoorFeature(doorName5);
+            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 5";
         }
       
     // ROTATING AND SHOWING MODAL AND HIDING ITEMS
     // buggt wenn man ein zweites mal aufs door kommt
      MenuManager.Instance.ShowDoorModal();
+     
   }
 
 public void ShowDoorFeature(string doorName){
     if(doorName == "exit"){ // EXIT : YOU HAVE WON
-    MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the exit";
-    } else if(doorName == "pantry"){ // PANTRY: YOU CAN MOVE 1 TILE MORE EACH TURN
+    if( firstUnlocked == true){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the exit";
+    }
+    } else if(doorName == "pantry" && firstUnlocked == true){ // PANTRY: YOU CAN MOVE 1 TILE MORE EACH TURN
+    if (firstUnlocked == true){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the pantry";
+    }
+        
         if (GameManager.Instance.GameState == GameState.Player1Turn){
                 pantryFeatureP1 = true;
         } else if (GameManager.Instance.GameState == GameState.Player2Turn){
             pantryFeatureP2 = true;
         }
     } else if(doorName == "dining hall"){ // DINING: YOU CAN CARRY MORE ITEMS
+    if (firstUnlocked == true){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the dining hall";
+    }
+        
         if (GameManager.Instance.GameState == GameState.Player1Turn){
             MenuManager.Instance.ShowAdditionalInventory1();
             InventoryManager.Instance.inventoryPlayerOne.Add("");
@@ -102,7 +116,10 @@ public void ShowDoorFeature(string doorName){
 
 
     } else if(doorName == "hallway"){ // HALLWAY: YOU CAN WALK MORE 
+    if (firstUnlocked == true){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the hallway";
+    }
+        
          if (GameManager.Instance.GameState == GameState.Player1Turn){
             Player1.Instance.walkingDistance =4;
             hallwayFeatureP1 = true;
@@ -111,7 +128,10 @@ public void ShowDoorFeature(string doorName){
             hallwayFeatureP2 = true;
         }
     } else if(doorName == "surgery room"){
+        if (firstUnlocked == true){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the surgery room";
+    }
+        
         // erstmal wenn man einfach nur draufkommt
         if (GameManager.Instance.GameState == GameState.Player1Turn){
             InventoryManager.Instance.DropItemPl2();
@@ -151,6 +171,7 @@ public void SetupDoor(string[] keyItem, string doorName){
              if (x.Equals (itemOne))
              {
                  Debug.Log("you, player one has this item, the next item is " + itemToHaveNext);
+                 
                  firstUnlocked = true;
                  MenuManager.Instance.doorTextObject.GetComponentInChildren<Text>().text = "You have the first Item! Go search for the second to open the door";
                  MenuManager.Instance.doorNameObject.GetComponentInChildren<Text>().text = lastVisitedDoor;
