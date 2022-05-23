@@ -22,4 +22,8 @@ public class Buttons : MonoBehaviour
          nameDisplay1.text = nameText1.text;
          nameDisplay2.text = nameText2.text;
      }
+
+     public void ButtonClick(){
+         Debug.Log("hello");
+     }
 }

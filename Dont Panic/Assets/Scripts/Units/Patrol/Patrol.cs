@@ -9,6 +9,8 @@ public class Patrol : BasePatrol
     public float speed;
     private float waitTime;
     public float startWaitTime;
+
+    public BoxCollider patrolBoxCollider;
     //public MultipleTouch multipleTouch;
 
     public Transform[] moveSpots;
@@ -23,6 +25,16 @@ public class Patrol : BasePatrol
 
   public void OnMouseDown(){
     Debug.Log("clicked on patrol");
+  }
+
+   public void OnCollisionEnter(Collision col){
+    if (col.gameObject.name == "playerone(Clone)"){
+      Tile.Instance.ThrowPlayer1ByPatrol();
+                
+    } 
+    if (col.gameObject.name == "playertwo(Clone)"){
+      Tile.Instance.ThrowPlayer2ByPatrol();
+    }
   }
 
     void Update(){

@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1319520044008374392}
   - component: {fileID: 6502304964032317516}
   - component: {fileID: 8018250621830881957}
+  - component: {fileID: 316429441511241643}
   m_Layer: 0
   m_Name: playerone
   m_TagString: Untagged
@@ -188,4 +189,18 @@ MonoBehaviour:
   posx: 3
   posy: 5
   walkingDistance: 3
+  deciding: 0
   highlight: {fileID: 6404412660928150775}
+--- !u!65 &316429441511241643
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593985482268902386}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.86, y: 0.86, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}

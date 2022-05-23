@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2562335101779375904}
   - component: {fileID: 489247576804137817}
   - component: {fileID: 8681308360737989456}
-  - component: {fileID: -4820251023524544354}
+  - component: {fileID: 1740003284856306117}
+  - component: {fileID: 4077513960533068648}
   m_Layer: 0
   m_Name: patrol (1)
   m_TagString: Untagged
@@ -103,32 +104,36 @@ MonoBehaviour:
   UnitName: patrol
   speed: 1
   startWaitTime: 0.1
+  patrolBoxCollider: {fileID: 0}
   moveSpots:
   - {fileID: 1878818200447423858, guid: aed32294a2d92844a9f3dcfb9cb4b4e6, type: 3}
   - {fileID: 8448647850549329856, guid: b756d3651669ecf44ac72fe71455a42b, type: 3}
---- !u!61 &-4820251023524544354
-BoxCollider2D:
+--- !u!65 &1740003284856306117
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3783817847175605902}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.86, y: 0.86}
-    newSize: {x: 0.86, y: 0.86}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.86, y: 0.86}
-  m_EdgeRadius: 0
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &4077513960533068648
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3783817847175605902}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 1
+  m_AngularDrag: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
