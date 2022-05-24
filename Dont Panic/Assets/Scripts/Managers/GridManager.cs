@@ -60,7 +60,7 @@ public void GenerateGrid()
     }
     public Tile GetItemSpawnTile(){
     //map and is walkable
-    return tiles.Where(t => t.Key.x < _width && t.Value.Walkable).OrderBy(t=> Random.value).First().Value;
+    return tiles.Where(t => t.Key.x < _width && t.Key.y < _height && t.Value.Walkable).OrderBy(t=> Random.value).First().Value;
     }
 
      public Tile GetDoorSpawnTile(int x, int y){

@@ -74,9 +74,6 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
 
 public void DropItemPl1(){
     Debug.Log("item droppen pl1");
-    // noch walkable und ohne null
-    
-    // get tiles
     var spawnedItem = UnitManager.Instance.Item1;
    //var x = nineTiles[Random.Range(0,nineTiles.Length)];
     //var y = nineTiles[Random.Range(0,nineTiles.Length)];
@@ -87,14 +84,12 @@ public void DropItemPl1(){
 
     if(isFullPlayerOne[0] == false){
              Debug.Log("you don't have Items to drop");
-            }
-    
-    if( GameManager.Instance.GameState == GameState.Player1Turn && DropItem == true && isFullPlayerOne != null && GridManager.Instance.GetSpawnTile(Player1.Instance.posx + 1, Player1.Instance.posy + 1).Walkable == true){
-         
+            } 
          //PLAYER ONE
     for (int i = 0; i < slotsPlayerOne.Count; i++)
     {
-        if(isFullPlayerOne[slotsPlayerOne.Count-1 -i] == true && GameManager.Instance.GameState == GameState.Player1Turn ){ // item can be added to inventory
+        Debug.Log("for schleife");
+        if(isFullPlayerOne[slotsPlayerOne.Count-1 -i] == true){ // item can be added to inventory
             Destroy(slotsPlayerOne[slotsPlayerOne.Count-1 -i].transform.GetChild(0).gameObject);
             isFullPlayerOne[slotsPlayerOne.Count-1 -i] = false;
             lastDroppedItem = inventoryPlayerOne[slotsPlayerOne.Count-1 -i];
@@ -128,7 +123,7 @@ public void DropItemPl1(){
         lastDroppedItem = "";
     }
     GameManager.Instance.GameState = GameState.Player2Turn;
-    }
+    
 }
 
 public void DropItemPl2(){

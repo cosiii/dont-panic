@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.SpawnPlayers:
             UnitManager.Instance.SpawnDoors();
-            UnitManager.Instance.SpawnItems();
             UnitManager.Instance.SpawnPlayers();
+            UnitManager.Instance.SpawnItems();
                 break;
             case GameState.SpawnPatrol:
             UnitManager.Instance.SpawnPatrols();

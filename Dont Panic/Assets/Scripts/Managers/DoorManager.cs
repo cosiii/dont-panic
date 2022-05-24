@@ -82,6 +82,15 @@ public void Shuffle() {
   }
 
 public void ShowDoorFeature(string doorName){
+
+    if (firstUnlocked == true){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontSize = 18;
+    } else if (secondUnlocked == true){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontSize = 12;
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontStyle = FontStyle.Normal;
+    }
+
+
     // EXIT : YOU HAVE WON
     if(doorName == "exit"){ 
         if( firstUnlocked == true){

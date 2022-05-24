@@ -193,6 +193,7 @@ public abstract class Tile : MonoBehaviour
     } 
 
     public void ThrowPlayer1(){
+        InventoryManager.Instance.DropItemPl1();
         int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
         int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
                     if(UnitManager.Instance.SelectedPlayer!= null){
