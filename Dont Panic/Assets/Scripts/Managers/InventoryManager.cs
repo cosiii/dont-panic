@@ -89,7 +89,7 @@ public void DropOneItem(BasePlayer player){
     var spawnTileAroundPlayer = GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy);
 
     if(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit == null){
-        Debug.Log("it is walkable here");
+        //Debug.Log("it is walkable here");
     } else if(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null){
         Debug.Log("it is not walkable here");
         // respawn items
@@ -104,7 +104,6 @@ public void DropOneItem(BasePlayer player){
         for (int i = 0; i < slotsPlayerOne.Count; i++)
         {
             if(isFullPlayerOne[slotsPlayerOne.Count-1 -i] == true){ 
-            Debug.Log("its true");
             Destroy(slotsPlayerOne[slotsPlayerOne.Count-1 -i].transform.GetChild(0).gameObject);
             isFullPlayerOne[slotsPlayerOne.Count-1 -i] = false;
             lastDroppedItem = inventoryPlayerOne[slotsPlayerOne.Count-1 -i];
