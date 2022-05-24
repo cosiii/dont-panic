@@ -56,15 +56,20 @@ public abstract class Tile : MonoBehaviour
                     
                 } 
                 
-                // THROWING PLAYER 1
+                // THROWING PLAYER 1 
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" && isWalkable == true){
-                     ThrowPlayer(Player1.Instance);
+                    Debug.Log("plyaer1 wird geworfen");
+                    ThrowPlayer(Player1.Instance);
+                    InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
                     
                 }
 
                 // THROWING PLAYER 2
+                //&& isWalkable == true 
                 else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
-                     ThrowPlayer(Player2.Instance);                   
+                    Debug.Log("plyaer2 wird geworfen");
+                     ThrowPlayer(Player2.Instance);
+                    InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
                 }
 
             } 
@@ -109,14 +114,7 @@ public abstract class Tile : MonoBehaviour
                     //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                     UnitManager.Instance.SetSelectedPlayer(null);
-
-                    // dehighlight all
-                    Player1.Instance.highlight.SetActive(false);
-                    Player2.Instance.highlight.SetActive(false);
-                    
-                    
                     ChangePlayerTurn();
-
                     // PANTRY FEATURE CHANGE TURNS AGAIN
                     if(DoorManager.Instance.pantryFeatureP1 == true){
                         ChangePlayerTurn();
@@ -125,8 +123,6 @@ public abstract class Tile : MonoBehaviour
                         ChangePlayerTurn();
                         DoorManager.Instance.pantryFeatureP2 = false;
                     }
-                    Player1.Instance.deciding = false;
-                    Player2.Instance.deciding = false;
                 }
 
             }
@@ -141,11 +137,7 @@ public abstract class Tile : MonoBehaviour
                  //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
-
-                 // dehighlight all
-                    Player1.Instance.highlight.SetActive(false);
-                    Player2.Instance.highlight.SetActive(false);
-                    
+                 
 
 
                  if (playerOnDoor ==true){
@@ -157,30 +149,29 @@ public abstract class Tile : MonoBehaviour
                 }
 
                 ChangePlayerTurn();
-                Player1.Instance.deciding = false;
-                Player2.Instance.deciding = false;
             }
         }
 
 
     } 
-
-    public void ThrowPlayer(BasePlayer player){
-        // if there is a item then take it (throw)
-        InventoryManager.Instance.DropOneItem(player);
+    
+int playerSpawnTileX;
+int playerSpawnTileY;
+    public void ThrowPlayer(BasePlayer playerToBeThrown){
         int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
         int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
         if(UnitManager.Instance.SelectedPlayer!= null){
-            GridManager.Instance.GetSpawnTile(i,j).SetUnit(player);
+            GridManager.Instance.GetSpawnTile(i,j).SetUnit(playerToBeThrown);
 
         // PLAYER ONE
+        if (playerToBeThrown = Player1.Instance){
             GameObject playertwo = GameObject.Find("playertwo(Clone)");
             playertwo.transform.position = new Vector3(i,j,0);
-            int playerSpawnTileX = UnitManager.Instance.xPlayerOneSpawnTile;
-            int playerSpawnTileY = UnitManager.Instance.yPlayerOneSpawnTile;
-
+            playerSpawnTileX = UnitManager.Instance.xPlayerOneSpawnTile;
+            playerSpawnTileY = UnitManager.Instance.yPlayerOneSpawnTile;
+        }
         // PLAYER TWO
-        if (player = Player2.Instance){
+        if (playerToBeThrown = Player2.Instance){
             GameObject playerone = GameObject.Find("playerone(Clone)");
             playerone.transform.position = new Vector3(i,j,0);
             playerSpawnTileX = UnitManager.Instance.xPlayerTwoSpawnTile;
@@ -194,8 +185,8 @@ public abstract class Tile : MonoBehaviour
                 InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player1Turn ){
 
                     // PLAYER ONE
-                    if( player == Player1.Instance){
-                    GridManager.Instance.GetSpawnTile(playerSpawnTileX, playerSpawnTileY).DestroyUnit();     
+                    if( playerToBeThrown == Player1.Instance){
+                    //GridManager.Instance.GetSpawnTile(playerSpawnTileX, playerSpawnTileY).DestroyUnit();     
                     MenuManager.Instance.RotateModalsToPlayer1();
                             for (int k = 0; k < InventoryManager.Instance.slotsPlayerOne.Count; k++)
                             {
@@ -215,9 +206,9 @@ public abstract class Tile : MonoBehaviour
                     }
 
                     // PLAYER TWO
-                    if (player = Player2.Instance){
+                    if (playerToBeThrown = Player2.Instance){
                         // could be the player itself not the item, not quite sure
-                    GridManager.Instance.GetSpawnTile(playerSpawnTileX, playerSpawnTileY).DestroyUnit();     
+                   // GridManager.Instance.GetSpawnTile(playerSpawnTileX, playerSpawnTileY).DestroyUnit();     
                     MenuManager.Instance.RotateModalsToPlayer2();
                             for (int k = 0; k < InventoryManager.Instance.slotsPlayerTwo.Count; k++)
                             {
@@ -235,11 +226,6 @@ public abstract class Tile : MonoBehaviour
                         InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
                     }
                     }
-                    
-
-                    
-
-
             ItemManager.Instance.ChangeModal();
             MenuManager.Instance.ShowItemModal();
             MenuManager.Instance.AnimateItemModal();
@@ -251,26 +237,26 @@ public abstract class Tile : MonoBehaviour
             Debug.Log(" jetzt isser auf ein item beim schmeißen");
                             
         }
-                        player = Player1.Instance;
-                            GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(player);
-                            player.posx = UnitManager.Instance.xPlayerOneSpawnTile;
-                            player.posy = UnitManager.Instance.yPlayerOneSpawnTile;
-                            OccupiedUnit = Player2.Instance;
-                        if(player = Player2.Instance){
-                            GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(player);
-                            player.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
-                            player.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
-                            OccupiedUnit = Player1.Instance;
+        if(playerToBeThrown = Player1.Instance){
+                            GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(playerToBeThrown);
+                            GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).OccupiedUnit = playerToBeThrown;
+                            playerToBeThrown.posx = UnitManager.Instance.xPlayerOneSpawnTile;
+                            playerToBeThrown.posy = UnitManager.Instance.yPlayerOneSpawnTile;
+        }
+                        if(playerToBeThrown = Player2.Instance){
+                            GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(playerToBeThrown);
+                            GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).OccupiedUnit = playerToBeThrown;
+                            playerToBeThrown.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
+                            playerToBeThrown.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
+                            // is das nicht einfach set unit?
                         }
                       SetUnit(UnitManager.Instance.SelectedPlayer);
-                        UnitManager.Instance.SetSelectedPlayer(null);
+                      UnitManager.Instance.SetSelectedPlayer(null);
 
                         // dehighlight all
-                        Player1.Instance.highlight.SetActive(false);
-                        Player2.Instance.highlight.SetActive(false);
+                        
                         ChangePlayerTurn();
-                        Player1.Instance.deciding = false;
-                        Player2.Instance.deciding = false;
+                        
                         }
 
     }
@@ -312,6 +298,12 @@ public abstract class Tile : MonoBehaviour
         HideWalkableTiles();
         GameManager.Instance.ChangeState(GameState.Player1Turn);
         }
+        // DEHIGHLIGHT
+        Player1.Instance.highlight.SetActive(false);
+        Player2.Instance.highlight.SetActive(false);
+        Player1.Instance.deciding = false;
+        Player2.Instance.deciding = false;
+
     }
 
     public void UpdatePosition(BasePlayer player){

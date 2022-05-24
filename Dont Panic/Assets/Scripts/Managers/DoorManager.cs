@@ -161,10 +161,10 @@ public void ShowDoorFeature(string doorName){
         if( secondUnlocked == true){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You have found the surgery room! It looks quite weird in here.. But you find some utensils, which may help you knock out your opponent. Maybe you can cut off your opponent's arm. As you run towards him you notice that the knife isn't even sharp in any kind of way. It doesn't hurt your opponent at all. Now you are fighting like two girls in puberty. Nevermind. At least your opponent has lost all the items s/he had.";
             if (GameManager.Instance.GameState == GameState.Player1Turn){
-            InventoryManager.Instance.DropOneItem(Player2.Instance);
+            // InventoryManager.Instance.DropOneItem(Player2.Instance);
             surgeryFeatureP1 = true;
             } else if (GameManager.Instance.GameState == GameState.Player2Turn){
-            InventoryManager.Instance.DropOneItem(Player1.Instance);
+            // InventoryManager.Instance.DropOneItem(Player1.Instance);
             surgeryFeatureP2 = true;
         }
         }
