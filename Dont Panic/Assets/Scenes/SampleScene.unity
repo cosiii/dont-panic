@@ -4016,8 +4016,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.822, y: -0.0000033379}
-  m_SizeDelta: {x: 585.14, y: 39.6429}
+  m_AnchoredPosition: {x: 0.00048447, y: -0.00017166}
+  m_SizeDelta: {x: 800, y: 115.71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1927772047
 MonoBehaviour:
@@ -4123,13 +4123,11 @@ MonoBehaviour:
   - 
   - 
   - 
-  DropItem: 0
   lastDestroyedItem: 
   lastDroppedItem: 
   inventoryIsFullPlayerOne: 0
   inventoryIsFullPlayerTwo: 0
   inventoryPoint: {fileID: 1136762052479842728, guid: 52afc12a3089ebe4c9efba7183d56acc, type: 3}
-  nineTiles: ffffffff0000000001000000
 --- !u!1 &2006896025
 GameObject:
   m_ObjectHideFlags: 0

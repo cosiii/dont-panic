@@ -106,6 +106,7 @@ public abstract class Tile : MonoBehaviour
                                 if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
                                 DestroyUnit();
+                                // zsm fassen
                                 InventoryManager.Instance.ItemCollision();
                                 ItemManager.Instance.ChangeModal();
                                 MenuManager.Instance.ShowItemModal();
@@ -194,6 +195,7 @@ public abstract class Tile : MonoBehaviour
     } 
 
     public void ThrowPlayer1(){
+        // if there is a item then take it (throw)
         InventoryManager.Instance.DropOneItem(Player1.Instance);
         int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
         int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
@@ -202,25 +204,61 @@ public abstract class Tile : MonoBehaviour
                         //Player2.Instance.OccupiedTile = GridManager.Instance.GetSpawnTile(i,j);
                         GameObject playertwo = GameObject.Find("playertwo(Clone)");
                         playertwo.transform.position = new Vector3(i,j,0);
+                        
+        // IF THE PLAYER GETS ON AN ITEM
+        if (GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).OccupiedUnit != null){
+        
+
+            if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player2Turn ||
+                InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player1Turn ){
+                    // thats the player ...
+                    GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).DestroyUnit();     
+                    MenuManager.Instance.RotateModalsToPlayer1();
+                            for (int k = 0; k < InventoryManager.Instance.slotsPlayerOne.Count; k++)
+                            {
+                                if(InventoryManager.Instance.isFullPlayerOne[k] == false ){ // item can be added to inventory
+                                    // parented to slots[k]
+                                    Instantiate(InventoryManager.Instance.inventoryPoint, InventoryManager.Instance.slotsPlayerOne[k].transform, false);
+                                    InventoryManager.Instance.isFullPlayerOne[k] = true;
+                                    InventoryManager.Instance.inventoryPlayerOne[k] = InventoryManager.Instance.lastDestroyedItem;
+                                    break;
+                                }
+                            }
+
+            if(InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
+                Debug.Log("inventory full pl1");
+                InventoryManager.Instance.inventoryIsFullPlayerOne = true;
+            } 
+
+
+            ItemManager.Instance.ChangeModal();
+            MenuManager.Instance.ShowItemModal();
+            MenuManager.Instance.AnimateItemModal();
+            } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player2Turn ||
+              InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player1Turn ){
+              // if inventory is full
+            MenuManager.Instance.ShowInventoryIsFullText();
+             }
+            Debug.Log(" jetzt isser auf ein item beim schmeißen");
+                            
+        }
                         GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(Player1.Instance);
                         Player1.Instance.posx = UnitManager.Instance.xPlayerOneSpawnTile;
                         Player1.Instance.posy = UnitManager.Instance.yPlayerOneSpawnTile;
                         OccupiedUnit = Player2.Instance;
-                    //deselect selected Unit
-                    SetUnit(UnitManager.Instance.SelectedPlayer);
-                    UnitManager.Instance.SetSelectedPlayer(null);
 
-                    // dehighlight all
-                    Player1.Instance.highlight.SetActive(false);
-                    Player2.Instance.highlight.SetActive(false);
-                    ChangePlayerTurn();
-                    Player1.Instance.deciding = false;
-                    Player2.Instance.deciding = false;
-                    }
+                        //deselect selected Unit
+                        SetUnit(UnitManager.Instance.SelectedPlayer);
+                        UnitManager.Instance.SetSelectedPlayer(null);
 
-                    if(UnitManager.Instance.SelectedPlayer == null){
-                        Debug.Log("it's not your turn, player 1");
-                    }
+                        // dehighlight all
+                        Player1.Instance.highlight.SetActive(false);
+                        Player2.Instance.highlight.SetActive(false);
+                        ChangePlayerTurn();
+                        Player1.Instance.deciding = false;
+                        Player2.Instance.deciding = false;
+                        }
+
     }
 
     public void ThrowPlayer1ByPatrol(){

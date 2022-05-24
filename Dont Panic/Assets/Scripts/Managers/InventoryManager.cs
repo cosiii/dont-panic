@@ -20,7 +20,7 @@ public bool inventoryIsFullPlayerOne;
 public bool inventoryIsFullPlayerTwo;
 
 public GameObject inventoryPoint;
-public int[] nineTiles = new int[] { -1, 0, 1 };
+List <int> nineTiles =  new List<int>{-1, 0, 1};
 
 void Awake(){
         Instance = this;
@@ -74,11 +74,26 @@ public void DropOneItem(BasePlayer player){
 
     // just set something, declared later
     var spawnedItem = UnitManager.Instance.Item1;
-    
+    int randomx;
+    int randomy;
     // x != 0 && y!= 0 else redo x und y neu
     // um den player herum
-    var spawnTileAroundPlayer = GridManager.Instance.GetSpawnTile(player.posx + 1, player.posy + 1);
+    randomx = nineTiles[Random.Range(0,nineTiles.Count)];
+    randomy = nineTiles[Random.Range(0,nineTiles.Count)];
 
+    // just in case it drops on the exact same spot
+    if (randomx == 0 && randomy == 0){
+        randomx = 1;
+    }
+    // die tiles ausenrum walkabel
+    var spawnTileAroundPlayer = GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy);
+
+    if(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit == null){
+        Debug.Log("it is walkable here");
+    } else if(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null){
+        Debug.Log("it is not walkable here");
+        // respawn items
+    }
     
     //PLAYER ONE
     if (player = Player1.Instance){
