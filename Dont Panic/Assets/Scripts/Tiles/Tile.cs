@@ -66,6 +66,7 @@ public abstract class Tile : MonoBehaviour
                 else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
                      int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
                      int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
+                     InventoryManager.Instance.DropOneItem(Player2.Instance);
                     if(UnitManager.Instance.SelectedPlayer!= null){
                         // kann man hier nicht auch einfach xspawntile aus unitmanager nehmen?
                         GridManager.Instance.GetSpawnTile(i,j).SetUnit(Player2.Instance);
@@ -193,7 +194,7 @@ public abstract class Tile : MonoBehaviour
     } 
 
     public void ThrowPlayer1(){
-        InventoryManager.Instance.DropItemPl1();
+        InventoryManager.Instance.DropOneItem(Player1.Instance);
         int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
         int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
                     if(UnitManager.Instance.SelectedPlayer!= null){
