@@ -27,10 +27,20 @@ void Awake(){
     }
 
  public void ItemCollision(){
-if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
-    //PLAYER ONE
-    // rotate ItemModal
+    ItemManager.Instance.ChangeModal();
+    MenuManager.Instance.ShowItemModal();
+    MenuManager.Instance.AnimateItemModal();
+
+// nur destroyen wenn noch platz in tasche is
+if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
+    // PLAYER ONE
     MenuManager.Instance.RotateModalsToPlayer1();
+    //
+     if(isFullPlayerOne[slotsPlayerOne.Count -1] == true){
+                Debug.Log("inventory full pl1");
+                inventoryIsFullPlayerOne = true;
+                MenuManager.Instance.ShowInventoryIsFullText();
+            } 
     for (int i = 0; i < slotsPlayerOne.Count; i++)
     {
         if(isFullPlayerOne[i] == false ){ // item can be added to inventory
@@ -43,9 +53,15 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
     }
 
 
-} else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ //PLAYER TWO
-    // rotate itemModal
+} else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ 
+    //PLAYER TWO
     MenuManager.Instance.RotateModalsToPlayer2();
+            if(isFullPlayerTwo[slotsPlayerTwo.Count -1] == true){
+                Debug.Log("inventory full pl2");
+                inventoryIsFullPlayerTwo = true;
+                MenuManager.Instance.ShowInventoryIsFullText();
+            } 
+    
     for (int i = 0; i < slotsPlayerTwo.Count; i++)
     {
         if(isFullPlayerTwo[i] == false){ // item can be added to inventory
@@ -57,17 +73,7 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1"){
         }
     }
 }
-
- if(isFullPlayerOne[slotsPlayerOne.Count -1] == true){
-                Debug.Log("inventory full pl1");
-                inventoryIsFullPlayerOne = true;
-            } 
-
- if(isFullPlayerTwo[slotsPlayerTwo.Count -1] == true){
-                Debug.Log("inventory full pl2");
-                inventoryIsFullPlayerTwo = true;
-            } 
- }
+}
 
 
 public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> isFull, List <string> inventory, bool inventoryIsFull){

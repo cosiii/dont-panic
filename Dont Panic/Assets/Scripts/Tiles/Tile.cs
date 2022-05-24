@@ -59,17 +59,16 @@ public abstract class Tile : MonoBehaviour
                 // THROWING PLAYER 1 
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" && isWalkable == true){
                     Debug.Log("plyaer1 wird geworfen");
-                    ThrowPlayer(Player1.Instance);
                     InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
-                    
+                    ThrowPlayer(Player1.Instance);
                 }
 
                 // THROWING PLAYER 2
                 //&& isWalkable == true 
                 else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
                     Debug.Log("plyaer2 wird geworfen");
-                     ThrowPlayer(Player2.Instance);
                     InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
+                     ThrowPlayer(Player2.Instance);
                 }
 
             } 
@@ -78,19 +77,20 @@ public abstract class Tile : MonoBehaviour
                     
             // COLLISION ITEM
                             if(OccupiedUnit.Faction == Faction.Item){ 
+                                // vllt hier nur item collision stehen haben
                                 // just destroy it when the inventory of the player isnt completely full
                                 if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
                                 DestroyUnit();
-                                // zsm fassen
                                 InventoryManager.Instance.ItemCollision();
-                                ItemManager.Instance.ChangeModal();
-                                MenuManager.Instance.ShowItemModal();
-                                MenuManager.Instance.AnimateItemModal();
+                                
                                 } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
-                                    // if inventory is full
-                                    MenuManager.Instance.ShowInventoryIsFullText();
+                                    ItemManager.Instance.oldImage.sprite = null;
+                                    MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "inventory is full";
+                                    ItemManager.Instance.ChangeModal();
+                                    MenuManager.Instance.ShowItemModal();
+                                    MenuManager.Instance.AnimateItemModal();
                                 }
                             }    
 
@@ -232,7 +232,6 @@ int playerSpawnTileY;
             } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player2Turn ||
               InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player1Turn ){
               // if inventory is full
-            MenuManager.Instance.ShowInventoryIsFullText();
              }
             Debug.Log(" jetzt isser auf ein item beim schmeißen");
                             

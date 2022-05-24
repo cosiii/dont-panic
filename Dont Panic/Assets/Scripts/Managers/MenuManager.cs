@@ -61,6 +61,8 @@ public void HideDoorInfo(){
 public void ShowItemModal(){
     itemModal.SetActive(true);
     itemImage.SetActive(true);
+    itemText.SetActive(true);
+    inventoryIsFullText.SetActive(false);
 }
 
 public void AnimateItemModal(){
@@ -96,6 +98,7 @@ public void RotateModalsToPlayer2(){
 public void ShowInventoryIsFullText(){
     itemModal.SetActive(true);
     inventoryIsFullText.SetActive(true);
+    itemText.SetActive(false);
     itemImage.SetActive(false);
 }
 

@@ -18,7 +18,6 @@ public class ItemManager : MonoBehaviour
     public void ChangeModal(){
 
     // Debug.Log("item picked up by " + MenuManager.Instance.selectedPlayerObject.GetComponentInChildren<Text>().text + "    " + InventoryManager.Instance.lastDestroyedItem);
-
     if(InventoryManager.Instance.lastDestroyedItem == "Item1"){
         oldImage.sprite = Item1;
         MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "suicide note";
