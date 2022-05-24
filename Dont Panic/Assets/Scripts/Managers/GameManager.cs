@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             case GameState.Player2Turn:
                  MenuManager.Instance.ShowPlayersTurn();
                 break;
-            case GameState.PatrolTurn:
+            case GameState.GameWon:
                 break;
             default: 
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -53,6 +53,6 @@ public enum GameState
     SpawnPatrol = 2,
     Player1Turn = 3,
     Player2Turn = 4,
-    PatrolTurn = 5
+    GameWon = 5
 } 
  
