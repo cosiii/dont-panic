@@ -9,9 +9,9 @@ public class MenuManager : MonoBehaviour
    public static MenuManager Instance;
    [SerializeField] public GameObject selectedPlayerObject; 
 
-   [SerializeField] public GameObject doorNameObject, doorTextObject; 
+   [SerializeField] public GameObject doorNameObject, doorTextObject, doorModal, doorFoundModal, doorFoundModalHeading, doorFoundModalText; 
 
-   [SerializeField] public GameObject doorModal, itemModal, itemText, inventoryIsFullText, itemImage, TemporaryModals; 
+   [SerializeField] public GameObject  itemModal, itemText, inventoryIsFullText, itemImage, TemporaryModals; 
 
    [SerializeField] public GameObject yourTurnSign1, yourTurnSign2; 
 
@@ -41,6 +41,12 @@ selectedPlayerObject.SetActive(true);
 // DOOR MODAL
 public void ShowDoorModal(){
     doorModal.SetActive(true);
+}
+
+public void ShowDoorFoundModal(string heading, string text){
+    doorFoundModal.SetActive(true);
+    doorFoundModalHeading.GetComponentInChildren<Text>().text = heading;
+    doorFoundModalText.GetComponentInChildren<Text>().text = text;
 }
 
 public void ShowAdditionalInventory1(){

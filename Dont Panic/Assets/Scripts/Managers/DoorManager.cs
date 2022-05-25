@@ -20,6 +20,8 @@ public string[] RandomItems = {"Item1","Item2", "Item3", "Item4", "Item5", "Item
 
 public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery room"};
 
+public string doorHeading, doorText;
+
 [SerializeField] public GameObject Player1Slot4, Player2Slot4; 
 
 
@@ -97,7 +99,8 @@ public void ShowDoorFeature(string doorName){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the exit";
         }
         if( secondUnlocked == true){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You see a bright light and walk towards it. It looks like you have made it! This is the sunlight. That sunlight, you have dreamed of for such a long time. The one that gave you pure happiness as a kid and lets you think about times where everything was alright. Maybe now you can go back to feel this happiness again and become a better person to yourself.The bright light is fading and you can vaguely see the doctor pointing at your eyes with a flashlight. Seems like you faded out. You look around and see these same walls you've been seeing for so long. You are still in your cell, you always have been..WANNA PLAY AGAIN? :)";
+            doorHeading = "The Exit";
+            doorText = "You see a bright light and walk towards it. It looks like you have made it! This is the sunlight. That sunlight, you have dreamed of for such a long time. The one that gave you pure happiness as a kid and lets you think about times where everything was alright. Maybe now you can go back to feel this happiness again and become a better person to yourself.The bright light is fading and you can vaguely see the doctor pointing at your eyes with a flashlight. Seems like you faded out. You look around and see these same walls you've been seeing for so long. You are still in your cell, you always have been..WANNA PLAY AGAIN? :)";
             GameManager.Instance.GameState = GameState.GameWon;
         }
     } 
@@ -107,7 +110,8 @@ public void ShowDoorFeature(string doorName){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the pantry";
         }
         if( secondUnlocked == true){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "The pantry is normally a nice place. I mean.. FOOD. But it looks like nobody was here for a while. There is mold everywhere. Even the mold has another layer of mold. You find a not so okay but okay enough looking apple and offer it to your opponent.It wasn't the best idea to be honest. Your opponent is very weak and waits two turns until the apple is fully digested.";
+            doorHeading = "Pantry";
+            doorText = "The pantry is normally a nice place. I mean.. FOOD. But it looks like nobody was here for a while. There is mold everywhere. Even the mold has another layer of mold. You find a not so okay but okay enough looking apple and offer it to your opponent.It wasn't the best idea to be honest. Your opponent is very weak and waits two turns until the apple is fully digested.";
             if (GameManager.Instance.GameState == GameState.Player1Turn){
                 pantryFeatureP1 = true;
             } else if (GameManager.Instance.GameState == GameState.Player2Turn){
@@ -121,7 +125,8 @@ public void ShowDoorFeature(string doorName){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the dining hall";
         }
         if( secondUnlocked == true){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "The dining hall glows with the best food you have ever seen and nobody is even here. Go ahead and eat as much as you can! You gained a lot of power. Therefore you can carry one more item with you. Yay!";
+            doorHeading = "Dining Hall";
+            doorText = "The dining hall glows with the best food you have ever seen and nobody is even here. Go ahead and eat as much as you can! You gained a lot of power. Therefore you can carry one more item with you. Yay!";
             if (GameManager.Instance.GameState == GameState.Player1Turn){
             MenuManager.Instance.ShowAdditionalInventory1();
             InventoryManager.Instance.inventoryPlayerOne.Add("");
@@ -143,7 +148,8 @@ public void ShowDoorFeature(string doorName){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the hallway";
         }
         if( secondUnlocked == true){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = " You found the hallway! It seems to be the longest distance you have ever seen. There are so many doors! As you want to check if every door is locked, you walk really fast to see if a door is the exit. No chance.. But at least you have found out that you can walk really far! +1 on your walking range";
+            doorHeading = "Hallway";
+            doorText = " You found the hallway! It seems to be the longest distance you have ever seen. There are so many doors! As you want to check if every door is locked, you walk really fast to see if a door is the exit. No chance.. But at least you have found out that you can walk really far! +1 on your walking range";
             if (GameManager.Instance.GameState == GameState.Player1Turn && secondUnlocked == true){
             Player1.Instance.walkingDistance =4;
             hallwayFeatureP1 = true;
@@ -159,7 +165,8 @@ public void ShowDoorFeature(string doorName){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the surgery room";
         }
         if( secondUnlocked == true){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You have found the surgery room! It looks quite weird in here.. But you find some utensils, which may help you knock out your opponent. Maybe you can cut off your opponent's arm. As you run towards him you notice that the knife isn't even sharp in any kind of way. It doesn't hurt your opponent at all. Now you are fighting like two girls in puberty. Nevermind. At least your opponent has lost all the items s/he had.";
+            doorHeading = "Surgery Room";
+            doorText = "You have found the surgery room! It looks quite weird in here.. But you find some utensils, which may help you knock out your opponent. Maybe you can cut off your opponent's arm. As you run towards him you notice that the knife isn't even sharp in any kind of way. It doesn't hurt your opponent at all. Now you are fighting like two girls in puberty. Nevermind. At least your opponent has lost all the items s/he had.";
             if (GameManager.Instance.GameState == GameState.Player1Turn){
             // InventoryManager.Instance.DropOneItem(Player2.Instance);
             surgeryFeatureP1 = true;
@@ -191,6 +198,7 @@ public void SetupDoor(string[] keyItem, string doorName){
       if(GameManager.Instance.GameState == GameState.Player1Turn){
           firstUnlocked = false;
           secondUnlocked = false;
+          MenuManager.Instance.doorFoundModal.SetActive(false);
 
           // ROTATE MODAL
           MenuManager.Instance.RotateModalsToPlayer1();
@@ -205,9 +213,11 @@ public void SetupDoor(string[] keyItem, string doorName){
                  firstUnlocked = true;
              } 
 
-             if (x.Equals (itemToHaveNext) && x.Equals (itemOne)) 
+             if ( x.Equals (itemToHaveNext)  && firstUnlocked == true) 
              {
                  secondUnlocked = true;
+                 MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
+                 MenuManager.Instance.PlayerText.SetActive(false);
              } 
          }
       }
@@ -216,6 +226,7 @@ public void SetupDoor(string[] keyItem, string doorName){
     if(GameManager.Instance.GameState == GameState.Player2Turn){
         firstUnlocked = false;
         secondUnlocked = false;
+        MenuManager.Instance.doorFoundModal.SetActive(false);
         MenuManager.Instance.RotateModalsToPlayer2();
 
           foreach (string x in InventoryManager.Instance.inventoryPlayerTwo)
@@ -230,6 +241,8 @@ public void SetupDoor(string[] keyItem, string doorName){
              {
                  Debug.Log("you have both items " );
                  secondUnlocked = true;
+                 MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
+                 MenuManager.Instance.PlayerText.SetActive(false);
              } 
          }
     }
