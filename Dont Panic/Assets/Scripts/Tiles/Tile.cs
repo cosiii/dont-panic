@@ -39,7 +39,21 @@ public abstract class Tile : MonoBehaviour
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied
 
+            // FACTION PLAYER
             if(OccupiedUnit.Faction == Faction.Player){
+                // CLICKING ON ONESELF
+                if(GameManager.Instance.GameState == GameState.Player1Turn && UnitManager.Instance.SelectedPlayer == Player1.Instance && Player1.Instance.deciding == true){
+                    Debug.Log("pl1 clicked on himself");
+                    InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
+                    ChangePlayerTurn();
+                }  
+
+                if(GameManager.Instance.GameState == GameState.Player2Turn && UnitManager.Instance.SelectedPlayer == Player2.Instance && Player2.Instance.deciding == true){
+                    Debug.Log("pl2 clicked on himself");
+                    InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
+                    ChangePlayerTurn();
+                }  
+
                 // CLICKING FOR MAKING TURN
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1" ){
                     UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
@@ -55,7 +69,7 @@ public abstract class Tile : MonoBehaviour
                     Player2.Instance.deciding = true;
                     
                 } 
-                
+
                 // THROWING PLAYER 1 
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" && isWalkable == true){
                     Debug.Log("plyaer1 wird geworfen");
@@ -64,7 +78,6 @@ public abstract class Tile : MonoBehaviour
                 }
 
                 // THROWING PLAYER 2
-                //&& isWalkable == true 
                 else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
                     Debug.Log("plyaer2 wird geworfen");
                     InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
@@ -74,7 +87,9 @@ public abstract class Tile : MonoBehaviour
             } 
             else { 
                 if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){ // if we have a selected player AND we click on another occupied unit 
-                    
+
+
+                  
             // COLLISION ITEM
                             if(OccupiedUnit.Faction == Faction.Item){ 
                                 // vllt hier nur item collision stehen haben

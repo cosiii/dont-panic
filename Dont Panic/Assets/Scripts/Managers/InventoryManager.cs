@@ -97,7 +97,7 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
         // respawn items
     }
     
-    if (player = Player1.Instance){
+   // if (player = Player1.Instance){
         for (int i = 0; i < slots.Count; i++)
         { 
             if(isFull[slots.Count-1 -i] == true){ 
@@ -110,7 +110,7 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
             break;
             }
          }
-    }
+    //}
     
     Debug.Log(lastDroppedItem);
     var spawnedItem = UnitManager.Instance.Item1;

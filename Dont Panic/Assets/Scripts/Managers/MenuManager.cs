@@ -23,8 +23,8 @@ public class MenuManager : MonoBehaviour
    public bool TemporaryModalsRotated = false;
 void Awake(){
     Instance = this;
-    NameTextPlayerOne.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText1.text;
-    NameTextPlayerTwo.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText2.text;
+    //NameTextPlayerOne.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText1.text;
+    //NameTextPlayerTwo.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText2.text;
 }
 
 public void ShowSelectedPlayer(BasePlayer player){
