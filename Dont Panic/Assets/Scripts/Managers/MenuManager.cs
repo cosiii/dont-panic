@@ -7,7 +7,6 @@ using TMPro;
 public class MenuManager : MonoBehaviour
 {
    public static MenuManager Instance;
-   [SerializeField] public GameObject selectedPlayerObject; 
 
    [SerializeField] public GameObject doorNameObject, doorTextObject, doorModal, doorFoundModal, doorFoundModalHeading, doorFoundModalText; 
 
@@ -25,16 +24,6 @@ void Awake(){
     Instance = this;
     //NameTextPlayerOne.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText1.text;
     //NameTextPlayerTwo.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText2.text;
-}
-
-public void ShowSelectedPlayer(BasePlayer player){
-    if(player == null){
-        selectedPlayerObject.SetActive(false);
-        return;
-    }
-    
-selectedPlayerObject.GetComponentInChildren<Text>().text = player.UnitName;
-selectedPlayerObject.SetActive(true);
 }
 
 

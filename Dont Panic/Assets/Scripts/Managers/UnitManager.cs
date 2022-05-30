@@ -194,6 +194,5 @@ public void UpdatePlayerTwo(){
 
     public void SetSelectedPlayer(BasePlayer player){
         SelectedPlayer = player;
-        MenuManager.Instance.ShowSelectedPlayer(player);
     }
 }
