@@ -18,6 +18,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 
 
     [SerializeField] public GameObject AdditionalInventory1, AdditionalInventory2; 
+    [SerializeField] public GameObject GameWonModal;
+
 
    public bool TemporaryModalsRotated = false;
 void Awake(){
@@ -26,7 +28,10 @@ void Awake(){
     //NameTextPlayerTwo.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText2.text;
 }
 
+// GAME WON
+public void ShowGameWonModal(){
 
+}
 // DOOR MODAL
 public void ShowDoorModal(){
     doorModal.SetActive(true);

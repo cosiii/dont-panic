@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {	
@@ -20,5 +21,15 @@ public class UI : MonoBehaviour
 	}
 
   }
+
+  public void OneBack(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Debug.Log("oneback");
+    }
+
+  public void TwoBack(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+        Debug.Log("twoback");
+    }
 
 }
