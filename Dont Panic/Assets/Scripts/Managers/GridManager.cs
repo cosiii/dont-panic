@@ -8,7 +8,7 @@ using System.Linq;
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance;
-    [SerializeField] public int _width, _height;
+    [SerializeField] public int _width, _height, holeTileCount;
     [SerializeField] public Tile floorTile, holeTile;
     [SerializeField] private Transform _cam;
 
@@ -20,6 +20,24 @@ void Awake(){
 }
 
 
+// muss auch grade begehbar sein
+public void AddHoleTile(){
+    holeTileCount++;
+    // DELETE ALL EXISTING
+    for (int x = 0; x < holeTileCount; x++){
+    var hole = GameObject.Find("Hole Tile(Clone)");
+    Destroy(hole);
+    }
+
+    // MAKING NEW ONES
+    for (int x = 0; x < holeTileCount; x++){
+        int randomXSpot = Random.Range(0, _width );
+        int randomYSpot = Random.Range(0, _height );
+        tiles[new Vector2(randomXSpot,randomYSpot)] = Instantiate(GridManager.Instance.holeTile, new Vector3(randomXSpot, randomYSpot), Quaternion.identity);
+    }
+
+    
+}
 public void GenerateGrid()
     {
         tiles = new Dictionary<Vector2, Tile>();

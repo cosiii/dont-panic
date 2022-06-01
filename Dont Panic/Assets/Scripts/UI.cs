@@ -9,6 +9,8 @@ public class UI : MonoBehaviour
  public bool playing;
  private float Timer;
 
+ private bool addedHoleTile = false;
+
  void Update () {
 
  	if(playing == true){
@@ -21,10 +23,15 @@ public class UI : MonoBehaviour
 
 
 	  if(minutes > 0 && seconds == 00){
-		  Debug.Log("minute is one");
-		  // change tiles
+		 if (addedHoleTile == false){
+			 GridManager.Instance.AddHoleTile();
+			 addedHoleTile = true;
+		 }
 	  }
 
+	  if(minutes > 0 && seconds == 59){
+		addedHoleTile = false;
+	  }
 	}
   }
 

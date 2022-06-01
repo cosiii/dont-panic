@@ -10,6 +10,7 @@ public abstract class Tile : MonoBehaviour
     [SerializeField] protected SpriteRenderer _renderer;  // affectively private, but derived tiles can access it
     [SerializeField]private bool isWalkable;
     [SerializeField] public GameObject highlight;
+
     private bool playerOnDoor;
     
     public BaseUnit OccupiedUnit;
@@ -97,12 +98,6 @@ public abstract class Tile : MonoBehaviour
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
                                 DestroyUnit();
                                 InventoryManager.Instance.ItemCollision();
-
-
-                                var tileForHole = GridManager.Instance.GetSpawnTile(1, 2);
-                                GridManager.Instance.tiles[new Vector2(1,2)] = Instantiate(GridManager.Instance.holeTile, new Vector3(1, 2), Quaternion.identity);
-                                Debug.Log(GridManager.Instance.tiles[new Vector2(1,2)].name);
-                                Debug.Log(GridManager.Instance.tiles[new Vector2(1,2)].TileName);
 
                                 // PLAYERS INVENTORY IS FULL
                                 } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
