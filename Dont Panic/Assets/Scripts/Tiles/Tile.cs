@@ -92,13 +92,19 @@ public abstract class Tile : MonoBehaviour
                   
             // COLLISION ITEM
                             if(OccupiedUnit.Faction == Faction.Item){ 
-                                // vllt hier nur item collision stehen haben
-                                // just destroy it when the inventory of the player isnt completely full
+                                // PLAYERS INVENTORY IS NOT FULL
                                 if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
                                 DestroyUnit();
                                 InventoryManager.Instance.ItemCollision();
-                                
+
+
+                                var tileForHole = GridManager.Instance.GetSpawnTile(1, 2);
+                                GridManager.Instance.tiles[new Vector2(1,2)] = Instantiate(GridManager.Instance.holeTile, new Vector3(1, 2), Quaternion.identity);
+                                Debug.Log(GridManager.Instance.tiles[new Vector2(1,2)].name);
+                                Debug.Log(GridManager.Instance.tiles[new Vector2(1,2)].TileName);
+
+                                // PLAYERS INVENTORY IS FULL
                                 } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
                                     ItemManager.Instance.oldImage.sprite = null;
@@ -146,7 +152,7 @@ public abstract class Tile : MonoBehaviour
         }
         else {
             // already got a selected Unit
-            if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){
+            if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Floor"){
                     
                 
                  //deselect selected Unit
