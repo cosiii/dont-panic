@@ -14,8 +14,6 @@ public class multipleTouch : MonoBehaviour {
 
     public Touch t1, t2, farestT;
 
-    public GameObject touch3Object;
-
     public Vector2 c, c2;
 
     public void Awake(){
