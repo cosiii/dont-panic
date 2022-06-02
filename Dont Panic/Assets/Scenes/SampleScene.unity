@@ -929,7 +929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _width: 8
   _height: 6
-  holeTileCount: 1
+  holeTileCount: 0
   floorTile: {fileID: 8871955788216320470, guid: 3c14d7d4b7b800847946659c88e4face, type: 3}
   holeTile: {fileID: 2445129515857956318, guid: 16f162875d96adc41ad4a5195aa0adac, type: 3}
   _cam: {fileID: 519420032}
@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bab682deb1f89747858cdeb8f62d40a, type: 3}
   m_Name: 
@@ -1846,7 +1846,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 882471769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5338fe609bd664e45bcdcef02732e1f2, type: 3}
+  m_Script: {fileID: 11500000, guid: fc6e59a0a3c0aed41ab19ca4c5fbf741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TimerText: {fileID: 882471772}
@@ -3545,8 +3545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5338fe609bd664e45bcdcef02732e1f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimerText: {fileID: 0}
-  playing: 0
 --- !u!1 &1639922320
 GameObject:
   m_ObjectHideFlags: 0
@@ -3746,7 +3744,7 @@ MonoBehaviour:
   NameTextPlayerTwo: {fileID: 952666572}
   AdditionalInventory1: {fileID: 1207955516}
   AdditionalInventory2: {fileID: 807105260}
-  GameWonModal: {fileID: 0}
+  GameWonModal: {fileID: 63380256}
   TemporaryModalsRotated: 0
 --- !u!1 &1691641632
 GameObject:
@@ -3895,8 +3893,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5338fe609bd664e45bcdcef02732e1f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimerText: {fileID: 0}
-  playing: 0
 --- !u!1 &1704560212
 GameObject:
   m_ObjectHideFlags: 0

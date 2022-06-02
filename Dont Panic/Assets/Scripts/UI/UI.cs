@@ -24,7 +24,7 @@ public class UI : MonoBehaviour
 
 	  if(minutes > 0 && seconds == 00){
 		 if (addedHoleTile == false){
-			 GridManager.Instance.AddHoleTile();
+			 //GridManager.Instance.AddHoleTile();
 			 addedHoleTile = true;
 		 }
 	  }
