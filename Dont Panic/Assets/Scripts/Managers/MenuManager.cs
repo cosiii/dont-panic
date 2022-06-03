@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
 
    [SerializeField] public GameObject  itemModal, itemText, inventoryIsFullText, itemImage, TemporaryModals; 
 
-   [SerializeField] public GameObject yourTurnSign1, yourTurnSign2; 
+   [SerializeField] public GameObject helpers; 
 
    [SerializeField] public GameObject TextForPlayerModal, PlayerText; 
     [SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 
@@ -30,7 +30,7 @@ void Awake(){
 
 // GAME WON
 public void ShowGameWonModal(){
-
+GameWonModal.SetActive(true);
 }
 // DOOR MODAL
 public void ShowDoorModal(){
@@ -104,11 +104,9 @@ public void ShowInventoryIsFullText(){
 
 public void ShowPlayersTurn(){
     if( GameManager.Instance.GameState == GameState.Player1Turn){
-        yourTurnSign1.SetActive(true);
-        yourTurnSign2.SetActive(false);
+        Player1.Instance.highlight.SetActive(true);
     } else if( GameManager.Instance.GameState == GameState.Player2Turn){
-        yourTurnSign1.SetActive(false);
-        yourTurnSign2.SetActive(true);
+        Player2.Instance.highlight.SetActive(true);
     }
 }
 

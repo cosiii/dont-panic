@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class UI : MonoBehaviour
+public class UIManager : MonoBehaviour
 {	
  public Text TimerText; 
  public bool playing;

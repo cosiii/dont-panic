@@ -47,15 +47,15 @@ public class multipleTouch : MonoBehaviour {
         // three touch points
         if(i == 2){
             if(t.phase == TouchPhase.Began){
+                    UpdatePosition(dist, dist2, dist3);
                 
 
             }else if(t.phase == TouchPhase.Ended){
+                    UpdatePosition(dist, dist2, dist3);
                 
 
             }else if(t.phase == TouchPhase.Moved){
                     UpdatePosition(dist, dist2, dist3);
-                    
-                Debug.Log(touch3ObjectRightOne + " / " + touch3ObjectLeftOne  + " / "+  touch3ObjectUpOne + " / " + touch3ObjectDownOne);
             }
             }
 

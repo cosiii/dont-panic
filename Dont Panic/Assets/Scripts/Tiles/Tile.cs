@@ -45,8 +45,6 @@ public abstract class Tile : MonoBehaviour
                 // CLICKING ON ONESELF
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1"  && Player1.Instance.deciding == true){
                     Debug.Log("pl1 clicked on himself");
-                    //InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
-                   // ChangePlayerTurn();
                 }  
 
                 if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" && Player2.Instance.deciding == true){
@@ -58,18 +56,10 @@ public abstract class Tile : MonoBehaviour
                 // CLICKING FOR MAKING TURN
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1" ){
                     UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
-                    //if(MultipleTouch.Instance.objectOneRecognized == true){
-                    Player1.Instance.highlight.SetActive(true);
-                   // ShowWalkableTiles(Player1.Instance);
-                    
-                      
                     Player1.Instance.deciding = true;
                     
                 } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
-                    //if(MultipleTouch.Instance.objectTwoRecognized == true){
-                    Player2.Instance.highlight.SetActive(true);
-                    //ShowWalkableTiles(Player2.Instance);
                     Player2.Instance.deciding = true;
                     
                 } 
@@ -353,12 +343,6 @@ int playerSpawnTileY;
                     if(player.posx + y < GridManager.Instance._width){
                     GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].highlight.SetActive(true);
                     GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].isWalkable = true;
-                    // JUST BECAUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUSE
-                    // UP
-                    if(player.posy + y < GridManager.Instance._height){
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].isWalkable = true;
-                    }
                     }
                  } 
                  
@@ -420,28 +404,6 @@ int playerSpawnTileY;
                     }
                  }                 
             }
-    // walking diagonal
-            /* for (int y = 1; y < player.walkingDistance - 1; y++)
-            {
-                if(player.posx - y >= 0 && player.posy -y >= 0){
-                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy - y )].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy - y )].isWalkable = true;
-                }
-                if(player.posx + y < GridManager.Instance._width && player.posy + y < GridManager.Instance._height ){
-                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy + y)].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy + y)].isWalkable = true;
-                }
-                
-                if(player.posx -y >= 0 && player.posy + y < GridManager.Instance._height){
-                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy + y )].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy + y )].isWalkable = true;
-                }
-                if(player.posx + y < GridManager.Instance._width && player.posy -y >= 0){
-                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy - y)].highlight.SetActive(true);
-                GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy - y)].isWalkable = true;
-                }
-            } */
-        // if statements for not reaching out of the table
     }
 
     public void HideWalkableTiles(){
