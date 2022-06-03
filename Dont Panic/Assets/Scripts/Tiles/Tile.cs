@@ -60,7 +60,7 @@ public abstract class Tile : MonoBehaviour
                     UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
                     //if(MultipleTouch.Instance.objectOneRecognized == true){
                     Player1.Instance.highlight.SetActive(true);
-                    ShowWalkableTiles(Player1.Instance);
+                   // ShowWalkableTiles(Player1.Instance);
                     
                       
                     Player1.Instance.deciding = true;
@@ -69,7 +69,7 @@ public abstract class Tile : MonoBehaviour
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
                     //if(MultipleTouch.Instance.objectTwoRecognized == true){
                     Player2.Instance.highlight.SetActive(true);
-                    ShowWalkableTiles(Player2.Instance);
+                    //ShowWalkableTiles(Player2.Instance);
                     Player2.Instance.deciding = true;
                     
                 } 

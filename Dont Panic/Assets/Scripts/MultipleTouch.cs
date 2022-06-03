@@ -131,17 +131,22 @@ public class multipleTouch : MonoBehaviour {
                     touch3ObjectRight = false;
                 } 
 
-                 if (GameManager.Instance.GameState == GameState.Player1Turn){
+                 if (GameManager.Instance.GameState == GameState.Player1Turn && Player1.Instance.deciding == true){
             touch3ObjectRightOne = touch3ObjectRight;
             touch3ObjectLeftOne = touch3ObjectLeft; 
             touch3ObjectUpOne = touch3ObjectUp;
             touch3ObjectDownOne = touch3ObjectDown;
-        } else if (GameManager.Instance.GameState == GameState.Player2Turn){
             
-            touch3ObjectRight = touch3ObjectRightTwo;
+    Tile.Instance.ShowWalkableTiles(Player1.Instance);
+        } else if (GameManager.Instance.GameState == GameState.Player2Turn && Player2.Instance.deciding == true){
+            
+            touch3ObjectRightTwo = touch3ObjectRight;
             touch3ObjectLeftTwo = touch3ObjectLeft; 
             touch3ObjectUpTwo = touch3ObjectUp;
             touch3ObjectDownTwo = touch3ObjectDown;
+
+            
+    Tile.Instance.ShowWalkableTiles(Player2.Instance);
         }  
     }
 }

@@ -86,7 +86,6 @@ public void UpdatePlayerOne(){
     if (multipleTouch.Instance.touch3ObjectRightOne == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteRight;
     }  
-
 }
 
 public void UpdatePlayerTwo(){
@@ -107,6 +106,7 @@ public void UpdatePlayerTwo(){
     if (multipleTouch.Instance.touch3ObjectRightTwo == true){
         playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSpriteRight;
     }  
+
 }
 
 // SPAWNING PATROLS
