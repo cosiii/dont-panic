@@ -32,6 +32,10 @@ void Awake(){
 public void ShowGameWonModal(){
 GameWonModal.SetActive(true);
 }
+
+public void HideHelpers(){
+helpers.SetActive(false);
+}
 // DOOR MODAL
 public void ShowDoorModal(){
     doorModal.SetActive(true);

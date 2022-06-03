@@ -42,6 +42,8 @@ public abstract class Tile : MonoBehaviour
 
             // FACTION PLAYER
             if(OccupiedUnit.Faction == Faction.Player){
+
+                MenuManager.Instance.HideHelpers();
                 // CLICKING ON ONESELF
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1"  && Player1.Instance.deciding == true){
                     Debug.Log("pl1 clicked on himself");
@@ -300,15 +302,17 @@ int playerSpawnTileY;
     if(GameManager.Instance.GameState == GameState.Player1Turn){
         UpdatePosition(Player1.Instance);
         HideWalkableTiles();
+        Player1.Instance.highlight.SetActive(false);
         GameManager.Instance.ChangeState(GameState.Player2Turn);
         } else if(GameManager.Instance.GameState == GameState.Player2Turn){
         UpdatePosition(Player2.Instance);
         HideWalkableTiles();
+        Player2.Instance.highlight.SetActive(false);
         GameManager.Instance.ChangeState(GameState.Player1Turn);
         }
         // DEHIGHLIGHT
-        Player1.Instance.highlight.SetActive(false);
-        Player2.Instance.highlight.SetActive(false);
+        
+        
         Player1.Instance.deciding = false;
         Player2.Instance.deciding = false;
 
