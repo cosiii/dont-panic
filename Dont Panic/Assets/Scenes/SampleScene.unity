@@ -930,7 +930,7 @@ MonoBehaviour:
   _width: 8
   _height: 6
   holeTileCount: 0
-  floorTile: {fileID: 8871955788216320470, guid: 3c14d7d4b7b800847946659c88e4face, type: 3}
+  floorTile: {fileID: 8871955788216320470, guid: 66a7d31c43aeb6b4da16b1c62eca6933, type: 3}
   holeTile: {fileID: 2445129515857956318, guid: 16f162875d96adc41ad4a5195aa0adac, type: 3}
   _cam: {fileID: 519420032}
 --- !u!4 &439648094
@@ -1357,10 +1357,14 @@ MonoBehaviour:
   circle: {fileID: 7593985482268902386, guid: ad887c737835b4d408601202241c2936, type: 3}
   obejectOneIsMoving: 0
   objectTwoIsMoving: 0
-  touch3ObjectRight: 0
-  touch3ObjectLeft: 0
-  touch3ObjectUp: 0
-  touch3ObjectDown: 0
+  touch3ObjectRightOne: 0
+  touch3ObjectLeftOne: 0
+  touch3ObjectUpOne: 0
+  touch3ObjectDownOne: 0
+  touch3ObjectRightTwo: 0
+  touch3ObjectLeftTwo: 0
+  touch3ObjectUpTwo: 0
+  touch3ObjectDownTwo: 0
   c: {x: 0, y: 0}
   c2: {x: 0, y: 0}
 --- !u!1 &538405807
@@ -1643,7 +1647,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b564c7188d76b646ab6ac27ea4bb478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrol: {fileID: 3783817847175605902, guid: f3cf3afd576279747a9911af27238f07, type: 3}
 --- !u!1 &795670362
 GameObject:
   m_ObjectHideFlags: 0
@@ -1849,8 +1852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6e59a0a3c0aed41ab19ca4c5fbf741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimerText: {fileID: 882471772}
-  playing: 1
 --- !u!114 &882471772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3888,8 +3889,6 @@ MonoBehaviour:
   inventoryIsFullText: {fileID: 1303695888}
   itemImage: {fileID: 893439605}
   TemporaryModals: {fileID: 385564380}
-  yourTurnSign1: {fileID: 1711620658}
-  yourTurnSign2: {fileID: 270487767}
   TextForPlayerModal: {fileID: 481269478}
   PlayerText: {fileID: 1927772045}
   NameTextPlayerOne: {fileID: 1853346177}

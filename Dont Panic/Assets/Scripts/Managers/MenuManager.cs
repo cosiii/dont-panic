@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
 
    [SerializeField] public GameObject  itemModal, itemText, inventoryIsFullText, itemImage, TemporaryModals; 
 
-   [SerializeField] public GameObject helpers; 
+   //[SerializeField] public GameObject helpers; 
 
    [SerializeField] public GameObject TextForPlayerModal, PlayerText; 
     [SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 
@@ -34,7 +34,7 @@ GameWonModal.SetActive(true);
 }
 
 public void HideHelpers(){
-helpers.SetActive(false);
+//helpers.SetActive(false);
 }
 // DOOR MODAL
 public void ShowDoorModal(){

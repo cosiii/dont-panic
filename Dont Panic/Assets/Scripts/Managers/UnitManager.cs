@@ -5,8 +5,11 @@ using System.Linq;
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
-    private List<ScriptableUnit> units;
 
+    public Transform target;
+    public Camera cam;
+
+    private List<ScriptableUnit> units;
     public BasePlayer SelectedPlayer;
     public BasePlayer Player1, playerOneSpriteObject;
     public BasePlayer Player2, playerTwoSpriteObject;
@@ -107,6 +110,9 @@ public void UpdatePlayerTwo(){
         playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSpriteRight;
     }  
 
+       
+        Vector3 screenPos = cam.WorldToScreenPoint(target.position);
+        Debug.Log("target is " + screenPos.x + " pixels from the left");
 }
 
 // SPAWNING PATROLS

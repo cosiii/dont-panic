@@ -31,7 +31,6 @@ public class Patrol : BasePatrol
    public void OnCollisionEnter(Collision col){
     if (col.gameObject.name == "playerone(Clone)"){
       Tile.Instance.ThrowPlayer1ByPatrol();
-      AnimationManager.Instance.AnimateBoom();
     } 
     if (col.gameObject.name == "playertwo(Clone)"){
       Tile.Instance.ThrowPlayer2ByPatrol();
