@@ -10,9 +10,14 @@ public class multipleTouch : MonoBehaviour {
 
     public bool obejectOneIsMoving, objectTwoIsMoving;
 
-    public bool touch3ObjectRight, touch3ObjectLeft, touch3ObjectUp, touch3ObjectDown;
+     bool touch3ObjectRight, touch3ObjectLeft, touch3ObjectUp, touch3ObjectDown;
 
-    public Touch t1, t2, farestT;
+     public bool touch3ObjectRightOne, touch3ObjectLeftOne, touch3ObjectUpOne, touch3ObjectDownOne;
+    
+     public bool touch3ObjectRightTwo, touch3ObjectLeftTwo, touch3ObjectUpTwo, touch3ObjectDownTwo;
+
+
+    public Touch t, t1, t2, farestT;
 
     public Vector2 c, c2;
 
@@ -23,10 +28,9 @@ public class multipleTouch : MonoBehaviour {
 	public void Update () {
         UnitManager.Instance.UpdatePlayerOne();
         UnitManager.Instance.UpdatePlayerTwo();
-        if(Player1.Instance.deciding == true || Player2.Instance.deciding == true){
-            int i = 0;
+        int i = 0;
          while(i < Input.touchCount){
-            Touch t = Input.GetTouch(i);
+            t = Input.GetTouch(i);
             if(i == 0){
                 t1 = t;
             }
@@ -35,39 +39,61 @@ public class multipleTouch : MonoBehaviour {
                t2 = t;
             }
 
-
+        float dist = Vector3.Distance(t.position, t1.position);
+                
+        float dist2 = Vector3.Distance(t1.position, t2.position);
+                
+        float dist3 = Vector3.Distance(t2.position, t.position);
         // three touch points
         if(i == 2){
-
-            float dist = Vector3.Distance(t.position, t1.position);
-                
-            float dist2 = Vector3.Distance(t1.position, t2.position);
-                
-            float dist3 = Vector3.Distance(t2.position, t.position);
-
             if(t.phase == TouchPhase.Began){
+                
 
             }else if(t.phase == TouchPhase.Ended){
+                
 
             }else if(t.phase == TouchPhase.Moved){
+                    UpdatePosition(dist, dist2, dist3);
+                    
+                Debug.Log(touch3ObjectRightOne + " / " + touch3ObjectLeftOne  + " / "+  touch3ObjectUpOne + " / " + touch3ObjectDownOne);
+            }
+            }
+
+            if (i == 3){
+                Debug.Log("4 touches");
+            }
+
+            ++i;
+        }
+        
+       
+      
+	}
+
+    // GET TOUCH POSITION IN WORLD SPACE
+    Vector2 getTouchPosition(Vector2 touchPosition){
+        return GetComponent<Camera>().ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y, transform.position.z));
+    }
+
+    public void UpdatePosition(float D1, float D2, float D3){
                 // second touch position
                 // Debug.Log(t.position + " " + t1.position + " " + t2.position);
                 
                 // shortest dist
-                float shortestDist = Mathf.Min(Mathf.Min(dist, dist2), dist3);
+                float shortestDist = Mathf.Min(Mathf.Min(D1, D2), D3);
                 // Debug.Log(shortestDist);
                 float xAngle = 6;
-                if(dist == shortestDist){
+                if(D1 == shortestDist){
                   //Debug.Log("dist is shortest");
                   c= t1.position + (t.position - t1.position) / 2;
                    xAngle = (t1.position.x- t.position.x/t1.position.y- t.position.y) ;
                    farestT = t2;
-              } else if(dist2 == shortestDist){
+              } else if(D2 == shortestDist){
                   //Debug.Log("dist2 is shortest");
                   c= t2.position + (t1.position - t2.position) / 2;
                    xAngle = (t2.position.x- t1.position.x/t2.position.y- t1.position.y) ;
                   farestT = t;
-              } else if(dist3 == shortestDist){
+              } else if(D3 == shortestDist){
                   //Debug.Log("dist3 is shortest");
                   c= t.position + (t2.position - t.position) / 2;
                    xAngle = (t.position.x- t2.position.x/t.position.y- t2.position.y) ;
@@ -77,7 +103,6 @@ public class multipleTouch : MonoBehaviour {
               Debug.Log("c: " + c + "farestT: " + farestT.position.x + " / " + farestT.position.y);
 
               // ROTATE ALL TO X INSTEAD OD +
-              
 
                 if(c.x >= farestT.position.x && c.y <= farestT.position.y ){
                     touch3ObjectRight = true;
@@ -105,28 +130,18 @@ public class multipleTouch : MonoBehaviour {
                     touch3ObjectLeft = false;
                     touch3ObjectRight = false;
                 } 
-            }
-            }
 
-            if (i == 3){
-                Debug.Log("4 touches");
-            }
-
-            ++i;
-        }
-        }
-        
-
-      
-	}
-
-    // GET TOUCH POSITION IN WORLD SPACE
-    Vector2 getTouchPosition(Vector2 touchPosition){
-        return GetComponent<Camera>().ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y, transform.position.z));
-    }
-
-    public void effect(){
-        Instantiate(circle, new Vector3(2,3,1), Quaternion.identity );
-        Debug.Log("hheeeee");
+                 if (GameManager.Instance.GameState == GameState.Player1Turn){
+            touch3ObjectRightOne = touch3ObjectRight;
+            touch3ObjectLeftOne = touch3ObjectLeft; 
+            touch3ObjectUpOne = touch3ObjectUp;
+            touch3ObjectDownOne = touch3ObjectDown;
+        } else if (GameManager.Instance.GameState == GameState.Player2Turn){
+            
+            touch3ObjectRight = touch3ObjectRightTwo;
+            touch3ObjectLeftTwo = touch3ObjectLeft; 
+            touch3ObjectUpTwo = touch3ObjectUp;
+            touch3ObjectDownTwo = touch3ObjectDown;
+        }  
     }
 }

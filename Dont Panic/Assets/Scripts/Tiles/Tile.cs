@@ -45,14 +45,14 @@ public abstract class Tile : MonoBehaviour
                 // CLICKING ON ONESELF
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1"  && Player1.Instance.deciding == true){
                     Debug.Log("pl1 clicked on himself");
-                    InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
-                    ChangePlayerTurn();
+                    //InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
+                   // ChangePlayerTurn();
                 }  
 
                 if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" && Player2.Instance.deciding == true){
                     Debug.Log("pl2 clicked on himself");
-                    InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
-                    ChangePlayerTurn();
+                   // InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
+                   // ChangePlayerTurn();
                 }  
 
                 // CLICKING FOR MAKING TURN
@@ -60,8 +60,11 @@ public abstract class Tile : MonoBehaviour
                     UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
                     //if(MultipleTouch.Instance.objectOneRecognized == true){
                     Player1.Instance.highlight.SetActive(true);
-                    ShowWalkableTiles(Player1.Instance);  
+                    ShowWalkableTiles(Player1.Instance);
+                    
+                      
                     Player1.Instance.deciding = true;
+                    
                 } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
                     //if(MultipleTouch.Instance.objectTwoRecognized == true){

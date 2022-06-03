@@ -26,8 +26,7 @@ public class UnitManager : MonoBehaviour
 
     public Sprite playerOneSprite, playerOneSpriteUp, playerOneSpriteDown, playerOneSpriteLeft, playerOneSpriteRight;
     public Sprite playerTwoSprite, playerTwoSpriteUp, playerTwoSpriteDown, playerTwoSpriteLeft, playerTwoSpriteRight;
-
-
+    Sprite lastSpriteOne, lastSpriteTwo;
     
     void Awake(){
         Instance = this;
@@ -70,39 +69,42 @@ public class UnitManager : MonoBehaviour
     }
 
 public void UpdatePlayerOne(){
+
     // SCALES SPRITE IN RIGHT POSITION
-        playerOneSpriteObject.transform.localScale = new Vector3(1, 1, 1);
-    if (multipleTouch.Instance.touch3ObjectDown == true){
+    playerOneSpriteObject.transform.localScale = new Vector3(1, 1, 1);
+    if (multipleTouch.Instance.touch3ObjectDownOne == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteDown;
     } 
     
-    if (multipleTouch.Instance.touch3ObjectUp == true){
+    if (multipleTouch.Instance.touch3ObjectUpOne == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteUp;
     } 
     
-    if (multipleTouch.Instance.touch3ObjectLeft == true){
+    if (multipleTouch.Instance.touch3ObjectLeftOne == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteLeft;
     } 
-    if (multipleTouch.Instance.touch3ObjectRight == true){
+    if (multipleTouch.Instance.touch3ObjectRightOne == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteRight;
     }  
+
 }
 
 public void UpdatePlayerTwo(){
     // SCALES SPRITE IN RIGHT POSITION
-        playerTwoSpriteObject.transform.localScale = new Vector3(1, 1, 1);
-    if (multipleTouch.Instance.touch3ObjectDown == true){
+
+    playerTwoSpriteObject.transform.localScale = new Vector3(1, 1, 1);
+    if (multipleTouch.Instance.touch3ObjectDownTwo == true){
         playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSpriteDown;
     } 
     
-    if (multipleTouch.Instance.touch3ObjectUp == true){
+    if (multipleTouch.Instance.touch3ObjectUpTwo == true){
         playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSpriteUp;
     } 
     
-    if (multipleTouch.Instance.touch3ObjectLeft == true){
+    if (multipleTouch.Instance.touch3ObjectLeftTwo == true){
         playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSpriteLeft;
     } 
-    if (multipleTouch.Instance.touch3ObjectRight == true){
+    if (multipleTouch.Instance.touch3ObjectRightTwo == true){
         playerTwoSpriteObject.GetComponent<SpriteRenderer>().sprite = playerTwoSpriteRight;
     }  
 }
