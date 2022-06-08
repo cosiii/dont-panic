@@ -7,18 +7,19 @@ public class AnimationManager : MonoBehaviour
     
     public static AnimationManager Instance;
 
-    //public GameObject patrol, floorTileHighlight;
+    public FloorTile floorTile;
 
     public void Awake(){
         Instance = this;
     }
 
-    public void Update(){
-        //Animator animation = patrol.GetComponent<Animator>();
-          //animation.SetTrigger("PatrolCollision");
+    public void Start(){
+        Instance = this;
+    }
 
-    //Animator animation = floorTileHighlight.GetComponent<Animator>();
-         // animation.SetTrigger("blinkTiles");
+    public void AnimateHighlightTiles(){
+    Animator highlight = floorTile.highlight.GetComponent<Animator>();
+    highlight.SetBool("blinkTiles", true);
     }
 
 

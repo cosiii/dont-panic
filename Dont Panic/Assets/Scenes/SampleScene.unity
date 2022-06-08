@@ -2185,11 +2185,20 @@ MonoBehaviour:
   sounds:
   - name: scary
     clip: {fileID: 8300000, guid: 178b2192826b09643aa32500dee076b9, type: 3}
-    volume: 0
-    volumeVariance: 0
-    pitch: 0
-    pitchVariance: 0
-    loop: 1
+    volume: 1
+    volumeVariance: 0.426
+    pitch: 0.73
+    pitchVariance: 0.16
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: itemCollected
+    clip: {fileID: 8300000, guid: 4cdd23331e0585b44a29432e33c3f0af, type: 3}
+    volume: 1
+    volumeVariance: 0.426
+    pitch: 3
+    pitchVariance: 0.16
+    loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
 --- !u!1 &952666572

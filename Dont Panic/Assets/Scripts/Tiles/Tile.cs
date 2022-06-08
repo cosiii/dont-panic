@@ -35,7 +35,7 @@ public abstract class Tile : MonoBehaviour
     void OnMouseExit(){ //works only on clicks now
     }
 
-    void OnMouseDown(){
+    void OnMouseDown(){        
         //InventoryManager.Instance.DropItemPl1();
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied
@@ -149,9 +149,7 @@ public abstract class Tile : MonoBehaviour
                  //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
-                 
-
-
+            
                  if (playerOnDoor ==true){
                     Debug.Log("player on door the second time");
                     DoorManager.Instance.lastVisitedDoor = LastDoor;
@@ -159,13 +157,16 @@ public abstract class Tile : MonoBehaviour
                     MenuManager.Instance.AnimatePlayerText();
                     MenuManager.Instance.AnimateDoorModal();
                 }
-
                 ChangePlayerTurn();
+            } else {
+                Debug.Log("youre not on the highlight");
+                AnimationManager.Instance.AnimateHighlightTiles();
             }
         }
 
 
     } 
+    
     
 int playerSpawnTileX;
 int playerSpawnTileY;
@@ -422,5 +423,17 @@ int playerSpawnTileY;
                 
             }
         }
+    }
+
+
+    public void IsTokenOnSelectedPlayer(){
+        GameObject playerone = GameObject.Find("playerone(Clone)");
+        GameObject playertwo = GameObject.Find("playertwo(Clone)");
+        Debug.Log(playerone.GetComponent<Player1>().posx + "" + playerone.GetComponent<Player1>().posy);
+
+
+       // wenn t, t1, t2 zumindest einer von denen auf dem Tile is
+
+
     }
 }

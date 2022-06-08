@@ -45,4 +45,6 @@ public class UIManager : MonoBehaviour
         Debug.Log("twoback");
     }
 
+	// reload scene
+
 }

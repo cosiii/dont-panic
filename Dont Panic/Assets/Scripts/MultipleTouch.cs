@@ -14,7 +14,7 @@ public class multipleTouch : MonoBehaviour {
 
      public bool touch3ObjectRightOne, touch3ObjectLeftOne, touch3ObjectUpOne, touch3ObjectDownOne;
     
-     public bool touch3ObjectRightTwo, touch3ObjectLeftTwo, touch3ObjectUpTwo, touch3ObjectDownTwo;
+     public bool touch3ObjectRightTwo, touch3ObjectLeftTwo, touch3ObjectUpTwo, touch3ObjectDownTwo, threeTouchPoints;
 
 
     public Touch t, t1, t2, farestT;
@@ -28,6 +28,9 @@ public class multipleTouch : MonoBehaviour {
 	public void Update () {
         UnitManager.Instance.UpdatePlayerOne();
         UnitManager.Instance.UpdatePlayerTwo();
+
+
+        // wenn ich drufklick macht er das und wenn nicht, dann blinken
         int i = 0;
          while(i < Input.touchCount){
             t = Input.GetTouch(i);
@@ -44,6 +47,11 @@ public class multipleTouch : MonoBehaviour {
         float dist2 = Vector3.Distance(t1.position, t2.position);
                 
         float dist3 = Vector3.Distance(t2.position, t.position);
+
+    if (i == 1){
+                //Debug.Log("2 touches");
+            }
+        
         // three touch points
         if(i == 2){
             if(t.phase == TouchPhase.Began){
@@ -57,10 +65,12 @@ public class multipleTouch : MonoBehaviour {
             }else if(t.phase == TouchPhase.Moved){
                     UpdatePosition(dist, dist2, dist3);
             }
+
+            threeTouchPoints = true;
             }
 
             if (i == 3){
-                Debug.Log("4 touches");
+              //  Debug.Log("4 touches");
             }
 
             ++i;
@@ -100,7 +110,7 @@ public class multipleTouch : MonoBehaviour {
                    farestT = t1;
               }
 
-              Debug.Log("c: " + c + "farestT: " + farestT.position.x + " / " + farestT.position.y);
+              //Debug.Log("c: " + c + "farestT: " + farestT.position.x + " / " + farestT.position.y);
 
               // ROTATE ALL TO X INSTEAD OD +
 
