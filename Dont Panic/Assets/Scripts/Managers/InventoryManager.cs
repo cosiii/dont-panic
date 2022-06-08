@@ -41,6 +41,8 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
                 inventoryIsFullPlayerOne = true;
                 MenuManager.Instance.ShowInventoryIsFullText();
             } 
+
+
     for (int i = 0; i < slotsPlayerOne.Count; i++)
     {
         if(isFullPlayerOne[i] == false ){ // item can be added to inventory

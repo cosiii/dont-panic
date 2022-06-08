@@ -18,8 +18,8 @@ public class AnimationManager : MonoBehaviour
     }
 
     public void AnimateHighlightTiles(){
-    Animator highlight = floorTile.highlight.GetComponent<Animator>();
-    highlight.SetBool("blinkTiles", true);
+    //Animator highlight = floorTile.highlight.GetComponent<Animator>();
+   // highlight.SetTrigger("blinkTiles");
     }
 
 

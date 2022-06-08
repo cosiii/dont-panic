@@ -7,6 +7,10 @@ public class ItemManager : MonoBehaviour
 {
 
     public static ItemManager Instance;
+
+    public BaseUnit itemUnderneath;
+
+    public bool itemUnderneathFound;
     public Image oldImage, oldImageDoorLeft, oldImageDoorRight;
     public Sprite Item1, Item2, Item3, Item4, Item5, Item6, Item7, noImage;
   

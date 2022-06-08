@@ -13,7 +13,7 @@ public abstract class Tile : MonoBehaviour
 
     private bool playerOnDoor;
     
-    public BaseUnit OccupiedUnit;
+    public BaseUnit OccupiedUnit, OccupiedUnit2;
 
     public string LastDoor;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
@@ -30,6 +30,8 @@ public abstract class Tile : MonoBehaviour
 
 
     public void OnMouseEnter(){  //works only on clicks now
+    
+                    multipleTouch.Instance.UpdateToken();
     } 
 
     void OnMouseExit(){ //works only on clicks now
@@ -59,10 +61,12 @@ public abstract class Tile : MonoBehaviour
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1" ){
                     UnitManager.Instance.SetSelectedPlayer((Player1)OccupiedUnit);
                     Player1.Instance.deciding = true;
+                    ShowWalkableTiles(Player1.Instance);
                     
                 } else if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" ){
                     UnitManager.Instance.SetSelectedPlayer((Player2)OccupiedUnit);
                     Player2.Instance.deciding = true;
+                    ShowWalkableTiles(Player2.Instance);
                     
                 } 
 
@@ -87,24 +91,36 @@ public abstract class Tile : MonoBehaviour
 
                   
             // COLLISION ITEM
-                            if(OccupiedUnit.Faction == Faction.Item){ 
+                            if(OccupiedUnit.Faction == Faction.Item){ // or occupiedUnit2
                                 // PLAYERS INVENTORY IS NOT FULL
                                 if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
-                                DestroyUnit();
+                                
                                 InventoryManager.Instance.ItemCollision();
-                                AudioManager.Instance.Play("itemCollected");
+                                //AudioManager.Instance.Play("itemCollected");
 
                                 // PLAYERS INVENTORY IS FULL
-                                } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
+                                } 
+                                
+                                if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
                                     ItemManager.Instance.oldImage.sprite = null;
                                     MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "inventory is full";
                                     ItemManager.Instance.ChangeModal();
                                     MenuManager.Instance.ShowItemModal();
                                     MenuManager.Instance.AnimateItemModal();
+                                OccupiedUnit2 = OccupiedUnit;
                                 }
-                            }    
+
+                                if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
+                                InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
+                                    DestroyUnit();
+                                }
+                            }   
+
+                            if(OccupiedUnit2 != null){
+                                Debug.Log("occU 2 is belegt");
+                            } 
 
                         
             // COLLISION DOOR
