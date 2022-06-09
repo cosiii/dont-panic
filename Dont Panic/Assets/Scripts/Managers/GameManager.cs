@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         switch (newState){
             case GameState.GenerateGrid:
                 GridManager.Instance.GenerateGrid();
-                //AudioManager.Instance.Play("scary");
+                AudioManager.Instance.Play("scary");
                 break;
             case GameState.SpawnPlayers:
             UnitManager.Instance.SpawnDoors();

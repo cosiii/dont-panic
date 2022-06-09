@@ -20,7 +20,7 @@ public class ItemManager : MonoBehaviour
     }
 
     public void ChangeModal(){
-
+        Debug.Log("change modal");
     // Debug.Log("item picked up by " + MenuManager.Instance.selectedPlayerObject.GetComponentInChildren<Text>().text + "    " + InventoryManager.Instance.lastDestroyedItem);
     if(InventoryManager.Instance.lastDestroyedItem == "Item1"){
         oldImage.sprite = Item1;
@@ -44,6 +44,7 @@ public class ItemManager : MonoBehaviour
         oldImage.sprite = Item7;
         MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "tooth";
     }
+        Debug.Log("shouldve changed Icons");
 }
 
 public void ChangeDoorItemImageLeft(string keyItem){

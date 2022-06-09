@@ -13,10 +13,6 @@ public class AnimationManager : MonoBehaviour
         Instance = this;
     }
 
-    public void Start(){
-        Instance = this;
-    }
-
     public void AnimateHighlightTiles(){
     //Animator highlight = floorTile.highlight.GetComponent<Animator>();
    // highlight.SetTrigger("blinkTiles");

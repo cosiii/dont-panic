@@ -53,6 +53,7 @@ public void Shuffle() {
      }
     
   public void DoorCollision(){
+    AudioManager.Instance.Play("door");
 
       // SETUPS FOR EACH DOOR
         if (lastVisitedDoor == "door1"){

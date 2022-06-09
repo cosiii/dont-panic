@@ -13,8 +13,7 @@ public abstract class Tile : MonoBehaviour
 
     private bool playerOnDoor;
     
-    public BaseUnit OccupiedUnit, OccupiedUnit2;
-
+    public BaseUnit OccupiedUnit;
     public string LastDoor;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
 
@@ -37,7 +36,7 @@ public abstract class Tile : MonoBehaviour
     void OnMouseExit(){ //works only on clicks now
     }
 
-    void OnMouseDown(){        
+    void OnMouseDown(){       
         //InventoryManager.Instance.DropItemPl1();
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied
@@ -81,7 +80,7 @@ public abstract class Tile : MonoBehaviour
                 else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
                     Debug.Log("plyaer2 wird geworfen");
                     InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
-                     ThrowPlayer(Player2.Instance);
+                    ThrowPlayer(Player2.Instance);
                 }
 
             } 
@@ -92,12 +91,14 @@ public abstract class Tile : MonoBehaviour
                   
             // COLLISION ITEM
                             if(OccupiedUnit.Faction == Faction.Item){ // or occupiedUnit2
+
+
                                 // PLAYERS INVENTORY IS NOT FULL
                                 if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
                                 
+                                DestroyUnit(); // muss hier oben sein
                                 InventoryManager.Instance.ItemCollision();
-                                //AudioManager.Instance.Play("itemCollected");
 
                                 // PLAYERS INVENTORY IS FULL
                                 } 
@@ -107,20 +108,11 @@ public abstract class Tile : MonoBehaviour
                                     ItemManager.Instance.oldImage.sprite = null;
                                     MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "inventory is full";
                                     ItemManager.Instance.ChangeModal();
-                                    MenuManager.Instance.ShowItemModal();
                                     MenuManager.Instance.AnimateItemModal();
-                                OccupiedUnit2 = OccupiedUnit;
-                                }
-
-                                if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
-                                InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
-                                    DestroyUnit();
+                                    
                                 }
                             }   
-
-                            if(OccupiedUnit2 != null){
-                                Debug.Log("occU 2 is belegt");
-                            } 
+                              
 
                         
             // COLLISION DOOR
@@ -160,8 +152,6 @@ public abstract class Tile : MonoBehaviour
         else {
             // already got a selected Unit
             if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Floor"){
-                    
-                
                  //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                      UnitManager.Instance.SetSelectedPlayer(null);
@@ -187,6 +177,7 @@ public abstract class Tile : MonoBehaviour
 int playerSpawnTileX;
 int playerSpawnTileY;
     public void ThrowPlayer(BasePlayer playerToBeThrown){
+        AudioManager.Instance.Play("throw");
         int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
         int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
         if(UnitManager.Instance.SelectedPlayer!= null){
@@ -256,7 +247,6 @@ int playerSpawnTileY;
                     }
                     }
             ItemManager.Instance.ChangeModal();
-            MenuManager.Instance.ShowItemModal();
             MenuManager.Instance.AnimateItemModal();
             } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player2Turn ||
               InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player1Turn ){
@@ -290,12 +280,14 @@ int playerSpawnTileY;
     }
 
     public void ThrowPlayer1ByPatrol(){
+        AudioManager.Instance.Play("throw");
                         GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(Player1.Instance);
                         Player1.Instance.posx = UnitManager.Instance.xPlayerOneSpawnTile;
                         Player1.Instance.posy = UnitManager.Instance.yPlayerOneSpawnTile;
     }
 
     public void ThrowPlayer2ByPatrol(){
+        AudioManager.Instance.Play("throw");
                         GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(Player2.Instance);
                         Player2.Instance.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
                         Player2.Instance.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
@@ -328,9 +320,6 @@ int playerSpawnTileY;
         Player2.Instance.highlight.SetActive(false);
         GameManager.Instance.ChangeState(GameState.Player1Turn);
         }
-        // DEHIGHLIGHT
-        
-        
         Player1.Instance.deciding = false;
         Player2.Instance.deciding = false;
 

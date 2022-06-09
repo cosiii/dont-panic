@@ -56,18 +56,11 @@ public void ShowAdditionalInventory2(){
 }
 
 public void HideDoorInfo(){
-    
     Debug.Log("hidden doormodal");
     doorModal.SetActive(false);
 }
 
 // ITEM MODAL
-public void ShowItemModal(){
-    itemModal.SetActive(true);
-    itemImage.SetActive(true);
-    itemText.SetActive(true);
-    inventoryIsFullText.SetActive(false);
-}
 
 public void AnimateItemModal(){
     Animator animation = itemModal.GetComponent<Animator>();
