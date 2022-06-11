@@ -99,9 +99,9 @@ public abstract class Tile : MonoBehaviour
                                     InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.name;
                                     Debug.Log(Tile.Instance.name);
                                     SetUnit(UnitManager.Instance.Item1);
-                                    InventoryManager.Instance.itemUnderPlayer = true;
-                                    InventoryManager.Instance.itemUnderPlayerTile = this;
-                                    Debug.Log(InventoryManager.Instance.itemUnderPlayerTile);
+                                    InventoryManager.Instance.itemUnderPlayer1 = true;
+                                    InventoryManager.Instance.itemUnderPlayer1Tile = this;
+                                    Debug.Log(InventoryManager.Instance.itemUnderPlayer1Tile);
                                     // das aktuelle Tile merken, nen boolean an
                                     // dann beim wegklicken boolean aus und item platzieren
                                 InventoryManager.Instance.inventoryIsFullPlayerOne = true;
@@ -110,13 +110,13 @@ public abstract class Tile : MonoBehaviour
                                 // CHECK IF PL2s INVENTORY IS FULL
                                 else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ 
                                  if(InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){
-                                    Debug.Log("inventory full pl2");
-                                    Debug.Log(Tile.Instance.name);
+                                    // the item das eigentlich lastnotdestroyed heißt
                                     SetUnit(UnitManager.Instance.Item1);
-                                    InventoryManager.Instance.itemUnderPlayer = true;
+                                    InventoryManager.Instance.itemUnderPlayer2 = true;
+                                    InventoryManager.Instance.itemUnderPlayer2Tile = this;
                                     InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.name;
-                                     InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
-                                     MenuManager.Instance.ShowInventoryIsFullText();
+                                    InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
+                                    MenuManager.Instance.ShowInventoryIsFullText();
                                     } 
                                 }
 
@@ -156,13 +156,20 @@ public abstract class Tile : MonoBehaviour
                         
 
                     //deselect selected Unit
-                    if (InventoryManager.Instance.itemUnderPlayer == false){
+                    if (InventoryManager.Instance.itemUnderPlayer1 == false && GameManager.Instance.GameState == GameState.Player1Turn){
                     SetUnit(UnitManager.Instance.SelectedPlayer);
-                    } else {
+                    } else if (InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player1Turn){
                         OccupiedUnit2 = OccupiedUnit;
-                        
                         SetUnit(UnitManager.Instance.SelectedPlayer);
-                        InventoryManager.Instance.ItemTransferred = true;
+                        InventoryManager.Instance.ItemTransferred1 = true;
+                    }
+
+                    if (InventoryManager.Instance.itemUnderPlayer2 == false && GameManager.Instance.GameState == GameState.Player2Turn){
+                    SetUnit(UnitManager.Instance.SelectedPlayer);
+                    } else if (InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player2Turn) {
+                        OccupiedUnit2 = OccupiedUnit;
+                        SetUnit(UnitManager.Instance.SelectedPlayer);
+                        InventoryManager.Instance.ItemTransferred2 = true;
                     }
 
                     UnitManager.Instance.SetSelectedPlayer(null);
@@ -197,14 +204,21 @@ public abstract class Tile : MonoBehaviour
                     MenuManager.Instance.AnimateDoorModal();
                 }
 
-                if(InventoryManager.Instance.itemUnderPlayer == true && GameManager.Instance.GameState == GameState.Player1Turn){
-                    InventoryManager.Instance.itemUnderPlayerTile.SetUnit(UnitManager.Instance.Item1);
+
+                // ITEM WAS UNDER A PLAYER
+                if(InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player1Turn){
+                    InventoryManager.Instance.itemUnderPlayer1Tile.SetUnit(UnitManager.Instance.Item1);
                     OccupiedUnit2 = null;
-                    InventoryManager.Instance.itemUnderPlayer = false;
-                    InventoryManager.Instance.itemUnderPlayerTile.OccupiedUnit2 =null;
+                    InventoryManager.Instance.itemUnderPlayer1 = false;
+                    InventoryManager.Instance.itemUnderPlayer1Tile.OccupiedUnit2 =null;
+                } else if (InventoryManager.Instance.itemUnderPlayer2 == true && GameManager.Instance.GameState == GameState.Player2Turn){
+                    InventoryManager.Instance.itemUnderPlayer2Tile.SetUnit(UnitManager.Instance.Item1);
+                    OccupiedUnit2 = null;
+                    InventoryManager.Instance.itemUnderPlayer2 = false;
+                    InventoryManager.Instance.itemUnderPlayer2Tile.OccupiedUnit2 =null;
+                } 
 
 
-                }
                 ChangePlayerTurn();
             } else {
                 Debug.Log("youre not on the highlight");

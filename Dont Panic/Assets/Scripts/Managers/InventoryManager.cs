@@ -15,9 +15,9 @@ public List <string> inventoryPlayerOne;
 public List <string> inventoryPlayerTwo;
 public string lastDestroyedItem, lastNotDestroyedItem;
 
-public bool itemUnderPlayer, ItemTransferred;
+public bool itemUnderPlayer1, itemUnderPlayer2, ItemTransferred1, ItemTransferred2;
 
-public Tile itemUnderPlayerTile;
+public Tile itemUnderPlayer1Tile, itemUnderPlayer2Tile;
 
 public string lastDroppedItem;
 public bool inventoryIsFullPlayerOne;
