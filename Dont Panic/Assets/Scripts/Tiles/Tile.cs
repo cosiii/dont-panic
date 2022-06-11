@@ -93,16 +93,28 @@ public abstract class Tile : MonoBehaviour
                             if(OccupiedUnit.Faction == Faction.Item){ // or occupiedUnit2
 
 
+                                // CHECK IF PL1s INVENTORY IS FULL
+                                if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
+                                 Debug.Log("inventory full pl1");
+                                 InventoryManager.Instance.inventoryIsFullPlayerOne = true;
+                                MenuManager.Instance.ShowInventoryIsFullText();
+                                } 
+                                // CHECK IF PL2s INVENTORY IS FULL
+                                else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ 
+                                 if(InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){
+                                    Debug.Log("inventory full pl2");
+                                     InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
+                                     MenuManager.Instance.ShowInventoryIsFullText();
+                                    } 
+                                }
+
                                 // PLAYERS INVENTORY IS NOT FULL
                                 if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
-                                
                                 DestroyUnit(); // muss hier oben sein
                                 InventoryManager.Instance.ItemCollision();
-
-                                // PLAYERS INVENTORY IS FULL
                                 } 
-                                
+                                // PLAYERS INVENTORY IS FULL
                                 if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
                                     ItemManager.Instance.oldImage.sprite = null;
