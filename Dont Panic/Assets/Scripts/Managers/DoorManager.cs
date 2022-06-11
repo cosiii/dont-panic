@@ -117,10 +117,10 @@ public void ShowDoorFeature(string doorName){
             doorText = "The pantry is normally a nice place. I mean.. FOOD. But it looks like nobody was here for a while. There is mold everywhere. Even the mold has another layer of mold. You find a not so okay but okay enough looking apple and offer it to your opponent.It wasn't the best idea to be honest. Your opponent is very weak and waits two turns until the apple is fully digested.";
             if (GameManager.Instance.GameState == GameState.Player1Turn){
                 pantryFeatureP1 = true;
-                MenuManager.Instance.pl1PantryFeature = pantryIcon;
+                MenuManager.Instance.pl1PantryFeature.sprite = pantryIcon.sprite;
             } else if (GameManager.Instance.GameState == GameState.Player2Turn){
                 pantryFeatureP2 = true;
-                MenuManager.Instance.pl2PantryFeature = pantryIcon;
+                MenuManager.Instance.pl2PantryFeature.sprite = pantryIcon.sprite;
             }
         }
     } 
@@ -138,14 +138,14 @@ public void ShowDoorFeature(string doorName){
             InventoryManager.Instance.slotsPlayerOne.Add(Player1Slot4);
             InventoryManager.Instance.isFullPlayerOne.Add(false);
             diningFeatureP1 = true;
-            MenuManager.Instance.pl1DiningFeature = diningIcon;
+            MenuManager.Instance.pl1DiningFeature.sprite = diningIcon.sprite;
             } else if (GameManager.Instance.GameState == GameState.Player2Turn){
             MenuManager.Instance.ShowAdditionalInventory2();
             InventoryManager.Instance.inventoryPlayerTwo.Add("");
             InventoryManager.Instance.slotsPlayerTwo.Add(Player2Slot4);
             InventoryManager.Instance.isFullPlayerTwo.Add(false);
             diningFeatureP2 = true;
-            MenuManager.Instance.pl2DiningFeature = diningIcon;
+            MenuManager.Instance.pl2DiningFeature.sprite = diningIcon.sprite;
         }
         }
     } 
@@ -160,11 +160,11 @@ public void ShowDoorFeature(string doorName){
             if (GameManager.Instance.GameState == GameState.Player1Turn && secondUnlocked == true){
             Player1.Instance.walkingDistance =4;
             hallwayFeatureP1 = true;
-            MenuManager.Instance.pl1HallwayFeature = hallwayIcon;
+            MenuManager.Instance.pl1HallwayFeature.sprite = hallwayIcon.sprite;
             } else if (GameManager.Instance.GameState == GameState.Player2Turn && secondUnlocked == true){
             Player2.Instance.walkingDistance =4;
             hallwayFeatureP2 = true;
-            MenuManager.Instance.pl2HallwayFeature = hallwayIcon;
+            MenuManager.Instance.pl2HallwayFeature.sprite = hallwayIcon.sprite;
         }
         } 
     } 
@@ -179,11 +179,11 @@ public void ShowDoorFeature(string doorName){
             if (GameManager.Instance.GameState == GameState.Player1Turn){
             // InventoryManager.Instance.DropOneItem(Player2.Instance);
             surgeryFeatureP1 = true;
-            MenuManager.Instance.pl1SurgeryFeature = surgeryIcon;
+            MenuManager.Instance.pl1SurgeryFeature.sprite = surgeryIcon.sprite;
             } else if (GameManager.Instance.GameState == GameState.Player2Turn){
             // InventoryManager.Instance.DropOneItem(Player1.Instance);
             surgeryFeatureP2 = true;
-            MenuManager.Instance.pl2SurgeryFeature = surgeryIcon;
+            MenuManager.Instance.pl2SurgeryFeature.sprite = surgeryIcon.sprite;
         }
         }
         

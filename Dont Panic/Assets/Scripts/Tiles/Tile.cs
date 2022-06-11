@@ -92,7 +92,6 @@ public abstract class Tile : MonoBehaviour
             // COLLISION ITEM
                             if(OccupiedUnit.Faction == Faction.Item){ // or occupiedUnit2
 
-
                                 // CHECK IF PL1s INVENTORY IS FULL
                                 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
                                 Debug.Log("inventory full pl1");
