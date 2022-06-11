@@ -13,7 +13,11 @@ public List <GameObject> slotsPlayerTwo;
 public List <string> inventoryPlayerOne;
 
 public List <string> inventoryPlayerTwo;
-public string lastDestroyedItem;
+public string lastDestroyedItem, lastNotDestroyedItem;
+
+public bool itemUnderPlayer, ItemTransferred;
+
+public Tile itemUnderPlayerTile;
 
 public string lastDroppedItem;
 public bool inventoryIsFullPlayerOne;

@@ -13,7 +13,7 @@ public abstract class Tile : MonoBehaviour
 
     private bool playerOnDoor;
     
-    public BaseUnit OccupiedUnit;
+    public BaseUnit OccupiedUnit, OccupiedUnit2;
     public string LastDoor;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
 
@@ -95,14 +95,26 @@ public abstract class Tile : MonoBehaviour
 
                                 // CHECK IF PL1s INVENTORY IS FULL
                                 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
-                                 Debug.Log("inventory full pl1");
-                                 InventoryManager.Instance.inventoryIsFullPlayerOne = true;
+                                Debug.Log("inventory full pl1");
+                                    InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.name;
+                                    Debug.Log(Tile.Instance.name);
+                                    SetUnit(UnitManager.Instance.Item1);
+                                    InventoryManager.Instance.itemUnderPlayer = true;
+                                    InventoryManager.Instance.itemUnderPlayerTile = this;
+                                    Debug.Log(InventoryManager.Instance.itemUnderPlayerTile);
+                                    // das aktuelle Tile merken, nen boolean an
+                                    // dann beim wegklicken boolean aus und item platzieren
+                                InventoryManager.Instance.inventoryIsFullPlayerOne = true;
                                 MenuManager.Instance.ShowInventoryIsFullText();
                                 } 
                                 // CHECK IF PL2s INVENTORY IS FULL
                                 else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ 
                                  if(InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){
                                     Debug.Log("inventory full pl2");
+                                    Debug.Log(Tile.Instance.name);
+                                    SetUnit(UnitManager.Instance.Item1);
+                                    InventoryManager.Instance.itemUnderPlayer = true;
+                                    InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.name;
                                      InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
                                      MenuManager.Instance.ShowInventoryIsFullText();
                                     } 
@@ -144,9 +156,18 @@ public abstract class Tile : MonoBehaviour
                         
 
                     //deselect selected Unit
+                    if (InventoryManager.Instance.itemUnderPlayer == false){
                     SetUnit(UnitManager.Instance.SelectedPlayer);
+                    } else {
+                        OccupiedUnit2 = OccupiedUnit;
+                        
+                        SetUnit(UnitManager.Instance.SelectedPlayer);
+                        InventoryManager.Instance.ItemTransferred = true;
+                    }
+
                     UnitManager.Instance.SetSelectedPlayer(null);
                     ChangePlayerTurn();
+
                     // PANTRY FEATURE CHANGE TURNS AGAIN
                     if(DoorManager.Instance.pantryFeatureP1 == true){
                         ChangePlayerTurn();
@@ -175,14 +196,21 @@ public abstract class Tile : MonoBehaviour
                     MenuManager.Instance.AnimatePlayerText();
                     MenuManager.Instance.AnimateDoorModal();
                 }
+
+                if(InventoryManager.Instance.itemUnderPlayer == true && GameManager.Instance.GameState == GameState.Player1Turn){
+                    InventoryManager.Instance.itemUnderPlayerTile.SetUnit(UnitManager.Instance.Item1);
+                    OccupiedUnit2 = null;
+                    InventoryManager.Instance.itemUnderPlayer = false;
+                    InventoryManager.Instance.itemUnderPlayerTile.OccupiedUnit2 =null;
+
+
+                }
                 ChangePlayerTurn();
             } else {
                 Debug.Log("youre not on the highlight");
                 AnimationManager.Instance.AnimateHighlightTiles();
             }
         }
-
-
     } 
     
     
