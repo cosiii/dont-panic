@@ -20,6 +20,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] public GameObject AdditionalInventory1, AdditionalInventory2; 
     [SerializeField] public GameObject GameWonModal;
 
+    [SerializeField] public Image pl1PantryFeature, pl1DiningFeature, pl1HallwayFeature, pl1SurgeryFeature;
+    [SerializeField] public Image pl2PantryFeature, pl2DiningFeature, pl2HallwayFeature, pl2SurgeryFeature;
 
    public bool TemporaryModalsRotated = false;
 void Awake(){
