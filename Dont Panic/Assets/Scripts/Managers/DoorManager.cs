@@ -18,7 +18,8 @@ public class DoorManager : MonoBehaviour
   public bool hallwayFeatureP2, pantryFeatureP2, surgeryFeatureP2, diningFeatureP2;
 
   public Image hallwayIcon, pantryIcon, surgeryIcon, diningIcon;
-public string[] RandomItems = {"Item1","Item2", "Item3", "Item4", "Item5", "Item6", "Item7" };
+//public string[] RandomItems = {"Item1","Item2", "Item3", "Item4", "Item5", "Item6", "Item7" };
+public List <string> RandomItems;
 
 public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery room"};
 
@@ -26,33 +27,33 @@ public string doorHeading, doorText;
 
 [SerializeField] public GameObject Player1Slot4, Player2Slot4; 
 
+public bool doorsHaveSameItems;
+
+
+
+
 
   void Awake(){
       Instance = this;
-        Shuffle();
+        ShuffleDoors();
         doorName1 = DoorNames[0];
         doorName2 = DoorNames[1];
         doorName3 = DoorNames[2];
         doorName4 = DoorNames[3];
         doorName5 = DoorNames[4];
 
-      for (int i = 0; i < 2; i++)
-      {
-      keyItems1[i] = RandomItems[Random.Range(0,RandomItems.Length )];
-      keyItems2[i] = RandomItems[Random.Range(0,RandomItems.Length )];
-      keyItems3[i] = RandomItems[Random.Range(0,RandomItems.Length )];
-      keyItems4[i] = RandomItems[Random.Range(0,RandomItems.Length )];
-      keyItems5[i] = RandomItems[Random.Range(0,RandomItems.Length )];
+        SetItemsToDoors();
+
+    if (keyItems1[0] == keyItems1[1] || keyItems2[0] == keyItems2[1] || keyItems3[0] == keyItems3[1] || keyItems4[0] == keyItems4[1] || keyItems5[0] == keyItems5[1]){
+        SetItemsToDoors();
+        // solange bis es halt passt
       }
+
+
   }
-public void Shuffle() {
-         for (int i = 0; i < DoorNames.Length; i++) {
-             int rnd = Random.Range(0, DoorNames.Length);
-             var tempGO = DoorNames[rnd];
-             DoorNames[rnd] = DoorNames[i];
-             DoorNames[i] = tempGO;
-         }
-     }
+
+  
+
     
   public void DoorCollision(){
     AudioManager.Instance.Play("door");
@@ -85,6 +86,18 @@ public void Shuffle() {
      MenuManager.Instance.ShowDoorModal();
      
   }
+
+
+
+public void ShuffleDoors() {
+         for (int i = 0; i < DoorNames.Length; i++) {
+             int rnd = Random.Range(0, DoorNames.Length);
+             var tempGO = DoorNames[rnd];
+             DoorNames[rnd] = DoorNames[i];
+             DoorNames[i] = tempGO;
+         }
+     }
+
 
 public void ShowDoorFeature(string doorName){
 
@@ -168,7 +181,7 @@ public void ShowDoorFeature(string doorName){
         }
         } 
     } 
-    // OPPONENT DROPS ITEM
+    // SURGERY ROOM: OPPONENT DROPS ITEM
     else if(doorName == "surgery room"){ 
         if (firstUnlocked == true){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the surgery room";
@@ -200,6 +213,35 @@ public void SetupDoor(string[] keyItem, string doorName){
             } else if (firstUnlocked == false){
                 ItemManager.Instance.ChangeDoorItemImageRight("none");
     }
+}
+
+public void SetItemsToDoors(){
+  for (int i = 0; i < 2; i++)
+      {
+        
+        RandomItems.Add("Item1");
+        RandomItems.Add("Item2");
+        RandomItems.Add("Item3");
+        RandomItems.Add("Item4");
+        RandomItems.Add("Item5");
+        RandomItems.Add("Item6");
+        RandomItems.Add("Item7");
+
+
+      keyItems1[i] = RandomItems[Random.Range(0,RandomItems.Count)];
+      RandomItems.Remove(keyItems1[i]);
+      keyItems2[i] = RandomItems[Random.Range(0,RandomItems.Count)];
+      RandomItems.Remove(keyItems2[i]);
+      keyItems3[i] = RandomItems[Random.Range(0,RandomItems.Count)];
+      RandomItems.Remove(keyItems3[i]);
+      keyItems4[i] = RandomItems[Random.Range(0,RandomItems.Count)];
+      RandomItems.Remove(keyItems4[i]);
+      keyItems5[i] = RandomItems[Random.Range(0,RandomItems.Count)];
+      RandomItems.Remove(keyItems5[i]);
+
+
+      RandomItems.Clear();
+      }
 }
 
   public void SearchItem(string itemOne, string itemToHaveNext){
