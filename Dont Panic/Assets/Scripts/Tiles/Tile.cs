@@ -92,7 +92,7 @@ public abstract class Tile : MonoBehaviour
             // COLLISION ITEM
                             if(OccupiedUnit.Faction == Faction.Item){ // or occupiedUnit2
 
-                                // CHECK IF PL1s INVENTORY IS FULL
+                                // IF PL1s INVENTORY IS FULL
                                 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
                                 Debug.Log("inventory full pl1");
                                     InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.name;
@@ -104,9 +104,8 @@ public abstract class Tile : MonoBehaviour
                                     // das aktuelle Tile merken, nen boolean an
                                     // dann beim wegklicken boolean aus und item platzieren
                                 InventoryManager.Instance.inventoryIsFullPlayerOne = true;
-                                MenuManager.Instance.ShowInventoryIsFullText();
                                 } 
-                                // CHECK IF PL2s INVENTORY IS FULL
+                                // IF PL2s INVENTORY IS FULL
                                 else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ 
                                  if(InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){
                                     // the item das eigentlich lastnotdestroyed heißt
@@ -115,7 +114,6 @@ public abstract class Tile : MonoBehaviour
                                     InventoryManager.Instance.itemUnderPlayer2Tile = this;
                                     InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.name;
                                     InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
-                                    MenuManager.Instance.ShowInventoryIsFullText();
                                     } 
                                 }
 
@@ -125,13 +123,12 @@ public abstract class Tile : MonoBehaviour
                                 DestroyUnit(); // muss hier oben sein
                                 InventoryManager.Instance.ItemCollision();
                                 } 
+
                                 // PLAYERS INVENTORY IS FULL
                                 if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
-                                    ItemManager.Instance.oldImage.sprite = null;
-                                    MenuManager.Instance.itemText.GetComponentInChildren<Text>().text = "inventory is full";
-                                    ItemManager.Instance.ChangeModal();
-                                    MenuManager.Instance.AnimateItemModal();
+                                    MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "Your Inventory is Full";
+                                    MenuManager.Instance.AnimatePlayerText();
                                     
                                 }
                             }   
@@ -148,16 +145,12 @@ public abstract class Tile : MonoBehaviour
                             MenuManager.Instance.AnimateDoorModal();
                         }
                         
-            // COLLISION PATROL       
-               // if patrol is on tile, mark the tiles as infiziert, sagen wir vorerst mal walkable     
-                        //OccupiedUnit.Faction = Faction.Patrol;
-                        //randomSpawnTile = GridManager.Instance.GetDoorSpawnTile(doorUpValue2, GridManager.Instance._height -1);
                         
-
-                    //deselect selected Unit
+            // OCCUPIED UNIT 2  
                     if (InventoryManager.Instance.itemUnderPlayer1 == false && GameManager.Instance.GameState == GameState.Player1Turn){
                     SetUnit(UnitManager.Instance.SelectedPlayer);
-                    } else if (InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player1Turn){
+                    } 
+                    else if (InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player1Turn){
                         OccupiedUnit2 = OccupiedUnit;
                         SetUnit(UnitManager.Instance.SelectedPlayer);
                         InventoryManager.Instance.ItemTransferred1 = true;
@@ -165,7 +158,8 @@ public abstract class Tile : MonoBehaviour
 
                     if (InventoryManager.Instance.itemUnderPlayer2 == false && GameManager.Instance.GameState == GameState.Player2Turn){
                     SetUnit(UnitManager.Instance.SelectedPlayer);
-                    } else if (InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player2Turn) {
+                    } 
+                    else if (InventoryManager.Instance.itemUnderPlayer2 == true && GameManager.Instance.GameState == GameState.Player2Turn) {
                         OccupiedUnit2 = OccupiedUnit;
                         SetUnit(UnitManager.Instance.SelectedPlayer);
                         InventoryManager.Instance.ItemTransferred2 = true;
@@ -407,6 +401,12 @@ int playerSpawnTileY;
                     if(player.posx + y < GridManager.Instance._width){
                     GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].highlight.SetActive(true);
                     GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].isWalkable = true;
+                    }
+
+                    // UP
+                    if(player.posy + y < GridManager.Instance._height){
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].highlight.SetActive(true);
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].isWalkable = true;
                     }
                  } 
                  

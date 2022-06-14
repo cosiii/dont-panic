@@ -10,6 +10,8 @@ public class MenuManager : MonoBehaviour
 
    [SerializeField] public GameObject doorNameObject, doorTextObject, doorModal, doorFoundModal, doorFoundModalHeading, doorFoundModalText; 
 
+   [SerializeField] public Image doorFoundModalImage;
+
    [SerializeField] public GameObject  itemModal, itemText, inventoryIsFullText, itemImage, TemporaryModals; 
 
    //[SerializeField] public GameObject helpers; 
@@ -26,7 +28,7 @@ public class MenuManager : MonoBehaviour
    public bool TemporaryModalsRotated = false;
 void Awake(){
     Instance = this;
-    //NameTextPlayerOne.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText1.text;
+   // NameTextPlayerOne.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText1.text;
     //NameTextPlayerTwo.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText2.text;
 }
 
@@ -55,11 +57,6 @@ public void ShowAdditionalInventory1(){
 
 public void ShowAdditionalInventory2(){
     AdditionalInventory2.SetActive(true);
-}
-
-public void HideDoorInfo(){
-    Debug.Log("hidden doormodal");
-    doorModal.SetActive(false);
 }
 
 // ITEM MODAL
@@ -92,13 +89,6 @@ public void RotateModalsToPlayer2(){
         TemporaryModals.transform.Rotate(180, 180, 0);
     } 
     TemporaryModalsRotated = true;
-}
-
-public void ShowInventoryIsFullText(){
-    itemModal.SetActive(true);
-    inventoryIsFullText.SetActive(true);
-    itemText.SetActive(false);
-    itemImage.SetActive(false);
 }
 
 public void ShowPlayersTurn(){

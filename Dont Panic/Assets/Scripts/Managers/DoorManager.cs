@@ -18,7 +18,6 @@ public class DoorManager : MonoBehaviour
   public bool hallwayFeatureP2, pantryFeatureP2, surgeryFeatureP2, diningFeatureP2;
 
   public Image hallwayIcon, pantryIcon, surgeryIcon, diningIcon;
-//public string[] RandomItems = {"Item1","Item2", "Item3", "Item4", "Item5", "Item6", "Item7" };
 public List <string> RandomItems;
 
 public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery room"};
@@ -26,12 +25,6 @@ public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery
 public string doorHeading, doorText;
 
 [SerializeField] public GameObject Player1Slot4, Player2Slot4; 
-
-public bool doorsHaveSameItems;
-
-
-
-
 
   void Awake(){
       Instance = this;
@@ -45,6 +38,7 @@ public bool doorsHaveSameItems;
         SetItemsToDoors();
 
     if (keyItems1[0] == keyItems1[1] || keyItems2[0] == keyItems2[1] || keyItems3[0] == keyItems3[1] || keyItems4[0] == keyItems4[1] || keyItems5[0] == keyItems5[1]){
+        Debug.Log("a door has the same items");
         SetItemsToDoors();
         // solange bis es halt passt
       }
@@ -62,23 +56,18 @@ public bool doorsHaveSameItems;
         if (lastVisitedDoor == "door1"){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 1";
             SetupDoor(keyItems1, doorName1);
-            ShowDoorFeature(doorName1);
         } else if (lastVisitedDoor == "door2"){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 2";
             SetupDoor(keyItems2, doorName2);
-            ShowDoorFeature(doorName2);
         }  else if (lastVisitedDoor == "door3"){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 3";
            SetupDoor(keyItems3, doorName3);
-           ShowDoorFeature(doorName3);
         } else if (lastVisitedDoor == "door4"){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 4";
             SetupDoor(keyItems4, doorName4);
-            ShowDoorFeature(doorName4);
         } else if (lastVisitedDoor == "door5"){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 5";
             SetupDoor(keyItems5, doorName5);
-            ShowDoorFeature(doorName5);
         }
       
     // ROTATING AND SHOWING MODAL AND HIDING ITEMS
@@ -86,8 +75,6 @@ public bool doorsHaveSameItems;
      MenuManager.Instance.ShowDoorModal();
      
   }
-
-
 
 public void ShuffleDoors() {
          for (int i = 0; i < DoorNames.Length; i++) {
@@ -99,15 +86,11 @@ public void ShuffleDoors() {
      }
 
 
-public void ShowDoorFeature(string doorName){
-
-    if (firstUnlocked == true){
-        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontSize = 18;
-    } else if (secondUnlocked == true){
-        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontSize = 12;
-        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontStyle = FontStyle.Normal;
-    }
-
+public void SetupDoor(string[] keyItem, string doorName){
+            // Name from doorX to ACTUALDOORNAME
+            lastVisitedDoor= doorName;
+            string itemOne  = keyItem[0];
+            string itemToHaveNext = keyItem[1];
 
     // EXIT : YOU HAVE WON
     if(doorName == "exit"){ 
@@ -201,17 +184,70 @@ public void ShowDoorFeature(string doorName){
         }
         
     }
-}
-public void SetupDoor(string[] keyItem, string doorName){
-            // Name from doorX to ACTUALDOORNAME
-            lastVisitedDoor= doorName;
-            SearchItem(keyItem[0], keyItem[1]);
-            ItemManager.Instance.ChangeDoorItemImageLeft(keyItem[0]);
-            // only show second item and doorName when FiRST ONE IS IN INVENTORY
-            if(firstUnlocked == true){
-                ItemManager.Instance.ChangeDoorItemImageRight(keyItem[1]);
-            } else if (firstUnlocked == false){
+
+    // CHECK ITEMS PLAYER ONE
+      if(GameManager.Instance.GameState == GameState.Player1Turn){
+          firstUnlocked = false;
+          secondUnlocked = false;
+          MenuManager.Instance.doorFoundModal.SetActive(false);
+          MenuManager.Instance.RotateModalsToPlayer1();
+          foreach (string x in InventoryManager.Instance.inventoryPlayerOne)
+         {
+             if (x.Equals (itemOne))   // waittime
+             {
+                 Debug.Log("you, player one has this item, the next item is " + itemToHaveNext);
+                 firstUnlocked = true;
+
+             } 
+
+             if ( x.Equals (itemToHaveNext)  && firstUnlocked == true) 
+             {
+                 secondUnlocked = true;
+                 MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
+                 MenuManager.Instance.PlayerText.SetActive(false);
+             } 
+         }
+      }
+    
+    // CHECK ITEMS PLAYER TWO
+    if(GameManager.Instance.GameState == GameState.Player2Turn){
+        firstUnlocked = false;
+        secondUnlocked = false;
+        MenuManager.Instance.doorFoundModal.SetActive(false);
+        MenuManager.Instance.RotateModalsToPlayer2();
+        foreach (string x in InventoryManager.Instance.inventoryPlayerTwo)
+         {
+             if (x.Equals (itemOne))
+             {
+                 Debug.Log("you, player two has this item, the next item is " + itemToHaveNext);
+                 firstUnlocked = true;
+             } 
+
+             if (x.Equals (itemToHaveNext) && firstUnlocked == true)
+             {
+                 secondUnlocked = true;
+                 MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
+                 MenuManager.Instance.PlayerText.SetActive(false);
+             } 
+         }
+    }
+
+
+
+
+    // CHANGE LEFT DOOR ITEM IMAGE
+    ItemManager.Instance.ChangeDoorItemImageLeft(keyItem[0]);
+            
+
+    // CHANGE RIGHT DOOR ITEM IMAGE
+    if (firstUnlocked == true){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontSize = 18;
+        ItemManager.Instance.ChangeDoorItemImageRight(keyItem[1]);
+    } else if (firstUnlocked == false){
                 ItemManager.Instance.ChangeDoorItemImageRight("none");
+    } else if (secondUnlocked == true){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontSize = 12;
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontStyle = FontStyle.Normal;
     }
 }
 
@@ -244,60 +280,4 @@ public void SetItemsToDoors(){
       }
 }
 
-  public void SearchItem(string itemOne, string itemToHaveNext){
-    // CHECK ITEMS PLAYER ONE
-
-    // einheitlicher machen
-      if(GameManager.Instance.GameState == GameState.Player1Turn){
-          firstUnlocked = false;
-          secondUnlocked = false;
-          MenuManager.Instance.doorFoundModal.SetActive(false);
-
-          // ROTATE MODAL
-          MenuManager.Instance.RotateModalsToPlayer1();
-
-          // SEARCH FOR THE ITEMS
-          foreach (string x in InventoryManager.Instance.inventoryPlayerOne)
-         {
-             if (x.Equals (itemOne))
-             {
-                 Debug.Log("you, player one has this item, the next item is " + itemToHaveNext);
-                 
-                 firstUnlocked = true;
-             } 
-
-             if ( x.Equals (itemToHaveNext)  && firstUnlocked == true) 
-             {
-                 secondUnlocked = true;
-                 MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
-                 MenuManager.Instance.PlayerText.SetActive(false);
-             } 
-         }
-      }
-    
-    // CHECK ITEMS PLAYER TWO
-    if(GameManager.Instance.GameState == GameState.Player2Turn){
-        firstUnlocked = false;
-        secondUnlocked = false;
-        MenuManager.Instance.doorFoundModal.SetActive(false);
-        MenuManager.Instance.RotateModalsToPlayer2();
-
-          foreach (string x in InventoryManager.Instance.inventoryPlayerTwo)
-         {
-             if (x.Equals (itemOne))
-             {
-                 Debug.Log("you, player two has this item, the next item is " + itemToHaveNext);
-                 firstUnlocked = true;
-             } 
-
-             if (x.Equals (itemToHaveNext) && firstUnlocked == true)
-             {
-                 Debug.Log("you have both items " );
-                 secondUnlocked = true;
-                 MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
-                 MenuManager.Instance.PlayerText.SetActive(false);
-             } 
-         }
-    }
-  }
 }

@@ -32,11 +32,9 @@ void Awake(){
 
  public void ItemCollision(){
 
-// nur destroyen wenn noch platz in tasche is
 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
     // PLAYER ONE
     MenuManager.Instance.RotateModalsToPlayer1();
-    //
     for (int i = 0; i < slotsPlayerOne.Count; i++)
     {
         if(isFullPlayerOne[i] == false ){ // item can be added to inventory
@@ -48,6 +46,7 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
         }
     }
 
+    Debug.Log("Item collected by Player 1");
 
 } else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ 
     //PLAYER TWO
@@ -62,11 +61,14 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
             break;
         }
     }
+
+    Debug.Log("Item collected by Player 2");
 }
 
     ItemManager.Instance.ChangeModal();
     AudioManager.Instance.Play("collect");
     MenuManager.Instance.AnimateItemModal();
+    // Change und animate zsmfügen?
 
 }
 
@@ -92,7 +94,6 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
         // respawn items
     }
     
-   // if (player = Player1.Instance){
         for (int i = 0; i < slots.Count; i++)
         { 
             if(isFull[slots.Count-1 -i] == true){ 
@@ -105,8 +106,7 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
             break;
             }
          }
-    //}
-    
+
     var spawnedItem = UnitManager.Instance.Item1;
     if (lastDroppedItem != ""){
         if (lastDroppedItem == "Item1"){
