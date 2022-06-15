@@ -49,6 +49,7 @@ public void ShowDoorFoundModal(string heading, string text){
     doorFoundModal.SetActive(true);
     doorFoundModalHeading.GetComponentInChildren<Text>().text = heading;
     doorFoundModalText.GetComponentInChildren<Text>().text = text;
+    Debug.Log("showdoorfoundmodal");
 }
 
 public void ShowAdditionalInventory1(){

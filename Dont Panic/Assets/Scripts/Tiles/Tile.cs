@@ -28,15 +28,14 @@ public abstract class Tile : MonoBehaviour
     }
 
 
-    public void OnMouseEnter(){  //works only on clicks now
+    public void OnTouchDrag(){  //works only on clicks now
     
-                    multipleTouch.Instance.UpdateToken();
     } 
 
     void OnMouseExit(){ //works only on clicks now
     }
 
-    void OnMouseDown(){       
+    void OnMouseDown(){    
         //InventoryManager.Instance.DropItemPl1();
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied

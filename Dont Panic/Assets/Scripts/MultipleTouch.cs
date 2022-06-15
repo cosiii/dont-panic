@@ -14,7 +14,7 @@ public class multipleTouch : MonoBehaviour {
 
      public bool touch3ObjectRightOne, touch3ObjectLeftOne, touch3ObjectUpOne, touch3ObjectDownOne;
     
-     public bool touch3ObjectRightTwo, touch3ObjectLeftTwo, touch3ObjectUpTwo, touch3ObjectDownTwo, threeTouchPoints;
+     public bool touch3ObjectRightTwo, touch3ObjectLeftTwo, touch3ObjectUpTwo, touch3ObjectDownTwo;
 
 
     public Touch t, t1, t2, farestT;
@@ -23,6 +23,10 @@ public class multipleTouch : MonoBehaviour {
 
     public void Awake(){
         Instance = this;
+    }
+
+    public void Update(){
+        UpdateToken();
     }
 	// Update is called once per frame
 	public void UpdateToken () {
@@ -59,14 +63,11 @@ public class multipleTouch : MonoBehaviour {
                 
 
             }else if(t.phase == TouchPhase.Ended){
-                    UpdatePosition(dist, dist2, dist3);
                 
 
             }else if(t.phase == TouchPhase.Moved){
-                    UpdatePosition(dist, dist2, dist3);
             }
 
-            threeTouchPoints = true;
             }
 
             if (i == 3){

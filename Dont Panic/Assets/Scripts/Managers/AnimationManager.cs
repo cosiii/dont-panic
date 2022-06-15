@@ -7,7 +7,7 @@ public class AnimationManager : MonoBehaviour
     
     public static AnimationManager Instance;
 
-    public FloorTile floorTile;
+    public Tile floorTile;
 
     public void Awake(){
         Instance = this;
@@ -15,7 +15,8 @@ public class AnimationManager : MonoBehaviour
 
     public void AnimateHighlightTiles(){
     //Animator highlight = floorTile.highlight.GetComponent<Animator>();
-   // highlight.SetTrigger("blinkTiles");
+    //highlight.SetTrigger("blinkTiles");
+    Debug.Log("should animate highlight tiles");
     }
 
 
