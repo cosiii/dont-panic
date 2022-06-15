@@ -34,6 +34,7 @@ public class multipleTouch : MonoBehaviour {
         UnitManager.Instance.UpdatePlayerTwo();
 
 
+
         // wenn ich drufklick macht er das und wenn nicht, dann blinken
         int i = 0;
          while(i < Input.touchCount){

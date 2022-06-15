@@ -7,18 +7,25 @@ public class AnimationManager : MonoBehaviour
     
     public static AnimationManager Instance;
 
-    public Tile floorTile;
-
-    public GameObject SlotToAnimate = null;
+    public GameObject SlotToAnimate;
 
     public void Awake(){
         Instance = this;
     }
 
     public void AnimateHighlightTiles(){
-    Animator highlight = floorTile.highlight.GetComponent<Animator>();
-    highlight.SetTrigger("BlinkTiles");
-    Debug.Log("should animate highlight tiles");
+
+        for (int x = 0; x < GridManager.Instance._width; x++)
+        {
+            for (int y = 0; y < GridManager.Instance._height; y++)
+            {
+                if( GridManager.Instance.tiles[new Vector2(x,y)].highlight.activeSelf == true){
+                Animator highlight = GridManager.Instance.tiles[new Vector2(x,y)].highlight.GetComponent<Animator>();
+                highlight.SetTrigger("BlinkTiles");
+
+                };
+            }
+        }
     }
 
     public void AnimateInventoryPoint(){
