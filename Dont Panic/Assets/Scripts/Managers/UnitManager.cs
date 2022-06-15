@@ -135,6 +135,7 @@ public void UpdatePlayerTwo(){
         
         for (int i = 0; i < itemCount; i++)
         {
+            int x = Random.Range(0,360);
             // Player 1 & 2
             var itemLook = Item1;
             if(i == 0){
@@ -153,7 +154,8 @@ public void UpdatePlayerTwo(){
                 itemLook = Item7;
             }
             // spawning item
-            var spawnedItem = Instantiate(itemLook);
+            var spawnedItem = Instantiate(itemLook,new Vector2(0, 0), Quaternion.identity);
+            spawnedItem.transform.Rotate(0,0,x);
             // get the tile of the item from GridManager
             var randomSpawnTile = GridManager.Instance.GetItemSpawnTile();
             randomSpawnTile.SetUnit(spawnedItem);
