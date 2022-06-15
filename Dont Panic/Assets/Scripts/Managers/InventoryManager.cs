@@ -40,6 +40,7 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
         if(isFullPlayerOne[i] == false ){ // item can be added to inventory
             // parented to slots[i]
             Instantiate(inventoryPoint, slotsPlayerOne[i].transform, false);
+            AnimationManager.Instance.SlotToAnimate = slotsPlayerOne[i];
             isFullPlayerOne[i] = true;
             inventoryPlayerOne[i] = lastDestroyedItem;
             break;
@@ -56,6 +57,7 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
         if(isFullPlayerTwo[i] == false){ // item can be added to inventory
             // parented to slots[i]
             Instantiate(inventoryPoint, slotsPlayerTwo[i].transform, false);
+            AnimationManager.Instance.SlotToAnimate = slotsPlayerTwo[i];
             isFullPlayerTwo[i] = true;
             inventoryPlayerTwo[i] = lastDestroyedItem;
             break;

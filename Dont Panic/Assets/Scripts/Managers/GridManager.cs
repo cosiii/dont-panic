@@ -35,8 +35,6 @@ public void AddHoleTile(){
         int randomYSpot = Random.Range(0, _height );
         tiles[new Vector2(randomXSpot,randomYSpot)] = Instantiate(GridManager.Instance.holeTile, new Vector3(randomXSpot, randomYSpot), Quaternion.identity);
     }
-
-    
 }
 public void GenerateGrid()
     {

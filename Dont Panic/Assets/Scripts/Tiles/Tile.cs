@@ -121,6 +121,7 @@ public abstract class Tile : MonoBehaviour
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn ){
                                 DestroyUnit(); // muss hier oben sein
                                 InventoryManager.Instance.ItemCollision();
+                                AnimationManager.Instance.AnimateInventoryPoint();
                                 } 
 
                                 // PLAYERS INVENTORY IS FULL

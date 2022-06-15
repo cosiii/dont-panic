@@ -248,6 +248,8 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
      if (secondUnlocked == true){
         MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
     }
+
+    Debug.Log(secondUnlocked);
 }
 
 public void SetItemsToDoors(){
