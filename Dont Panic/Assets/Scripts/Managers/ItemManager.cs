@@ -79,6 +79,6 @@ public void ChangeDoorItemImageRight(string keyItem){
         oldImageDoorRight.sprite = Item7;
     } else if(keyItem == "none"){
         oldImageDoorRight.sprite = noImage;
-    }
+    } 
 }
 }
