@@ -51,28 +51,31 @@ public string doorHeading, doorText;
     
   public void DoorCollision(){
     AudioManager.Instance.Play("door");
-
-
+     UIManager.Instance.TextToWrite = MenuManager.Instance.DoorNameText.GetComponent<Text>();
+    
       // SETUPS FOR EACH DOOR
         if (lastVisitedDoor == "door1"){
-           MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 1";
+            UIManager.Instance.messageText = "This is Door 1";
+       UIManager.Instance.TextIsPlaying = true;
             SetupDoor(keyItems1, doorName1);
         } else if (lastVisitedDoor == "door2"){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 2";
+            UIManager.Instance.messageText = "This is Door 2";
+       UIManager.Instance.TextIsPlaying = true;
             SetupDoor(keyItems2, doorName2);
         }  else if (lastVisitedDoor == "door3"){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 3";
+            UIManager.Instance.messageText = "This is Door 3";
+       UIManager.Instance.TextIsPlaying = true;
            SetupDoor(keyItems3, doorName3);
         } else if (lastVisitedDoor == "door4"){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 4";
+            UIManager.Instance.messageText = "This is Door 4";
+       UIManager.Instance.TextIsPlaying = true;
             SetupDoor(keyItems4, doorName4);
         } else if (lastVisitedDoor == "door5"){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 5";
+            UIManager.Instance.messageText = "This is Door 5";
+       UIManager.Instance.TextIsPlaying = true;
             SetupDoor(keyItems5, doorName5);
         }
-      
     // ROTATING AND SHOWING MODAL AND HIDING ITEMS
-    // buggt wenn man ein zweites mal aufs door kommt
      MenuManager.Instance.ShowDoorModal();
      
   }
@@ -140,7 +143,8 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     // EXIT : YOU HAVE WON
     if(doorName == "exit"){ 
         if( firstUnlocked == true){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the exit";
+            UIManager.Instance.messageText = "This is the exit";
+            UIManager.Instance.TextIsPlaying = true;
         }
         if( secondUnlocked == true){
             doorHeading = "The Exit";
@@ -151,7 +155,8 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     // PANTRY: OPPONENT IS POISONED
     else if(doorName == "pantry"){ 
         if (firstUnlocked == true){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the pantry";
+            UIManager.Instance.messageText = "This is the pantry";
+            UIManager.Instance.TextIsPlaying = true;
         }
         if( secondUnlocked == true){
             MenuManager.Instance.doorFoundModalImage.sprite = pantryIcon.sprite;
@@ -169,7 +174,8 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     // DINING: YOU CAN CARRY MORE ITEMS
     else if(doorName == "dining hall"){ 
         if (firstUnlocked == true){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the dining hall";
+            UIManager.Instance.messageText = "This is the dining hall";
+            UIManager.Instance.TextIsPlaying = true;
         }
         if( secondUnlocked == true){
             MenuManager.Instance.doorFoundModalImage.sprite = diningIcon.sprite;
@@ -195,7 +201,8 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     // HALLWAY: YOU CAN WALK MORE 
     else if(doorName == "hallway"){ 
         if (firstUnlocked == true){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the hallway";
+            UIManager.Instance.messageText = "This is the hallway";
+            UIManager.Instance.TextIsPlaying = true;
         }
         if( secondUnlocked == true){
             MenuManager.Instance.doorFoundModalImage.sprite = hallwayIcon.sprite;
@@ -215,7 +222,8 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     // SURGERY ROOM: OPPONENT DROPS ITEM
     else if(doorName == "surgery room"){ 
         if (firstUnlocked == true){
-        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is the surgery room";
+        UIManager.Instance.messageText = "This is the surgery room";
+        UIManager.Instance.TextIsPlaying = true;
         }
         if( secondUnlocked == true){
             MenuManager.Instance.doorFoundModalImage.sprite = surgeryIcon.sprite;

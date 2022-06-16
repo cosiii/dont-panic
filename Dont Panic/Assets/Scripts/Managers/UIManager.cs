@@ -11,8 +11,11 @@ public static UIManager Instance;
  public bool playing;
  private float Timer;
  private bool addedHoleTile = false;
- [SerializeField] private TextWriter textWriter;
+ [SerializeField] public TextWriter textWriter;
  public Text TextToWrite;
+
+public bool TextIsPlaying;
+ public string messageText;
 
 
 public void Awake(){
@@ -27,7 +30,10 @@ void Start(){
 
 
  void Update () {
-	textWriter.AddWriter(TextToWrite.GetComponent<Text>(), "haaaaallo", 0.5f);
+	if( TextIsPlaying == true){
+	textWriter.AddWriter(TextToWrite.GetComponent<Text>(), messageText , 0.1f);
+	}
+
 // NORMAL TIMER
  	if(playing == true){
   

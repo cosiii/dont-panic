@@ -8,7 +8,7 @@ public class MenuManager : MonoBehaviour
 {
    public static MenuManager Instance;
 
-   [SerializeField] public GameObject doorNameObject, doorTextObject, doorModal, doorFoundModal, doorFoundModalHeading, doorFoundModalText; 
+   [SerializeField] public GameObject doorModal, doorFoundModal, doorFoundModalHeading, doorFoundModalText; 
 
    [SerializeField] public Image doorFoundModalImage;
 
@@ -16,7 +16,7 @@ public class MenuManager : MonoBehaviour
 
    //[SerializeField] public GameObject helpers; 
 
-   [SerializeField] public Text PlayerText; 
+   [SerializeField] public GameObject PlayerText, DoorNameText; 
     [SerializeField] public GameObject TextForPlayerModal;
     [SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 
 
@@ -50,7 +50,6 @@ public void ShowDoorFoundModal(string heading, string text){
     doorFoundModal.SetActive(true);
     doorFoundModalHeading.GetComponentInChildren<Text>().text = heading;
     doorFoundModalText.GetComponentInChildren<Text>().text = text;
-    // doorModal.GetComponent<Animator>(); langsamer
 }
 
 public void ShowAdditionalInventory1(){

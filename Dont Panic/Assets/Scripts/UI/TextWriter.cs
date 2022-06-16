@@ -23,8 +23,8 @@ public void AddWriter(Text uiText, string TextBlockToWrite, float timePerChar){
 public void Update(){
          if(uiText != null){
 			timer -= Time.deltaTime;
-		 }
-		 while(timer <= 0f){
+
+			 while(timer <= 0f){
 			// DISPLAY NEXT CHARACTER
 			timer +=  timePerChar;
 			charIndex++;
@@ -33,12 +33,16 @@ public void Update(){
 			}
 		 }
 
-		 if( charIndex >= TextBlockToWrite.Length){
+		 if(charIndex >= TextBlockToWrite.Length){
 				// ENTIRE STRING DISPLAYED
-				Debug.Log("out of range");
 				uiText = null;
+				UIManager.Instance.TextIsPlaying = false;
+				charIndex = 0;
 				return;
+				// funktion eigentlich aufhören
 			}
+		 }
+		
 
     }
 }
