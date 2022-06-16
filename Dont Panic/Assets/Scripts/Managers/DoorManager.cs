@@ -55,7 +55,7 @@ public string doorHeading, doorText;
 
       // SETUPS FOR EACH DOOR
         if (lastVisitedDoor == "door1"){
-            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 1";
+           MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 1";
             SetupDoor(keyItems1, doorName1);
         } else if (lastVisitedDoor == "door2"){
             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "This is Door 2";

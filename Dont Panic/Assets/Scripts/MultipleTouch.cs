@@ -30,8 +30,8 @@ public class multipleTouch : MonoBehaviour {
     }
 	// Update is called once per frame
 	public void UpdateToken () {
-        UnitManager.Instance.UpdatePlayerOne();
-        UnitManager.Instance.UpdatePlayerTwo();
+       // UnitManager.Instance.UpdatePlayerOne();
+       // UnitManager.Instance.UpdatePlayerTwo();
 
 
 

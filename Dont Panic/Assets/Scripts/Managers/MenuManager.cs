@@ -16,7 +16,8 @@ public class MenuManager : MonoBehaviour
 
    //[SerializeField] public GameObject helpers; 
 
-   [SerializeField] public GameObject TextForPlayerModal, PlayerText; 
+   [SerializeField] public Text PlayerText; 
+    [SerializeField] public GameObject TextForPlayerModal;
     [SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 
 
     [SerializeField] public GameObject AdditionalInventory1, AdditionalInventory2; 

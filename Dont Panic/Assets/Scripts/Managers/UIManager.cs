@@ -5,14 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {	
+	
+public static UIManager Instance;
  public Text TimerText; 
  public bool playing;
  private float Timer;
-
  private bool addedHoleTile = false;
+ [SerializeField] private TextWriter textWriter;
+ public Text TextToWrite;
+
+
+public void Awake(){
+	Instance = this;
+
+}
+
+void Start(){
+	//messageText.text = "Haaaaalllo";
+	//textWriter.AddWriter(textWriterText.GetComponent<Text>(), "haaaallloooooo", 1f);
+}
+
 
  void Update () {
-
+	textWriter.AddWriter(TextToWrite.GetComponent<Text>(), "haaaaallo", 0.5f);
+// NORMAL TIMER
  	if(playing == true){
   
 	  Timer += Time.deltaTime;
@@ -33,6 +49,7 @@ public class UIManager : MonoBehaviour
 		addedHoleTile = false;
 	  }
 	}
+
   }
 
   public void OneBack(){
@@ -44,7 +61,8 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
         Debug.Log("twoback");
     }
-
 	// reload scene
+
+	
 
 }
