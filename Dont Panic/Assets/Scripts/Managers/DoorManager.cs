@@ -260,12 +260,10 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     }
     } else if (firstUnlocked == false){
                 ItemManager.Instance.ChangeDoorItemImageRight("none");
-                MenuManager.Instance.AnimateDoorModal("DoorModalCheckRight"); //DoorCollision
+                MenuManager.Instance.AnimateDoorModal("DoorModalCheckRight"); 
+            MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
+            Debug.Log ("hello");
     }
-     if (secondUnlocked == true){
-    }
-
-    Debug.Log(secondUnlocked);
 }
 
 public void SetItemsToDoors(){
