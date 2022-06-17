@@ -67,9 +67,9 @@ public void AnimateItemModal(){
     animation.SetTrigger("ItemCollision");
 }
 
-public void AnimateDoorModal(){
+public void AnimateDoorModal(string triggerName){
     Animator animation = doorModal.GetComponent<Animator>();
-    animation.SetTrigger("DoorModalCheckLeft");
+    animation.SetTrigger(triggerName);
 }
 
 public void AnimatePlayerText(){

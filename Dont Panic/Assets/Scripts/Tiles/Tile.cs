@@ -141,7 +141,7 @@ public abstract class Tile : MonoBehaviour
                             LastDoor = OccupiedUnit.UnitName;
                             DoorManager.Instance.DoorCollision();
                             playerOnDoor = true;
-                            MenuManager.Instance.AnimateDoorModal();
+                            //MenuManager.Instance.AnimateDoorModal();
                         }
                         
                         
@@ -192,7 +192,6 @@ public abstract class Tile : MonoBehaviour
                     Debug.Log("player on door the second time");
                     DoorManager.Instance.lastVisitedDoor = LastDoor;
                     DoorManager.Instance.DoorCollision();
-                    MenuManager.Instance.AnimateDoorModal();
                 }
 
 

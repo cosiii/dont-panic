@@ -52,6 +52,7 @@ public string doorHeading, doorText;
   public void DoorCollision(){
     AudioManager.Instance.Play("door");
      UIManager.Instance.TextToWrite = MenuManager.Instance.DoorNameText.GetComponent<Text>();
+     
     
       // SETUPS FOR EACH DOOR
         if (lastVisitedDoor == "door1"){
@@ -250,11 +251,18 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     if (firstUnlocked == true){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontSize = 18;
         ItemManager.Instance.ChangeDoorItemImageRight(keyItem[1]);
+        if (secondUnlocked == true){
+            MenuManager.Instance.AnimateDoorModal("DoorModalCheckRight");
+            MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
+            } else {
+            MenuManager.Instance.AnimateDoorModal("DoorModalCheckLeft");
+
+    }
     } else if (firstUnlocked == false){
                 ItemManager.Instance.ChangeDoorItemImageRight("none");
+                MenuManager.Instance.AnimateDoorModal("DoorModalCheckRight"); //DoorCollision
     }
      if (secondUnlocked == true){
-        MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
     }
 
     Debug.Log(secondUnlocked);
