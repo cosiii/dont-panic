@@ -69,7 +69,7 @@ public void AnimateItemModal(){
 
 public void AnimateDoorModal(){
     Animator animation = doorModal.GetComponent<Animator>();
-    animation.SetTrigger("DoorCollision");
+    animation.SetTrigger("DoorModalCheckLeft");
 }
 
 public void AnimatePlayerText(){
