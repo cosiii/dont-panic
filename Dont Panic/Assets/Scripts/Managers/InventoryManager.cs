@@ -69,7 +69,7 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
 
     ItemManager.Instance.ChangeModal();
     AudioManager.Instance.Play("collect");
-    MenuManager.Instance.AnimateItemModal();
+    AnimationManager.Instance.AnimateItemModal();
     // Change und animate zsmfügen?
 
 }

@@ -126,7 +126,7 @@ public abstract class Tile : MonoBehaviour
                                 if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
                                 InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
                                     MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "Your Inventory is Full";
-                                    MenuManager.Instance.AnimatePlayerText();
+                                    AnimationManager.Instance.AnimatePlayerText();
                                     
                                 }
                             }   
@@ -289,7 +289,7 @@ int playerSpawnTileY;
                     }
                     }
             ItemManager.Instance.ChangeModal();
-            MenuManager.Instance.AnimateItemModal();
+            AnimationManager.Instance.AnimateItemModal();
             } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player2Turn ||
               InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player1Turn ){
               // if inventory is full

@@ -7,7 +7,7 @@ public class AnimationManager : MonoBehaviour
     
     public static AnimationManager Instance;
 
-    public GameObject SlotToAnimate;
+    public GameObject SlotToAnimate, itemModal, doorModal, TextForPlayerModal;
 
     public void Awake(){
         Instance = this;
@@ -33,6 +33,22 @@ public class AnimationManager : MonoBehaviour
         inv.SetTrigger("onCollect");
     }
 
+    
+public void AnimateItemModal(){
+    Animator animation = itemModal.GetComponent<Animator>();
+    animation.SetTrigger("ItemCollision");
+}
+
+public void AnimateDoorModal(string triggerName){
+    Animator animation = doorModal.GetComponent<Animator>();
+    animation.SetFloat("Speed", 1);
+    animation.SetTrigger(triggerName);
+}
+
+public void AnimatePlayerText(){
+    Animator animation = TextForPlayerModal.GetComponent<Animator>();
+    animation.SetTrigger("TextNeeded");
+}
 
     
 }

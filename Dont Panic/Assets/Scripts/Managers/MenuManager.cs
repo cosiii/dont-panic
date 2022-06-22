@@ -6,27 +6,24 @@ using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-   public static MenuManager Instance;
+public static MenuManager Instance;
 
-   [SerializeField] public GameObject doorModal, doorFoundModal, doorFoundModalHeading, doorFoundModalText; 
+[SerializeField] public GameObject doorModal, doorFoundModal, doorFoundModalHeading, doorFoundModalText; 
 
-   [SerializeField] public Image doorFoundModalImage;
+[SerializeField] public Image doorFoundModalImage;
 
-   [SerializeField] public GameObject  itemModal, itemText, inventoryIsFullText, itemImage, TemporaryModals; 
+[SerializeField] public GameObject  itemText, inventoryIsFullText, itemImage, TemporaryModals; 
+[SerializeField] public GameObject PlayerText, DoorNameText; 
+[SerializeField] public GameObject TextForPlayerModal;
+[SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 
 
-   //[SerializeField] public GameObject helpers; 
+[SerializeField] public GameObject AdditionalInventory1, AdditionalInventory2; 
+[SerializeField] public GameObject GameWonModal;
 
-   [SerializeField] public GameObject PlayerText, DoorNameText; 
-    [SerializeField] public GameObject TextForPlayerModal;
-    [SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 
+[SerializeField] public Image pl1PantryFeature, pl1DiningFeature, pl1HallwayFeature, pl1SurgeryFeature;
+[SerializeField] public Image pl2PantryFeature, pl2DiningFeature, pl2HallwayFeature, pl2SurgeryFeature;
 
-    [SerializeField] public GameObject AdditionalInventory1, AdditionalInventory2; 
-    [SerializeField] public GameObject GameWonModal;
-
-    [SerializeField] public Image pl1PantryFeature, pl1DiningFeature, pl1HallwayFeature, pl1SurgeryFeature;
-    [SerializeField] public Image pl2PantryFeature, pl2DiningFeature, pl2HallwayFeature, pl2SurgeryFeature;
-
-   public bool TemporaryModalsRotated = false;
+[SerializeField] public bool TemporaryModalsRotated = false;
 void Awake(){
     Instance = this;
    // NameTextPlayerOne.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText1.text;
@@ -52,8 +49,9 @@ public void UpdateDoorFoundModal(string heading, string text){
 }
 
 // VIA BUTTON
-public void CloseDoorFoundModal(string heading, string text){
-   doorFoundModal.SetActive(false);
+public void CloseDoorFoundModal(){
+   Animator anim = doorModal.GetComponentInChildren<Animator>();
+    anim.SetFloat("Speed", 100);
 }
 
 public void ShowAdditionalInventory1(){
@@ -62,23 +60,6 @@ public void ShowAdditionalInventory1(){
 
 public void ShowAdditionalInventory2(){
     AdditionalInventory2.SetActive(true);
-}
-
-// ITEM MODAL
-
-public void AnimateItemModal(){
-    Animator animation = itemModal.GetComponent<Animator>();
-    animation.SetTrigger("ItemCollision");
-}
-
-public void AnimateDoorModal(string triggerName){
-    Animator animation = doorModal.GetComponent<Animator>();
-    animation.SetTrigger(triggerName);
-}
-
-public void AnimatePlayerText(){
-    Animator animation = TextForPlayerModal.GetComponent<Animator>();
-    animation.SetTrigger("TextNeeded");
 }
 
 public void RotateModalsToPlayer1(){
