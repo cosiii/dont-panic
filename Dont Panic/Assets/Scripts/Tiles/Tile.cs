@@ -51,8 +51,6 @@ public abstract class Tile : MonoBehaviour
 
                 if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" && Player2.Instance.deciding == true){
                     Debug.Log("pl2 clicked on himself");
-                   // InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
-                   // ChangePlayerTurn();
                 }  
 
                 // CLICKING FOR MAKING TURN
@@ -332,9 +330,9 @@ int playerSpawnTileY;
 
     public void ThrowPlayer2ByPatrol(){
         AudioManager.Instance.Play("throw");
-                        GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(Player2.Instance);
-                        Player2.Instance.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
-                        Player2.Instance.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
+        GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(Player2.Instance);
+        Player2.Instance.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
+        Player2.Instance.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
 
                         // here auch noch wenn item daheim lieggt
                         // oder ein anderer Spieler

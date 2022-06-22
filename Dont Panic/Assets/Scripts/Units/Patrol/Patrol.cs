@@ -42,6 +42,7 @@ public class Patrol : BasePatrol
       transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
       if(Vector2.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f){
         if(waitTime <= 0){
+          // ist der spot der auf der gleichen Achse liegt
           randomSpot = Random.Range(0, moveSpots.Length);
           waitTime = startWaitTime;
         } else {

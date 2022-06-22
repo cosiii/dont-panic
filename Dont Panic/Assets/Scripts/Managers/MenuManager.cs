@@ -46,10 +46,14 @@ public void ShowDoorModal(){
     doorModal.SetActive(true);
 }
 
-public void ShowDoorFoundModal(string heading, string text){
-    doorFoundModal.SetActive(true);
+public void UpdateDoorFoundModal(string heading, string text){
     doorFoundModalHeading.GetComponentInChildren<Text>().text = heading;
     doorFoundModalText.GetComponentInChildren<Text>().text = text;
+}
+
+// VIA BUTTON
+public void CloseDoorFoundModal(string heading, string text){
+   doorFoundModal.SetActive(false);
 }
 
 public void ShowAdditionalInventory1(){

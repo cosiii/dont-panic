@@ -253,7 +253,7 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
         ItemManager.Instance.ChangeDoorItemImageRight(keyItem[1]);
         if (secondUnlocked == true){
             MenuManager.Instance.AnimateDoorModal("DoorModalCheckRight");
-            MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
+            MenuManager.Instance.UpdateDoorFoundModal(doorHeading, doorText);
             } else {
             MenuManager.Instance.AnimateDoorModal("DoorModalCheckLeft");
 
@@ -261,7 +261,9 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     } else if (firstUnlocked == false){
                 ItemManager.Instance.ChangeDoorItemImageRight("none");
                 MenuManager.Instance.AnimateDoorModal("DoorModalCheckRight"); 
-            MenuManager.Instance.ShowDoorFoundModal(doorHeading, doorText);
+                doorHeading = "Surgery Room";
+            doorText = "You have found the surgery room! It looks quite weird in here.. But you find some utensils, which may help you knock out your opponent. Maybe you can cut off your opponent's arm. As you run towards him you notice that the knife isn't even sharp in any kind of way. It doesn't hurt your opponent at all. Now you are fighting like two girls in puberty. Nevermind. At least your opponent has lost all the items s/he had.";
+            MenuManager.Instance.UpdateDoorFoundModal(doorHeading, doorText);
             Debug.Log ("hello");
     }
 }

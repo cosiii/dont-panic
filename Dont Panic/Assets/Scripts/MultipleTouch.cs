@@ -5,6 +5,7 @@ using System.Linq;
 
 public class multipleTouch : MonoBehaviour {
     public GameObject circle;
+    public List <touchLocation> touches = new List<touchLocation>();
     
     public static multipleTouch Instance;
 
@@ -19,6 +20,7 @@ public class multipleTouch : MonoBehaviour {
 
     public Touch t, t1, t2, farestT;
 
+
     public Vector2 c, c2;
 
     public void Awake(){
@@ -30,15 +32,12 @@ public class multipleTouch : MonoBehaviour {
     }
 	// Update is called once per frame
 	public void UpdateToken () {
-       // UnitManager.Instance.UpdatePlayerOne();
-       // UnitManager.Instance.UpdatePlayerTwo();
-
-
-
-        // wenn ich drufklick macht er das und wenn nicht, dann blinken
+        UnitManager.Instance.UpdatePlayerOne();
+        UnitManager.Instance.UpdatePlayerTwo();
         int i = 0;
-         while(i < Input.touchCount){
+        while(i < Input.touchCount){
             t = Input.GetTouch(i);
+
             if(i == 0){
                 t1 = t;
             }
@@ -47,50 +46,47 @@ public class multipleTouch : MonoBehaviour {
                t2 = t;
             }
 
-        float dist = Vector3.Distance(t.position, t1.position);
+            float dist = Vector3.Distance(t.position, t1.position);
                 
         float dist2 = Vector3.Distance(t1.position, t2.position);
                 
         float dist3 = Vector3.Distance(t2.position, t.position);
 
-    if (i == 1){
-                //Debug.Log("2 touches");
-            }
+            if(i == 2){                    
+
+             if(t.phase == TouchPhase.Began){
+             touches.Add(new touchLocation(t.fingerId, createCircle(t)));
+             touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
+             touches.Add(new touchLocation(t2.fingerId, createCircle(t2)));
+            } else if(t.phase == TouchPhase.Moved){
         
-        // three touch points
-        if(i == 2){
-            if(t.phase == TouchPhase.Began){
-                    UpdatePosition(dist, dist2, dist3);
-                
-
-            }else if(t.phase == TouchPhase.Ended){
-                
-
-            }else if(t.phase == TouchPhase.Moved){
+                UpdatePosition(dist, dist2, dist3);
+        
+            } else if(t.phase == TouchPhase.Ended){
+                touches.Clear();
+        
+            }
             }
 
-            }
-
-            if (i == 3){
-              //  Debug.Log("4 touches");
-            }
+            
+        
 
             ++i;
-        }
-        
-       
-      
 	}
-
+    }
     // GET TOUCH POSITION IN WORLD SPACE
     Vector2 getTouchPosition(Vector2 touchPosition){
         return GetComponent<Camera>().ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y, transform.position.z));
     }
 
-    public void UpdatePosition(float D1, float D2, float D3){
-                // second touch position
-                // Debug.Log(t.position + " " + t1.position + " " + t2.position);
-                
+    GameObject createCircle(Touch t){
+        GameObject c = Instantiate(circle) as GameObject;
+        c.name = "Touch" + t.fingerId;
+        c.transform.position = getTouchPosition(t.position);
+        return c;
+    }
+
+    public void UpdatePosition(float D1, float D2, float D3){                
                 // shortest dist
                 float shortestDist = Mathf.Min(Mathf.Min(D1, D2), D3);
                 // Debug.Log(shortestDist);
@@ -115,32 +111,29 @@ public class multipleTouch : MonoBehaviour {
               //Debug.Log("c: " + c + "farestT: " + farestT.position.x + " / " + farestT.position.y);
 
               // ROTATE ALL TO X INSTEAD OD +
+              touch3ObjectLeft = false;
+            touch3ObjectRight = false;
+            touch3ObjectUp = false;
+                    touch3ObjectDown = false;
 
                 if(c.x >= farestT.position.x && c.y <= farestT.position.y ){
                     touch3ObjectRight = true;
-                    touch3ObjectLeft = false;
-                    touch3ObjectUp = false;
-                    touch3ObjectDown = false;
+                    Debug.Log("right");
                 } 
                 if(c.x <= farestT.position.x && c.y >= farestT.position.y ){
                     touch3ObjectLeft = true;
-                    touch3ObjectRight = false;
-                    touch3ObjectUp = false;
-                    touch3ObjectDown = false;
+                    Debug.Log("left");
                 } 
                 
                 if(c.x <= farestT.position.x && c.y <= farestT.position.y ){
-                    touch3ObjectUp = false;
                     touch3ObjectDown = true;
-                    touch3ObjectLeft = false;
-                    touch3ObjectRight = false;
+                    Debug.Log("down");
                 } 
 
                 if(c.x >= farestT.position.x && c.y >= farestT.position.y ){
                     touch3ObjectUp = true;
-                    touch3ObjectDown = false;
-                    touch3ObjectLeft = false;
-                    touch3ObjectRight = false;
+                    
+                    Debug.Log("up");
                 } 
 
                  if (GameManager.Instance.GameState == GameState.Player1Turn ){ // && Player1.Instance.deciding == true

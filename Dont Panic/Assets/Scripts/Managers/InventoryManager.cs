@@ -38,12 +38,12 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
     for (int i = 0; i < slotsPlayerOne.Count; i++)
     {
         if(isFullPlayerOne[i] == false ){ // item can be added to inventory
-            // parented to slots[i]
-            AnimationManager.Instance.SlotToAnimate = slotsPlayerOne[i];
-            Instantiate(inventoryPoint, slotsPlayerOne[i].transform, false);
-            isFullPlayerOne[i] = true;
-            inventoryPlayerOne[i] = lastDestroyedItem;
-            break;
+        // parented to slots[i]
+        AnimationManager.Instance.SlotToAnimate = slotsPlayerOne[i];
+        Instantiate(inventoryPoint, slotsPlayerOne[i].transform, false);
+        isFullPlayerOne[i] = true;
+        inventoryPlayerOne[i] = lastDestroyedItem;
+        break;
         }
     }
 
@@ -73,8 +73,14 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
     // Change und animate zsmfügen?
 
 }
-
-
+public void DropOneItemPl1(){
+    DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
+    Tile.Instance.ChangePlayerTurn();
+}
+public void DropOneItemPl2(){
+    DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);
+    Tile.Instance.ChangePlayerTurn();
+}
 public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> isFull, List <string> inventory, bool inventoryIsFull){
     // RANDOM TILE POS AROUNG THE PLAYER
     int randomx = nineTiles[Random.Range(0,nineTiles.Count)];
@@ -110,6 +116,8 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
          }
 
     var spawnedItem = UnitManager.Instance.Item1;
+    
+
     if (lastDroppedItem != ""){
         if (lastDroppedItem == "Item1"){
         spawnedItem = Instantiate(UnitManager.Instance.Item1);
@@ -126,7 +134,7 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
         }else if (lastDroppedItem == "Item7"){
         spawnedItem = Instantiate(UnitManager.Instance.Item7);
         }
-
+        
         spawnTileAroundPlayer.SetUnit(spawnedItem);
         lastDroppedItem = "";
     }
