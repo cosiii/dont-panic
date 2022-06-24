@@ -55,15 +55,15 @@ public class multipleTouch : MonoBehaviour {
             if(i == 2){                    
 
              if(t.phase == TouchPhase.Began){
-             touches.Add(new touchLocation(t.fingerId, createCircle(t)));
-             touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
-             touches.Add(new touchLocation(t2.fingerId, createCircle(t2)));
+             //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
+             //touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
+             //touches.Add(new touchLocation(t2.fingerId, createCircle(t2)));
             } else if(t.phase == TouchPhase.Moved){
         
                 UpdatePosition(dist, dist2, dist3);
         
             } else if(t.phase == TouchPhase.Ended){
-                touches.Clear();
+               // touches.Clear();
         
             }
             }

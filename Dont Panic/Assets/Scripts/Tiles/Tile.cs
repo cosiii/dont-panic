@@ -188,8 +188,10 @@ public abstract class Tile : MonoBehaviour
             
                  if (playerOnDoor ==true){
                     Debug.Log("player on door the second time");
-                    DoorManager.Instance.lastVisitedDoor = LastDoor;
+                    DoorManager.Instance.lastVisitedDoor = OccupiedUnit.UnitName;
+                    LastDoor = OccupiedUnit.UnitName;
                     DoorManager.Instance.DoorCollision();
+                    playerOnDoor = true;
                 }
 
 
@@ -397,11 +399,10 @@ int playerSpawnTileY;
                     GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].highlight.SetActive(true);
                     GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].isWalkable = true;
                     }
-
-                    // UP
+// UP
                     if(player.posy + y < GridManager.Instance._height){
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].isWalkable = true;
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].highlight.SetActive(true);
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].isWalkable = true;
                     }
                  } 
                  

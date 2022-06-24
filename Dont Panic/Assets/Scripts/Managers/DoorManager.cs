@@ -260,10 +260,8 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     }
     } else if (firstUnlocked == false){
                 ItemManager.Instance.ChangeDoorItemImageRight("none");
-                AnimationManager.Instance.AnimateDoorModal("DoorModalCheckRight"); 
-                doorHeading = "Surgery Room";
-            doorText = "You have found the surgery room! It looks quite weird in here.. But you find some utensils, which may help you knock out your opponent. Maybe you can cut off your opponent's arm. As you run towards him you notice that the knife isn't even sharp in any kind of way. It doesn't hurt your opponent at all. Now you are fighting like two girls in puberty. Nevermind. At least your opponent has lost all the items s/he had.";
-            MenuManager.Instance.UpdateDoorFoundModal(doorHeading, doorText);
+                AnimationManager.Instance.AnimateDoorModal("DoorCollision"); 
+                MenuManager.Instance.UpdateDoorFoundModal(doorHeading, doorText);
             Debug.Log ("hello");
     }
 }
@@ -280,18 +278,24 @@ public void SetItemsToDoors(){
         RandomItems.Add("Item6");
         RandomItems.Add("Item7");
 
-
+      if( i == 1) RandomItems.Remove(keyItems1[i-1]);
       keyItems1[i] = RandomItems[Random.Range(0,RandomItems.Count)];
       RandomItems.Remove(keyItems1[i]);
+      if( i == 1) RandomItems.Add(keyItems1[i-1]);
+      if( i == 1) RandomItems.Remove(keyItems2[i-1]);
       keyItems2[i] = RandomItems[Random.Range(0,RandomItems.Count)];
       RandomItems.Remove(keyItems2[i]);
+      if( i == 1)RandomItems.Add(keyItems2[i-1]);
+      if( i == 1) RandomItems.Remove(keyItems3[i-1]);
       keyItems3[i] = RandomItems[Random.Range(0,RandomItems.Count)];
       RandomItems.Remove(keyItems3[i]);
+      if( i == 1) RandomItems.Add(keyItems3[i-1]);
+      if( i == 1) RandomItems.Remove(keyItems4[i-1]);
       keyItems4[i] = RandomItems[Random.Range(0,RandomItems.Count)];
       RandomItems.Remove(keyItems4[i]);
+      if( i == 1)RandomItems.Add(keyItems4[i-1]);
+      if( i == 1) RandomItems.Remove(keyItems5[i-1]);
       keyItems5[i] = RandomItems[Random.Range(0,RandomItems.Count)];
-      RandomItems.Remove(keyItems5[i]);
-
 
       RandomItems.Clear();
       }

@@ -1940,6 +1940,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SlotToAnimate: {fileID: 0}
+  itemModal: {fileID: 388409655}
+  doorModal: {fileID: 2527265}
+  TextForPlayerModal: {fileID: 481269478}
 --- !u!1 &795670362
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,9 +2539,9 @@ MonoBehaviour:
   - name: scary
     clip: {fileID: 8300000, guid: 178b2192826b09643aa32500dee076b9, type: 3}
     volume: 0.458
-    volumeVariance: 0
-    pitch: 0.1
-    pitchVariance: 0
+    volumeVariance: 0.464
+    pitch: 0.91
+    pitchVariance: 0.137
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
@@ -4323,7 +4326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1639922321
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4491,7 +4494,6 @@ MonoBehaviour:
   doorFoundModalHeading: {fileID: 620242348}
   doorFoundModalText: {fileID: 162598577}
   doorFoundModalImage: {fileID: 823361025}
-  itemModal: {fileID: 388409655}
   itemText: {fileID: 1806508025}
   inventoryIsFullText: {fileID: 1303695888}
   itemImage: {fileID: 893439605}
@@ -6348,13 +6350,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1682733459}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1682733461}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: CloseDoorFoundModal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
