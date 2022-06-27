@@ -81,7 +81,7 @@ public abstract class Tile : MonoBehaviour
             else { 
                 if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){ // if we have a selected player AND we click on another occupied unit 
                     // COLLISION ITEM
-                    if(OccupiedUnit.Faction == Faction.Item || OccupiedUnit2.Faction == Faction.Item){ // or occupiedUnit2
+                    if(OccupiedUnit.Faction == Faction.Item ){ // or occupiedUnit2, maybe extra? || OccupiedUnit2.Faction == Faction.Item
                         // IF PL1s INVENTORY IS FULL
                         if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
                             InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.UnitName;
@@ -256,7 +256,7 @@ public abstract class Tile : MonoBehaviour
 
                     // PLAYER TWO
                     if (playerToBeThrown = Player2.Instance){
-                            // could be the player itself not the item, not quite sure
+                    // could be the player itself not the item, not quite sure
                     // GridManager.Instance.GetSpawnTile(playerSpawnTileX, playerSpawnTileY).DestroyUnit();     
                         MenuManager.Instance.RotateModalsToPlayer2();
                         for (int k = 0; k < InventoryManager.Instance.slotsPlayerTwo.Count; k++)
@@ -311,9 +311,10 @@ public abstract class Tile : MonoBehaviour
 
     public void ThrowPlayer1ByPatrol(){
         AudioManager.Instance.Play("throw");
-                        GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(Player1.Instance);
-                        Player1.Instance.posx = UnitManager.Instance.xPlayerOneSpawnTile;
-                        Player1.Instance.posy = UnitManager.Instance.yPlayerOneSpawnTile;
+        GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(Player1.Instance);
+        Player1.Instance.posx = UnitManager.Instance.xPlayerOneSpawnTile;
+        Player1.Instance.posy = UnitManager.Instance.yPlayerOneSpawnTile;
+        GridManager.Instance.AddHoleTile();
     }
 
     public void ThrowPlayer2ByPatrol(){
@@ -321,6 +322,7 @@ public abstract class Tile : MonoBehaviour
         GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(Player2.Instance);
         Player2.Instance.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
         Player2.Instance.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
+        GridManager.Instance.AddHoleTile();
 
                         // here auch noch wenn item daheim lieggt
                         // oder ein anderer Spieler

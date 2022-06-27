@@ -47,8 +47,6 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
         }
     }
 
-    Debug.Log("Item collected by Player 1");
-
 } else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ 
     //PLAYER TWO
     MenuManager.Instance.RotateModalsToPlayer2(); 
@@ -63,14 +61,11 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
             break;
         }
     }
-
-    Debug.Log("Item collected by Player 2");
 }
 
     ItemManager.Instance.ChangeModal();
     AudioManager.Instance.Play("collect");
     AnimationManager.Instance.AnimateItemModal();
-    // Change und animate zsmfügen?
 
 }
 public void DropOneItemPl1(){

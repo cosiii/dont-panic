@@ -1086,7 +1086,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _width: 8
   _height: 6
-  holeTileCount: 0
+  holeTileCount: 1
+  holeTiles: []
   floorTile: {fileID: 8871955788216320470, guid: 66a7d31c43aeb6b4da16b1c62eca6933, type: 3}
   holeTile: {fileID: 2445129515857956318, guid: 16f162875d96adc41ad4a5195aa0adac, type: 3}
   _cam: {fileID: 519420032}

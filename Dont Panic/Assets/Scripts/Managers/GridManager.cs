@@ -9,6 +9,8 @@ public class GridManager : MonoBehaviour
 {
     public static GridManager Instance;
     [SerializeField] public int _width, _height, holeTileCount;
+
+    public List <HoleTile> holeTiles;
     [SerializeField] public Tile floorTile, holeTile;
     [SerializeField] private Transform _cam;
 
@@ -22,13 +24,16 @@ void Awake(){
 
 // muss auch grade begehbar sein
 public void AddHoleTile(){
-    holeTileCount++;
+    Debug.Log("holetile added");
     // DELETE ALL EXISTING
-    for (int x = 0; x < holeTileCount; x++){
-    var hole = GameObject.Find("Hole Tile(Clone)");
+    if(holeTileCount > 1 ){
+        for (int x = 0; x < holeTileCount; x++){
+    GameObject hole = GameObject.Find("Hole Tile(Clone)");
     Destroy(hole);
     }
 
+    }
+   
     // MAKING NEW ONES
     for (int x = 0; x < holeTileCount; x++){
         int randomXSpot = Random.Range(0, _width );

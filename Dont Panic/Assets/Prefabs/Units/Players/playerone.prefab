@@ -207,8 +207,8 @@ MonoBehaviour:
   OccupiedTile: {fileID: 0}
   Faction: 0
   UnitName: player 1
-  posx: 3
-  posy: 5
+  posx: 1
+  posy: 1
   walkingDistance: 3
   deciding: 0
   highlight: {fileID: 6404412660928150775}

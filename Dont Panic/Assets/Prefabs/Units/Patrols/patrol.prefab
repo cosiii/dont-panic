@@ -102,12 +102,14 @@ MonoBehaviour:
   OccupiedTile: {fileID: 0}
   Faction: 1
   UnitName: patrol
-  speed: 1
-  startWaitTime: 0.1
+  speed: 0.5
+  startWaitTime: 0.5
   collided: 0
   moveSpots:
   - {fileID: 1878818200447423858, guid: aed32294a2d92844a9f3dcfb9cb4b4e6, type: 3}
   - {fileID: 8448647850549329856, guid: b756d3651669ecf44ac72fe71455a42b, type: 3}
+  - {fileID: 1878818200447423858, guid: 15db5d52119db6048ad40afc16e8f2ca, type: 3}
+  - {fileID: 1878818200447423858, guid: be11356e79fcf0d4383588e093a7aa57, type: 3}
 --- !u!65 &1740003284856306117
 BoxCollider:
   m_ObjectHideFlags: 0
