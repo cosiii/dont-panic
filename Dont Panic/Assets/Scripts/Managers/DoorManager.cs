@@ -24,6 +24,9 @@ public string[] DoorNames = {"exit","pantry", "dining hall", "hallway", "surgery
 
 public string doorHeading, doorText;
 
+public bool doorUnderPlayer1, doorUnderPlayer2;
+public Tile doorUnderPlayer1Tile, doorUnderPlayer2Tile;
+
 [SerializeField] public GameObject Player1Slot4, Player2Slot4; 
 
   void Awake(){
@@ -51,30 +54,30 @@ public string doorHeading, doorText;
     
   public void DoorCollision(){
     AudioManager.Instance.Play("door");
-     UIManager.Instance.TextToWrite = MenuManager.Instance.DoorNameText.GetComponent<Text>();
+    UIManager.Instance.TextToWrite = MenuManager.Instance.DoorNameText.GetComponent<Text>();
      
     
       // SETUPS FOR EACH DOOR
         if (lastVisitedDoor == "door1"){
             UIManager.Instance.messageText = "This is Door 1";
        UIManager.Instance.TextIsPlaying = true;
-            SetupDoor(keyItems1, doorName1);
+            CheckDoorItems(keyItems1, doorName1);
         } else if (lastVisitedDoor == "door2"){
             UIManager.Instance.messageText = "This is Door 2";
        UIManager.Instance.TextIsPlaying = true;
-            SetupDoor(keyItems2, doorName2);
+            CheckDoorItems(keyItems2, doorName2);
         }  else if (lastVisitedDoor == "door3"){
             UIManager.Instance.messageText = "This is Door 3";
        UIManager.Instance.TextIsPlaying = true;
-           SetupDoor(keyItems3, doorName3);
+           CheckDoorItems(keyItems3, doorName3);
         } else if (lastVisitedDoor == "door4"){
             UIManager.Instance.messageText = "This is Door 4";
        UIManager.Instance.TextIsPlaying = true;
-            SetupDoor(keyItems4, doorName4);
+            CheckDoorItems(keyItems4, doorName4);
         } else if (lastVisitedDoor == "door5"){
             UIManager.Instance.messageText = "This is Door 5";
        UIManager.Instance.TextIsPlaying = true;
-            SetupDoor(keyItems5, doorName5);
+            CheckDoorItems(keyItems5, doorName5);
         }
     // ROTATING AND SHOWING MODAL AND HIDING ITEMS
      MenuManager.Instance.ShowDoorModal();
@@ -91,7 +94,7 @@ public void ShuffleDoors() {
      }
 
 
-public void SetupDoor(string[] keyItem, string doorName){
+public void CheckDoorItems(string[] keyItem, string doorName){
 // SETUP
 firstUnlocked = false;
 secondUnlocked = false;
@@ -247,7 +250,7 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     ItemManager.Instance.ChangeDoorItemImageLeft(keyItem[0]);
             
 
-    // CHANGE RIGHT DOOR ITEM IMAGE
+// CHOOSE ANIMATION
     if (firstUnlocked == true){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontSize = 18;
         ItemManager.Instance.ChangeDoorItemImageRight(keyItem[1]);
