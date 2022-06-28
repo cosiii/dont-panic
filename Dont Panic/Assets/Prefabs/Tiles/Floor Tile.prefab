@@ -107,17 +107,45 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3217803962613565900, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.853
+      objectReference: {fileID: 0}
+    - target: {fileID: 3217803962613565900, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.853
+      objectReference: {fileID: 0}
+    - target: {fileID: 3217803962613565900, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6390676
+      objectReference: {fileID: 0}
+    - target: {fileID: 3217803962613565900, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3217803962613565900, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3568171688094488022, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5177388603050735206, guid: cc35afd292fc349128b36a291fb3a165, type: 3}
+    - target: {fileID: 3568171688094488022, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3568171688094488022, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
       propertyPath: m_Color.b
-      value: 0.8396226
+      value: 0.745283
       objectReference: {fileID: 0}
     - target: {fileID: 3568171688094488022, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
       propertyPath: m_Color.g
-      value: 0.7089266
+      value: 0.60760176
       objectReference: {fileID: 0}
     - target: {fileID: 3568171688094488022, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
       propertyPath: m_Color.r
-      value: 0.7370101
+      value: 0.31287822
       objectReference: {fileID: 0}
     - target: {fileID: 3636595226377613808, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
       propertyPath: m_Name
@@ -200,7 +228,10 @@ MonoBehaviour:
   isWalkable: 1
   highlight: {fileID: 5959832221173958494}
   OccupiedUnit: {fileID: 0}
+  OccupiedUnit2: {fileID: 0}
   LastDoor: 
+  playerSpawnTileX: 0
+  playerSpawnTileY: 0
   _baseColor: {r: 0.26415092, g: 0.26382938, b: 0.2629049, a: 0}
   _offsetColor: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 0}
 --- !u!1 &5959832221173958494 stripped

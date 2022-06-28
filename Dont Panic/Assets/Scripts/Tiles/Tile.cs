@@ -19,6 +19,8 @@ public abstract class Tile : MonoBehaviour
     public int playerSpawnTileX;
     public int playerSpawnTileY;
 
+
+    
     void Awake(){
         Instance = this;
     }
@@ -67,12 +69,14 @@ public abstract class Tile : MonoBehaviour
 
                 // THROWING PLAYER 1 
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" && isWalkable == true){
+                    Debug.Log("throw player");
                     InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
                     ThrowPlayer(Player1.Instance);
                 }
 
                 // THROWING PLAYER 2
                 else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
+                    Debug.Log("throw player");
                     InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
                     ThrowPlayer(Player2.Instance);
                 }
@@ -118,7 +122,7 @@ public abstract class Tile : MonoBehaviour
 
                     // COLLISION DOOR
                     if ( OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Door){
-                        Debug.Log("occ2");
+                       Debug.Log("collision door occ2");
                         DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
                         LastDoor = OccupiedUnit2.UnitName;
                         DoorManager.Instance.DoorCollision();
@@ -127,6 +131,7 @@ public abstract class Tile : MonoBehaviour
                          
                     // wird nur beim ersten mal ausgeführt
                     if(OccupiedUnit.Faction == Faction.Door){
+                        Debug.Log("collision door occ");
                         OccupiedUnit2 = OccupiedUnit;
                         DoorManager.Instance.lastVisitedDoor = OccupiedUnit.UnitName;
                         LastDoor = OccupiedUnit.UnitName;
@@ -135,8 +140,52 @@ public abstract class Tile : MonoBehaviour
 
                        
                         
-            // CHANGE TO OCCUPIED UNIT 2  IF NECCESSARY
-                    if (InventoryManager.Instance.itemUnderPlayer1 == false && GameManager.Instance.GameState == GameState.Player1Turn){
+                     // CHANGE TO OCCUPIED UNIT 2  IF NECCESSARY
+                    ChangeItemToOcc2();
+                    
+
+                    UnitManager.Instance.SetSelectedPlayer(null);
+                    ChangePlayerTurn();
+
+                    // PANTRY FEATURE CHANGE TURNS AGAIN
+                    if(DoorManager.Instance.pantryFeatureP1 == true || DoorManager.Instance.pantryFeatureP2 == true ){
+                        ChangePlayerTurn();
+                        DoorManager.Instance.pantryFeatureP1 = false;
+                        DoorManager.Instance.pantryFeatureP2 = false;
+                    } 
+                }
+
+            }
+
+    	    
+        }
+        else {
+            // already got a selected Unit
+            if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Floor"){
+                 //deselect selected Unit
+                    SetUnit(UnitManager.Instance.SelectedPlayer);
+                    UnitManager.Instance.SetSelectedPlayer(null);
+            
+                 if (playerOnDoorSecondTime == true){
+                    Debug.Log("player on door the second time");
+                    DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
+                    LastDoor = OccupiedUnit2.UnitName;
+                    DoorManager.Instance.DoorCollision();
+                    playerOnDoorSecondTime = false;
+                } 
+
+                // IF ITEM WAS UNDER A PLAYER
+                PutItemBackInPlace();
+                ChangePlayerTurn();
+            } else {
+                Debug.Log("youre not on the highlight");
+                AnimationManager.Instance.AnimateHighlightTiles();
+            }
+        }
+    } 
+    
+    public void ChangeItemToOcc2(){
+        if (InventoryManager.Instance.itemUnderPlayer1 == false && GameManager.Instance.GameState == GameState.Player1Turn){
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                     } 
                     else if (InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player1Turn){
@@ -153,59 +202,18 @@ public abstract class Tile : MonoBehaviour
                         SetUnit(UnitManager.Instance.SelectedPlayer);
                         InventoryManager.Instance.ItemTransferred2 = true;
                     }
-
-                    UnitManager.Instance.SetSelectedPlayer(null);
-                    ChangePlayerTurn();
-
-                    // PANTRY FEATURE CHANGE TURNS AGAIN
-                    if(DoorManager.Instance.pantryFeatureP1 == true){
-                        ChangePlayerTurn();
-                        DoorManager.Instance.pantryFeatureP1 = false;
-                    } else if(DoorManager.Instance.pantryFeatureP2 == true ){
-                        ChangePlayerTurn();
-                        DoorManager.Instance.pantryFeatureP2 = false;
-                    }
-                }
-
-            }
-
-    	    
-        }
-        else {
-            // already got a selected Unit
-            if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Floor"){
-                 //deselect selected Unit
-                    SetUnit(UnitManager.Instance.SelectedPlayer);
-                     UnitManager.Instance.SetSelectedPlayer(null);
-            
-                 if (playerOnDoorSecondTime == true){
-                    Debug.Log("player on door the second time");
-                    DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
-                    LastDoor = OccupiedUnit2.UnitName;
-                    DoorManager.Instance.DoorCollision();
-                    playerOnDoorSecondTime = false;
-                } 
-
-                // IF ITEM WAS UNDER A PLAYER
-                if(InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player1Turn){
+    }
+    public void PutItemBackInPlace(){
+        if(InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player1Turn){
                     InventoryManager.Instance.itemUnderPlayer1Tile.SetUnit(MakeStringIntoItem(InventoryManager.Instance.lastNotDestroyedItem));
-                    OccupiedUnit2 = null;
                     InventoryManager.Instance.itemUnderPlayer1 = false;
                     InventoryManager.Instance.itemUnderPlayer1Tile.OccupiedUnit2 =null;
-                } else if (InventoryManager.Instance.itemUnderPlayer2 == true && GameManager.Instance.GameState == GameState.Player2Turn){
+        } else if (InventoryManager.Instance.itemUnderPlayer2 == true && GameManager.Instance.GameState == GameState.Player2Turn){
                     InventoryManager.Instance.itemUnderPlayer1Tile.SetUnit(MakeStringIntoItem(InventoryManager.Instance.lastNotDestroyedItem));
-                    OccupiedUnit2 = null;
                     InventoryManager.Instance.itemUnderPlayer2 = false;
                     InventoryManager.Instance.itemUnderPlayer2Tile.OccupiedUnit2 =null;
-                } 
-                ChangePlayerTurn();
-            } else {
-                Debug.Log("youre not on the highlight");
-                AnimationManager.Instance.AnimateHighlightTiles();
-            }
-        }
-    } 
-    
+        } 
+    }
     
     public void ThrowPlayer(BasePlayer playerToBeThrown){
         AudioManager.Instance.Play("throw");
@@ -370,29 +378,43 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void ShowWalkableTiles(BasePlayer player){
+       var recentColor = Color.black;
+       if(Player1.Instance.deciding){
+           //Get the Renderer component from the new cube
+        recentColor =  GridManager.Instance.colorPlayer1;
+       } else if(Player2.Instance.deciding){
+        recentColor =  GridManager.Instance.colorPlayer2;
+       }
+
         HideWalkableTiles();
+       
             for (int y = 1; y < player.walkingDistance; y++)
             {
                 // DOWN
                 if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_down" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_down" ){
                     
-                    // DOWN
+                    // DOWN 2
                     if(player.posy -y >= 0){
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].highlight.GetComponent<SpriteRenderer>().color = recentColor;
                     GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].highlight.SetActive(true);
                     GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].isWalkable = true;
                     }
-                    //LEFT
+                    //LEFT 1
                     if(player.posx -1 >= 0){
+                    GridManager.Instance.tiles[new Vector2(player.posx - 1, player.posy)].highlight.GetComponent<SpriteRenderer>().color = recentColor;
                     GridManager.Instance.tiles[new Vector2(player.posx - 1, player.posy)].highlight.SetActive(true);
                     GridManager.Instance.tiles[new Vector2(player.posx - 1, player.posy)].isWalkable = true;
                     }
-                     // RIGHT
+                     // RIGHT 1
                     if(player.posx + y < GridManager.Instance._width){
+                    
+                    GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].highlight.GetComponent<SpriteRenderer>().color = recentColor;  
                     GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].highlight.SetActive(true);
                     GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].isWalkable = true;
                     }
-// UP
+// UP 1
                     if(player.posy + y < GridManager.Instance._height){
+                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].highlight.GetComponent<SpriteRenderer>().color = recentColor;
                     GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].highlight.SetActive(true);
                     GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].isWalkable = true;
                     }
@@ -454,7 +476,7 @@ public abstract class Tile : MonoBehaviour
                     GridManager.Instance.tiles[new Vector2(player.posx, player.posy - 1 )].highlight.SetActive(true);
                     GridManager.Instance.tiles[new Vector2(player.posx, player.posy - 1 )].isWalkable = true;
                     }
-                 }                 
+                 }                
             }
     }
 
