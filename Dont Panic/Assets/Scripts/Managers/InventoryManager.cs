@@ -100,7 +100,6 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
         for (int i = 0; i < slots.Count; i++)
         { 
             if(isFull[slots.Count-1 -i] == true){ 
-            Debug.Log("its true player 1 has items");
             Destroy(slots[slots.Count-1 -i].transform.GetChild(0).gameObject);
             isFull[slots.Count-1 -i] = false;
             lastDroppedItem = inventory[slots.Count-1 -i];
@@ -112,7 +111,6 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
 
     var spawnedItem = UnitManager.Instance.Item1;
     
-
     if (lastDroppedItem != ""){
         if (lastDroppedItem == "Item1"){
         spawnedItem = Instantiate(UnitManager.Instance.Item1);
@@ -129,7 +127,8 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
         }else if (lastDroppedItem == "Item7"){
         spawnedItem = Instantiate(UnitManager.Instance.Item7);
         }
-        
+
+        spawnedItem.transform.rotation = Quaternion.identity;
         spawnTileAroundPlayer.SetUnit(spawnedItem);
         lastDroppedItem = "";
     }
