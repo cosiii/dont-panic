@@ -14,13 +14,10 @@ public abstract class Tile : MonoBehaviour
     private bool playerOnDoorSecondTime;
     
     public BaseUnit OccupiedUnit, OccupiedUnit2;
-    public string LastDoor;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
     public int playerSpawnTileX;
     public int playerSpawnTileY;
 
-
-    
     void Awake(){
         Instance = this;
     }
@@ -120,21 +117,13 @@ public abstract class Tile : MonoBehaviour
                     }   
                               
 
-                    // COLLISION DOOR
-                    if ( OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Door){
-                       Debug.Log("collision door occ2");
-                        DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
-                        LastDoor = OccupiedUnit2.UnitName;
-                        DoorManager.Instance.DoorCollision();
-                        playerOnDoorSecondTime = true;
-                    }
+                    
                          
                     // wird nur beim ersten mal ausgeführt
                     if(OccupiedUnit.Faction == Faction.Door){
                         Debug.Log("collision door occ");
                         OccupiedUnit2 = OccupiedUnit;
                         DoorManager.Instance.lastVisitedDoor = OccupiedUnit.UnitName;
-                        LastDoor = OccupiedUnit.UnitName;
                         DoorManager.Instance.DoorCollision();
                     }
 
@@ -165,15 +154,12 @@ public abstract class Tile : MonoBehaviour
                  //deselect selected Unit
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                     UnitManager.Instance.SetSelectedPlayer(null);
-            
-                 if (playerOnDoorSecondTime == true){
-                    Debug.Log("player on door the second time");
-                    DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
-                    LastDoor = OccupiedUnit2.UnitName;
-                    DoorManager.Instance.DoorCollision();
-                    playerOnDoorSecondTime = false;
-                } 
-
+// COLLISION DOOR
+                    if ( OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Door){
+                       Debug.Log("collision door occ2");
+                        DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
+                        DoorManager.Instance.DoorCollision();
+                    }
                 // IF ITEM WAS UNDER A PLAYER
                 PutItemBackInPlace();
                 ChangePlayerTurn();

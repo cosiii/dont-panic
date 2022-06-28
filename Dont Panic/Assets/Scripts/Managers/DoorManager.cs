@@ -264,8 +264,6 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
     } else if (firstUnlocked == false){
                 ItemManager.Instance.ChangeDoorItemImageRight("none");
                 AnimationManager.Instance.AnimateDoorModal("DoorCollision"); 
-                MenuManager.Instance.UpdateDoorFoundModal(doorHeading, doorText);
-            Debug.Log ("hello");
     }
 }
 
