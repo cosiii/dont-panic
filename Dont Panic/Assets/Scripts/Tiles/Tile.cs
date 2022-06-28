@@ -377,10 +377,42 @@ public abstract class Tile : MonoBehaviour
     player.posy = cy -48;
     }
 
+
+
+
+    public void WalkLeft(BasePlayer player, int intLeft, Color recentColor){
+        if(player.posx - intLeft >= 0){
+        GridManager.Instance.tiles[new Vector2(player.posx - intLeft, player.posy)].highlight.GetComponent<SpriteRenderer>().color = recentColor;
+        GridManager.Instance.tiles[new Vector2(player.posx - intLeft, player.posy)].highlight.SetActive(true);
+        GridManager.Instance.tiles[new Vector2(player.posx - intLeft, player.posy)].isWalkable = true;
+        }
+    }
+
+    public void WalkRight(BasePlayer player, int intRight, Color recentColor){
+        if(player.posx + intRight < GridManager.Instance._width){
+        GridManager.Instance.tiles[new Vector2(player.posx + intRight, player.posy)].highlight.GetComponent<SpriteRenderer>().color = recentColor;  
+        GridManager.Instance.tiles[new Vector2(player.posx + intRight, player.posy)].highlight.SetActive(true);
+        GridManager.Instance.tiles[new Vector2(player.posx + intRight, player.posy)].isWalkable = true;
+        }
+    }
+    public void WalkUp(BasePlayer player, int intUp, Color recentColor){
+    if(player.posy + intUp < GridManager.Instance._height){
+    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + intUp )].highlight.GetComponent<SpriteRenderer>().color = recentColor;
+    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + intUp )].highlight.SetActive(true);
+    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + intUp )].isWalkable = true;
+    }
+    }
+    public void WalkDown(BasePlayer player,int intDown, Color recentColor){
+        if(player.posy - intDown>= 0){
+        GridManager.Instance.tiles[new Vector2(player.posx, player.posy - intDown )].highlight.GetComponent<SpriteRenderer>().color = recentColor;
+        GridManager.Instance.tiles[new Vector2(player.posx, player.posy - intDown )].highlight.SetActive(true);
+        GridManager.Instance.tiles[new Vector2(player.posx, player.posy - intDown )].isWalkable = true;
+        }
+    }
+
     public void ShowWalkableTiles(BasePlayer player){
        var recentColor = Color.black;
        if(Player1.Instance.deciding){
-           //Get the Renderer component from the new cube
         recentColor =  GridManager.Instance.colorPlayer1;
        } else if(Player2.Instance.deciding){
         recentColor =  GridManager.Instance.colorPlayer2;
@@ -392,90 +424,31 @@ public abstract class Tile : MonoBehaviour
             {
                 // DOWN
                 if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_down" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_down" ){
-                    
-                    // DOWN 2
-                    if(player.posy -y >= 0){
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].highlight.GetComponent<SpriteRenderer>().color = recentColor;
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - y )].isWalkable = true;
-                    }
-                    //LEFT 1
-                    if(player.posx -1 >= 0){
-                    GridManager.Instance.tiles[new Vector2(player.posx - 1, player.posy)].highlight.GetComponent<SpriteRenderer>().color = recentColor;
-                    GridManager.Instance.tiles[new Vector2(player.posx - 1, player.posy)].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx - 1, player.posy)].isWalkable = true;
-                    }
-                     // RIGHT 1
-                    if(player.posx + y < GridManager.Instance._width){
-                    
-                    GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].highlight.GetComponent<SpriteRenderer>().color = recentColor;  
-                    GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].isWalkable = true;
-                    }
-// UP 1
-                    if(player.posy + y < GridManager.Instance._height){
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].highlight.GetComponent<SpriteRenderer>().color = recentColor;
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].isWalkable = true;
-                    }
+                    WalkLeft(player, 1, recentColor);
+                    WalkRight(player, 1, recentColor);
+                    WalkUp(player, 1, recentColor);
+                    WalkDown(player, y, recentColor);
                  } 
-                 
                  //UP
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_up" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_up"){
-                    // UP
-                    if(player.posy + y < GridManager.Instance._height){
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + y )].isWalkable = true;
-                    }
-                    //LEFT
-                    if(player.posx -1 >= 0){
-                    GridManager.Instance.tiles[new Vector2(player.posx - 1, player.posy)].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx - 1, player.posy)].isWalkable = true;
-                    }
-                     // RIGHT
-                    if(player.posx + y < GridManager.Instance._width){
-                    GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx + 1, player.posy)].isWalkable = true;
-                    }
-                    
+                   WalkLeft(player, 1, recentColor);
+                    WalkRight(player, 1, recentColor);
+                    WalkUp(player, y, recentColor);
+                    WalkDown(player, 0, recentColor);
                  } 
-                 
                  //LEFT
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_left" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_left"){
-                    // LEFT
-                    if(player.posx -y >= 0){
-                    GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx - y, player.posy)].isWalkable = true;
-                    }
-                    // UP
-                    if(player.posy + y < GridManager.Instance._height){
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].isWalkable = true;
-                    }
-                     // DOWN
-                    if(player.posy -y >= 0){
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - 1 )].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - 1 )].isWalkable = true;
-                    }
-                 } 
-                 
+                    WalkLeft(player, y, recentColor);
+                    WalkRight(player, 0, recentColor);
+                    WalkUp(player, 1, recentColor);
+                    WalkDown(player, 1, recentColor);
+                 }
                  //RIGHT
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_right" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_right"){
-                    // RIGHT
-                    if(player.posx + y < GridManager.Instance._width){
-                    GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx + y, player.posy)].isWalkable = true;
-                    }
-                    // UP
-                    if(player.posy + y < GridManager.Instance._height){
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy + 1 )].isWalkable = true;
-                    }
-                    // DOWN
-                    if(player.posy -y >= 0){
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - 1 )].highlight.SetActive(true);
-                    GridManager.Instance.tiles[new Vector2(player.posx, player.posy - 1 )].isWalkable = true;
-                    }
+                    WalkLeft(player, 0, recentColor);
+                    WalkRight(player, y, recentColor);
+                    WalkUp(player, 1, recentColor);
+                    WalkDown(player, 1, recentColor);
                  }                
             }
     }
