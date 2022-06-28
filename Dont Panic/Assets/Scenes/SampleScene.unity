@@ -560,8 +560,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169970579}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -398.7308, y: -299.11115, z: 0}
-  m_LocalScale: {x: 0.14659643, y: 0.1465794, z: 0.148755}
+  m_LocalPosition: {x: -398.747, y: -299.102, z: 0}
+  m_LocalScale: {x: 0.1488247, y: 0.1488074, z: 0.15101607}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1139833107}
@@ -1168,6 +1168,8 @@ MonoBehaviour:
   floorTile: {fileID: 8871955788216320470, guid: 66a7d31c43aeb6b4da16b1c62eca6933, type: 3}
   holeTile: {fileID: 2445129515857956318, guid: 16f162875d96adc41ad4a5195aa0adac, type: 3}
   _cam: {fileID: 519420032}
+  colorPlayer1: {r: 0.627451, g: 0.5137255, b: 0.73333335, a: 1}
+  colorPlayer2: {r: 0.9529412, g: 0.6117647, b: 0.6039216, a: 1}
 --- !u!4 &439648094
 Transform:
   m_ObjectHideFlags: 0
@@ -5639,8 +5641,6 @@ MonoBehaviour:
   lastNotDestroyedItem: 
   itemUnderPlayer1: 0
   itemUnderPlayer2: 0
-  ItemTransferred1: 0
-  ItemTransferred2: 0
   itemUnderPlayer1Tile: {fileID: 0}
   itemUnderPlayer2Tile: {fileID: 0}
   lastDroppedItem: 

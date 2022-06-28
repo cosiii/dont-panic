@@ -159,6 +159,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6048031867019460080, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8935409740336586476, guid: b112e62f2dd9c0846adbdf4c07bcc045, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -229,7 +233,6 @@ MonoBehaviour:
   highlight: {fileID: 5959832221173958494}
   OccupiedUnit: {fileID: 0}
   OccupiedUnit2: {fileID: 0}
-  LastDoor: 
   playerSpawnTileX: 0
   playerSpawnTileY: 0
   _baseColor: {r: 0.26415092, g: 0.26382938, b: 0.2629049, a: 0}

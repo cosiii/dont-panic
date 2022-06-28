@@ -13,6 +13,11 @@ public static UIManager Instance;
  private bool addedHoleTile = false;
  [SerializeField] public TextWriter textWriter;
  public Text TextToWrite;
+ public GameObject pauseMenu;
+ public Button PauseButton;
+ public bool pauseMenuOpen;
+
+ public Sprite pause, starting;
 
 public bool TextIsPlaying;
  public string messageText;
@@ -67,8 +72,21 @@ void Start(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
         Debug.Log("twoback");
     }
-	// reload scene
 
-	
+	public void PauseMenu(){
+		if(pauseMenuOpen == true){
+		pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+		PauseButton.image.sprite = pause;
+		}
+		
+		if(pauseMenuOpen == false){
+		pauseMenu.SetActive(true);
+		Time.timeScale = 0;
+		PauseButton.image.sprite = starting;
+		}
+
+		pauseMenuOpen = !pauseMenuOpen;
+    }	
 
 }

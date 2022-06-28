@@ -121,17 +121,14 @@ public abstract class Tile : MonoBehaviour
                          
                     // wird nur beim ersten mal ausgeführt
                     if(OccupiedUnit.Faction == Faction.Door){
-                        Debug.Log("collision door occ");
                         OccupiedUnit2 = OccupiedUnit;
                         DoorManager.Instance.lastVisitedDoor = OccupiedUnit.UnitName;
                         DoorManager.Instance.DoorCollision();
                     }
 
-                       
-                        
                      // CHANGE TO OCCUPIED UNIT 2  IF NECCESSARY
                     ChangeItemToOcc2();
-                    
+
 
                     UnitManager.Instance.SetSelectedPlayer(null);
                     ChangePlayerTurn();
@@ -144,27 +141,26 @@ public abstract class Tile : MonoBehaviour
                     } 
                 }
 
-            }
-
-    	    
+            } 
         }
         else {
             // already got a selected Unit
             if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Floor"){
                  //deselect selected Unit
-                    SetUnit(UnitManager.Instance.SelectedPlayer);
-                    UnitManager.Instance.SetSelectedPlayer(null);
-// COLLISION DOOR
-                    if ( OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Door){
-                       Debug.Log("collision door occ2");
-                        DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
-                        DoorManager.Instance.DoorCollision();
-                    }
+                SetUnit(UnitManager.Instance.SelectedPlayer);
+                UnitManager.Instance.SetSelectedPlayer(null);
+
+                // COLLISION DOOR SECOND TIME
+                if ( OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Door){
+                    DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
+                    DoorManager.Instance.DoorCollision();
+                }
+
                 // IF ITEM WAS UNDER A PLAYER
                 PutItemBackInPlace();
                 ChangePlayerTurn();
             } else {
-                Debug.Log("youre not on the highlight");
+                // YOURE NOT ON THE HIGHLIGHT
                 AnimationManager.Instance.AnimateHighlightTiles();
             }
         }
@@ -177,7 +173,6 @@ public abstract class Tile : MonoBehaviour
                     else if (InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player1Turn){
                         OccupiedUnit2 = OccupiedUnit;
                         SetUnit(UnitManager.Instance.SelectedPlayer);
-                        InventoryManager.Instance.ItemTransferred1 = true;
                     }
 
                     if (InventoryManager.Instance.itemUnderPlayer2 == false && GameManager.Instance.GameState == GameState.Player2Turn){
@@ -186,7 +181,6 @@ public abstract class Tile : MonoBehaviour
                     else if (InventoryManager.Instance.itemUnderPlayer2 == true && GameManager.Instance.GameState == GameState.Player2Turn) {
                         OccupiedUnit2 = OccupiedUnit;
                         SetUnit(UnitManager.Instance.SelectedPlayer);
-                        InventoryManager.Instance.ItemTransferred2 = true;
                     }
     }
     public void PutItemBackInPlace(){
@@ -195,7 +189,7 @@ public abstract class Tile : MonoBehaviour
                     InventoryManager.Instance.itemUnderPlayer1 = false;
                     InventoryManager.Instance.itemUnderPlayer1Tile.OccupiedUnit2 =null;
         } else if (InventoryManager.Instance.itemUnderPlayer2 == true && GameManager.Instance.GameState == GameState.Player2Turn){
-                    InventoryManager.Instance.itemUnderPlayer1Tile.SetUnit(MakeStringIntoItem(InventoryManager.Instance.lastNotDestroyedItem));
+                    InventoryManager.Instance.itemUnderPlayer2Tile.SetUnit(MakeStringIntoItem(InventoryManager.Instance.lastNotDestroyedItem));
                     InventoryManager.Instance.itemUnderPlayer2 = false;
                     InventoryManager.Instance.itemUnderPlayer2Tile.OccupiedUnit2 =null;
         } 
