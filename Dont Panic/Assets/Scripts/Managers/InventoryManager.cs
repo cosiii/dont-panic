@@ -31,13 +31,12 @@ void Awake(){
     }
 
  public void ItemCollision(){
-
 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
     // PLAYER ONE
-    MenuManager.Instance.RotateModalsToPlayer1();
     for (int i = 0; i < slotsPlayerOne.Count; i++)
     {
-        if(isFullPlayerOne[i] == false ){ // item can be added to inventory
+        if(isFullPlayerOne[i] == false ){ 
+        // ITEM WILL BE ADDED TO INVENTORY
         // parented to slots[i]
         AnimationManager.Instance.SlotToAnimate = slotsPlayerOne[i];
         Instantiate(inventoryPoint, slotsPlayerOne[i].transform, false);
@@ -49,11 +48,11 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
 
 } else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ 
     //PLAYER TWO
-    MenuManager.Instance.RotateModalsToPlayer2(); 
     for (int i = 0; i < slotsPlayerTwo.Count; i++)
     {
-        if(isFullPlayerTwo[i] == false){ // item can be added to inventory
-            // parented to slots[i]
+        if(isFullPlayerTwo[i] == false){ 
+        // ITEM WILL BE ADDED TO INVENTORY
+        // parented to slots[i]
             AnimationManager.Instance.SlotToAnimate = slotsPlayerTwo[i];
             Instantiate(inventoryPoint, slotsPlayerTwo[i].transform, false);
             isFullPlayerTwo[i] = true;
@@ -130,6 +129,7 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
 
         spawnedItem.transform.rotation = Quaternion.identity;
         spawnTileAroundPlayer.SetUnit(spawnedItem);
+        Debug.Log(spawnTileAroundPlayer);
         lastDroppedItem = "";
     }
 }

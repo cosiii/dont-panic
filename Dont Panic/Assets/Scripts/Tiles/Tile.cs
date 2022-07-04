@@ -67,58 +67,67 @@ public abstract class Tile : MonoBehaviour
                 // THROWING PLAYER 1 
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" && isWalkable == true){
                     Debug.Log("throw player");
-                    InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
+                    InventoryManager.Instance.DropOneItemPl1();
                     ThrowPlayer(Player1.Instance);
                 }
 
                 // THROWING PLAYER 2
                 else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
                     Debug.Log("throw player");
-                    InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
+                    InventoryManager.Instance.DropOneItemPl1();
                     ThrowPlayer(Player2.Instance);
                 }
 
             } 
             else { 
                 if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){ // if we have a selected player AND we click on another occupied unit 
+                // WALK ON ANOTHER OCCUPIED UNIT
+
                     // COLLISION ITEM
-                    if(OccupiedUnit.Faction == Faction.Item ){ // or occupiedUnit2, maybe extra? || OccupiedUnit2.Faction == Faction.Item
-                        // IF PL1s INVENTORY IS FULL
+                    if(OccupiedUnit.Faction == Faction.Item){ // or occupiedUnit2, maybe extra? || OccupiedUnit2.Faction == Faction.Item
+
+                        // PL1s INVENTORY IS FULL AND NOT COLLECTING ITEM
                         if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
                             InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.UnitName;
                             InventoryManager.Instance.itemUnderPlayer1 = true;
                             InventoryManager.Instance.itemUnderPlayer1Tile = this;
                             InventoryManager.Instance.inventoryIsFullPlayerOne = true;
+                            OccupiedUnit2 = OccupiedUnit;
                         } 
-                        // IF PL2s INVENTORY IS FULL
+                        // PL2s INVENTORY IS FULL AND NOT COLLECTING ITEM
                         else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2" && InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){ 
                             InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.UnitName;
                             InventoryManager.Instance.itemUnderPlayer2 = true;
                             InventoryManager.Instance.itemUnderPlayer2Tile = this;
                             InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
-                        
+                            OccupiedUnit2 = OccupiedUnit;
                         }
 
                         // PLAYERS INVENTORY IS NOT FULL
                         if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
                         InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn){
+            	        Debug.Log("destroy unit " + OccupiedUnit.gameObject);
                         DestroyUnit(); // muss hier oben sein
                         InventoryManager.Instance.ItemCollision();
                         AnimationManager.Instance.AnimateInventoryPoint();
                         } 
 
+
+
                         // PLAYERS INVENTORY IS FULL
-                        if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player1Turn ||
-                        InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player2Turn ){
+                        if (InventoryManager.Instance.inventoryIsFullPlayerOne == true ||
+                        InventoryManager.Instance.inventoryIsFullPlayerTwo == true ){
+                            RotateModals();
                             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "Your Inventory is Full";
                             AnimationManager.Instance.AnimatePlayerText();
-                            
+
+                            // RESET EVERYTHING
+                            InventoryManager.Instance.inventoryIsFullPlayerOne = false;
+                            InventoryManager.Instance.inventoryIsFullPlayerTwo = false; 
                         }
                     }   
-                              
 
-                    
-                         
+                    // COLLISION DOOR
                     // wird nur beim ersten mal ausgeführt
                     if(OccupiedUnit.Faction == Faction.Door){
                         OccupiedUnit2 = OccupiedUnit;
@@ -126,10 +135,7 @@ public abstract class Tile : MonoBehaviour
                         DoorManager.Instance.DoorCollision();
                     }
 
-                     // CHANGE TO OCCUPIED UNIT 2  IF NECCESSARY
-                    ChangeItemToOcc2();
-
-
+                    SetUnit(UnitManager.Instance.SelectedPlayer);
                     UnitManager.Instance.SetSelectedPlayer(null);
                     ChangePlayerTurn();
 
@@ -139,12 +145,21 @@ public abstract class Tile : MonoBehaviour
                         DoorManager.Instance.pantryFeatureP1 = false;
                         DoorManager.Instance.pantryFeatureP2 = false;
                     } 
+                
+                AudioManager.Instance.Play("set");
+               
+
                 }
 
             } 
         }
         else {
-            // already got a selected Unit
+
+            // NOT WALKABLE TILE
+            if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Hole"){
+                AudioManager.Instance.Play("error");
+            }
+            // WALK ONLY
             if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Floor"){
                  //deselect selected Unit
                 SetUnit(UnitManager.Instance.SelectedPlayer);
@@ -155,9 +170,13 @@ public abstract class Tile : MonoBehaviour
                     DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
                     DoorManager.Instance.DoorCollision();
                 }
+                
+                AudioManager.Instance.Play("set");
+
+               
 
                 // IF ITEM WAS UNDER A PLAYER
-                PutItemBackInPlace();
+                PutItemBackInPlace(); 
                 ChangePlayerTurn();
             } else {
                 // YOURE NOT ON THE HIGHLIGHT
@@ -166,33 +185,27 @@ public abstract class Tile : MonoBehaviour
         }
     } 
     
-    public void ChangeItemToOcc2(){
-        if (InventoryManager.Instance.itemUnderPlayer1 == false && GameManager.Instance.GameState == GameState.Player1Turn){
-                    SetUnit(UnitManager.Instance.SelectedPlayer);
-                    } 
-                    else if (InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player1Turn){
-                        OccupiedUnit2 = OccupiedUnit;
-                        SetUnit(UnitManager.Instance.SelectedPlayer);
-                    }
-
-                    if (InventoryManager.Instance.itemUnderPlayer2 == false && GameManager.Instance.GameState == GameState.Player2Turn){
-                    SetUnit(UnitManager.Instance.SelectedPlayer);
-                    } 
-                    else if (InventoryManager.Instance.itemUnderPlayer2 == true && GameManager.Instance.GameState == GameState.Player2Turn) {
-                        OccupiedUnit2 = OccupiedUnit;
-                        SetUnit(UnitManager.Instance.SelectedPlayer);
-                    }
-    }
     public void PutItemBackInPlace(){
         if(InventoryManager.Instance.itemUnderPlayer1 == true && GameManager.Instance.GameState == GameState.Player1Turn){
-                    InventoryManager.Instance.itemUnderPlayer1Tile.SetUnit(MakeStringIntoItem(InventoryManager.Instance.lastNotDestroyedItem));
+            InventoryManager.Instance.itemUnderPlayer1Tile.SetUnit(MakeStringIntoItem(InventoryManager.Instance.lastNotDestroyedItem));
                     InventoryManager.Instance.itemUnderPlayer1 = false;
                     InventoryManager.Instance.itemUnderPlayer1Tile.OccupiedUnit2 =null;
+                    InventoryManager.Instance.itemUnderPlayer1Tile = null;
         } else if (InventoryManager.Instance.itemUnderPlayer2 == true && GameManager.Instance.GameState == GameState.Player2Turn){
                     InventoryManager.Instance.itemUnderPlayer2Tile.SetUnit(MakeStringIntoItem(InventoryManager.Instance.lastNotDestroyedItem));
                     InventoryManager.Instance.itemUnderPlayer2 = false;
                     InventoryManager.Instance.itemUnderPlayer2Tile.OccupiedUnit2 =null;
+                    InventoryManager.Instance.itemUnderPlayer2Tile = null;
         } 
+    }
+
+    public void RotateModals(){
+        if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
+MenuManager.Instance.RotateModalsToPlayer1();
+} else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){
+MenuManager.Instance.RotateModalsToPlayer2();
+
+}
     }
     
     public void ThrowPlayer(BasePlayer playerToBeThrown){
@@ -224,7 +237,7 @@ public abstract class Tile : MonoBehaviour
                     // PLAYER ONE
                     if( playerToBeThrown == Player1.Instance){
                     //GridManager.Instance.GetSpawnTile(playerSpawnTileX, playerSpawnTileY).DestroyUnit();     
-                    MenuManager.Instance.RotateModalsToPlayer1();
+                   MenuManager.Instance.RotateModalsToPlayer1();
                         for (int k = 0; k < InventoryManager.Instance.slotsPlayerOne.Count; k++)
                         {
                             if(InventoryManager.Instance.isFullPlayerOne[k] == false ){ // item can be added to inventory
@@ -246,7 +259,7 @@ public abstract class Tile : MonoBehaviour
                     if (playerToBeThrown = Player2.Instance){
                     // could be the player itself not the item, not quite sure
                     // GridManager.Instance.GetSpawnTile(playerSpawnTileX, playerSpawnTileY).DestroyUnit();     
-                        MenuManager.Instance.RotateModalsToPlayer2();
+                       MenuManager.Instance.RotateModalsToPlayer2();
                         for (int k = 0; k < InventoryManager.Instance.slotsPlayerTwo.Count; k++)
                         {
                             if(InventoryManager.Instance.isFullPlayerTwo[k] == false ){ // item can be added to inventory
@@ -263,7 +276,6 @@ public abstract class Tile : MonoBehaviour
                             InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
                         }
                     }
-
                 ItemManager.Instance.ChangeModal();
                 AnimationManager.Instance.AnimateItemModal();
                 } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player2Turn ||
@@ -317,6 +329,7 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void SetUnit(BaseUnit unit){
+        Debug.Log("set unit" + unit.gameObject);
         if(unit.OccupiedTile != null) unit.OccupiedTile.OccupiedUnit = null;
         unit.transform.position =transform.position;
         OccupiedUnit = unit;
@@ -324,13 +337,9 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void DestroyUnit(){
+        // destroyed das nicht weil item6 clone dasteht und nicht item6 clone (item)
         Destroy(OccupiedUnit.gameObject);
         InventoryManager.Instance.lastDestroyedItem = OccupiedUnit.UnitName;
-    }
-
-      public void DestroyUnit2(){
-        Destroy(OccupiedUnit2.gameObject);
-        InventoryManager.Instance.lastDestroyedItem = OccupiedUnit2.UnitName;
     }
 
     public void ChangePlayerTurn(){
@@ -460,19 +469,19 @@ public abstract class Tile : MonoBehaviour
 
     public BaseItem MakeStringIntoItem(string lastnotdestroyed){
         if(lastnotdestroyed == "Item1"){
-            return UnitManager.Instance.Item1;
+            return Instantiate(UnitManager.Instance.Item1 ,new Vector2(0, 0), Quaternion.identity);
         } else if(lastnotdestroyed == "Item2"){
-            return UnitManager.Instance.Item2;
+            return Instantiate(UnitManager.Instance.Item2 ,new Vector2(0, 0), Quaternion.identity);
         } else if(lastnotdestroyed == "Item3"){
-            return UnitManager.Instance.Item3;
+            return Instantiate(UnitManager.Instance.Item3 ,new Vector2(0, 0), Quaternion.identity);
         } else if(lastnotdestroyed == "Item4"){
-            return UnitManager.Instance.Item4;
+            return Instantiate(UnitManager.Instance.Item4 ,new Vector2(0, 0), Quaternion.identity);
         } else if(lastnotdestroyed == "Item5"){
-            return UnitManager.Instance.Item5;
+            return Instantiate(UnitManager.Instance.Item5 ,new Vector2(0, 0), Quaternion.identity);
         } else if(lastnotdestroyed == "Item6"){
-            return UnitManager.Instance.Item6;
+            return Instantiate(UnitManager.Instance.Item6 ,new Vector2(0, 0), Quaternion.identity);
         } else if(lastnotdestroyed == "Item7"){
-            return UnitManager.Instance.Item7;
+            return Instantiate(UnitManager.Instance.Item7 ,new Vector2(0, 0), Quaternion.identity);
         } else {
             return null;
         }

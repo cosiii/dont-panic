@@ -159,6 +159,7 @@ public void UpdatePlayerTwo(){
             // get the tile of the item from GridManager
             var randomSpawnTile = GridManager.Instance.GetItemSpawnTile();
             randomSpawnTile.SetUnit(spawnedItem);
+            Debug.Log(spawnedItem);
 
         }
 
