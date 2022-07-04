@@ -69,6 +69,13 @@ public abstract class Tile : MonoBehaviour
                     Debug.Log("throw player");
                     InventoryManager.Instance.DropOneItemPl1();
                     ThrowPlayer(Player1.Instance);
+
+                    if (OccupiedUnit2.Faction == Faction.Door){
+                        
+                        DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
+                        DoorManager.Instance.DoorCollision();
+                        Debug.Log("theres a player and a door");
+                }
                 }
 
                 // THROWING PLAYER 2
@@ -76,6 +83,14 @@ public abstract class Tile : MonoBehaviour
                     Debug.Log("throw player");
                     InventoryManager.Instance.DropOneItemPl1();
                     ThrowPlayer(Player2.Instance);
+
+                    
+                if (OccupiedUnit2.Faction == Faction.Door){
+                        
+                        DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
+                        DoorManager.Instance.DoorCollision();
+                        Debug.Log("theres a player and a door");
+                }
                 }
 
             } 
@@ -210,6 +225,8 @@ MenuManager.Instance.RotateModalsToPlayer2();
     
     public void ThrowPlayer(BasePlayer playerToBeThrown){
         AudioManager.Instance.Play("throw");
+
+
         int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
         int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
         if(UnitManager.Instance.SelectedPlayer!= null){
@@ -283,6 +300,7 @@ MenuManager.Instance.RotateModalsToPlayer2();
                 // if inventory is full
                 }
                 Debug.Log(" jetzt isser auf ein item beim schmeißen");
+                
                                 
             }
             if(playerToBeThrown = Player1.Instance){

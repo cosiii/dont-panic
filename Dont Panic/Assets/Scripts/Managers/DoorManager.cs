@@ -55,8 +55,6 @@ public Tile doorUnderPlayer1Tile, doorUnderPlayer2Tile;
   public void DoorCollision(){
     AudioManager.Instance.Play("door");
     UIManager.Instance.TextToWrite = MenuManager.Instance.DoorNameText.GetComponent<Text>();
-     
-    
       // SETUPS FOR EACH DOOR
         if (lastVisitedDoor == "door1"){
             UIManager.Instance.messageText = "This is Door 1";

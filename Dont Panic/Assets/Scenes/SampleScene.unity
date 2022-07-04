@@ -2537,20 +2537,20 @@ MonoBehaviour:
   mixerGroup: {fileID: 0}
   sounds:
   - name: scary
-    clip: {fileID: 8300000, guid: 178b2192826b09643aa32500dee076b9, type: 3}
+    clip: {fileID: 8300000, guid: 9b5528be87a762140bd46512ed7a4aec, type: 3}
     volume: 0.458
     volumeVariance: 0.464
-    pitch: 0.91
-    pitchVariance: 0.137
+    pitch: 1
+    pitchVariance: 0
     loop: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: collect
     clip: {fileID: 8300000, guid: 72a214ba5dd9b1741adf841504150462, type: 3}
-    volume: 0.458
+    volume: 0.33
     volumeVariance: 0.485
-    pitch: 0.76
-    pitchVariance: 0.13
+    pitch: 1
+    pitchVariance: 0
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
@@ -2558,8 +2558,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 46d9e5666d9de7d44b85e6df218f8a5e, type: 3}
     volume: 0.458
     volumeVariance: 0.485
-    pitch: 0.76
-    pitchVariance: 0.13
+    pitch: 1
+    pitchVariance: 0
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
@@ -2567,7 +2567,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 91161cc5db12c6044b7865244231f598, type: 3}
     volume: 0.212
     volumeVariance: 0.485
-    pitch: 0.76
+    pitch: 1
     pitchVariance: 0.13
     loop: 0
     mixerGroup: {fileID: 0}
@@ -2576,7 +2576,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 59f29b8da69341f4db8feb700e8d9765, type: 3}
     volume: 0.212
     volumeVariance: 0.485
-    pitch: 0.76
+    pitch: 1
     pitchVariance: 0.13
     loop: 0
     mixerGroup: {fileID: 0}
@@ -2585,7 +2585,16 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a4f3427d0aa8177489750813e2e3a432, type: 3}
     volume: 0.212
     volumeVariance: 0.485
-    pitch: 0.76
+    pitch: 1
+    pitchVariance: 0.13
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: rotate
+    clip: {fileID: 8300000, guid: 02bcb1898271f15488ea4b9aa0a6fb0f, type: 3}
+    volume: 0.212
+    volumeVariance: 0.485
+    pitch: 1
     pitchVariance: 0.13
     loop: 0
     mixerGroup: {fileID: 0}
