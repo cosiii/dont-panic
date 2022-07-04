@@ -42,6 +42,7 @@ public abstract class Tile : MonoBehaviour
             // FACTION PLAYER
             if(OccupiedUnit.Faction == Faction.Player){
                 MenuManager.Instance.HideHelpers();
+
                 // CLICKING ON ONESELF
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1"  && Player1.Instance.deciding == true){
                     Debug.Log("pl1 clicked on himself");
@@ -66,32 +67,26 @@ public abstract class Tile : MonoBehaviour
 
                 // THROWING PLAYER 1 
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" && isWalkable == true){
-                    Debug.Log("throw player");
                     InventoryManager.Instance.DropOneItemPl1();
-                    ThrowPlayer(Player1.Instance);
-
-                    if (OccupiedUnit2.Faction == Faction.Door){
-                        
-                        DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
-                        DoorManager.Instance.DoorCollision();
-                        Debug.Log("theres a player and a door");
-                }
+                    ThrowPlayer(1);
                 }
 
-                // THROWING PLAYER 2
-                else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
-                    Debug.Log("throw player");
-                    InventoryManager.Instance.DropOneItemPl1();
-                    ThrowPlayer(Player2.Instance);
-
+                // THROWING PLAYER 2 
+                // auf sich selbst klicken
+                if(OccupiedUnit.Faction == Faction.Player && OccupiedUnit != UnitManager.Instance.SelectedPlayer){
                     
-                if (OccupiedUnit2.Faction == Faction.Door){
-                        
-                        DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
-                        DoorManager.Instance.DoorCollision();
-                        Debug.Log("theres a player and a door");
+                    if(OccupiedUnit.UnitName == "player 1"){
+                    InventoryManager.Instance.DropOneItemPl1();
+                    ThrowPlayer(1);
+                    }
+
+                    if(OccupiedUnit.UnitName == "player 2"){
+                    InventoryManager.Instance.DropOneItemPl2();
+                    ThrowPlayer(2);
+                    }
                 }
-                }
+
+                
 
             } 
             else { 
@@ -215,139 +210,41 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void RotateModals(){
-        if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
-MenuManager.Instance.RotateModalsToPlayer1();
-} else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){
-MenuManager.Instance.RotateModalsToPlayer2();
-
-}
+            if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
+            MenuManager.Instance.RotateModalsToPlayer1();
+            } else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){
+            MenuManager.Instance.RotateModalsToPlayer2();
+            }
     }
-    
-    public void ThrowPlayer(BasePlayer playerToBeThrown){
+   
+    public void ThrowPlayer(int i){
+
         AudioManager.Instance.Play("throw");
 
-
-        int i = Mathf.RoundToInt(OccupiedUnit.transform.position.x);
-        int j = Mathf.RoundToInt(OccupiedUnit.transform.position.y);
-        if(UnitManager.Instance.SelectedPlayer!= null){
-            GridManager.Instance.GetSpawnTile(i,j).SetUnit(playerToBeThrown);
-            // PLAYER ONE
-            if (playerToBeThrown = Player1.Instance){
-                GameObject playertwo = GameObject.Find("playertwo(Clone)");
-                playertwo.transform.position = new Vector3(i,j,0);
-                playerSpawnTileX = UnitManager.Instance.xPlayerOneSpawnTile;
-                playerSpawnTileY = UnitManager.Instance.yPlayerOneSpawnTile;
-            }
-            // PLAYER TWO
-            if (playerToBeThrown = Player2.Instance){
-                GameObject playerone = GameObject.Find("playerone(Clone)");
-                playerone.transform.position = new Vector3(i,j,0);
-                playerSpawnTileX = UnitManager.Instance.xPlayerTwoSpawnTile;
-                playerSpawnTileY = UnitManager.Instance.yPlayerTwoSpawnTile;
-            }
-            
-            // IF PLAYER GETS ON AN ITEM
-            if (GridManager.Instance.GetSpawnTile(playerSpawnTileX, playerSpawnTileY).OccupiedUnit != null){
-                if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player2Turn ||
-                    InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player1Turn ){
-
-                    // PLAYER ONE
-                    if( playerToBeThrown == Player1.Instance){
-                    //GridManager.Instance.GetSpawnTile(playerSpawnTileX, playerSpawnTileY).DestroyUnit();     
-                   MenuManager.Instance.RotateModalsToPlayer1();
-                        for (int k = 0; k < InventoryManager.Instance.slotsPlayerOne.Count; k++)
-                        {
-                            if(InventoryManager.Instance.isFullPlayerOne[k] == false ){ // item can be added to inventory
-                                // parented to slots[k]
-                                Instantiate(InventoryManager.Instance.inventoryPoint, InventoryManager.Instance.slotsPlayerOne[k].transform, false);
-                                InventoryManager.Instance.isFullPlayerOne[k] = true;
-                                InventoryManager.Instance.inventoryPlayerOne[k] = InventoryManager.Instance.lastDestroyedItem;
-                                break;
-                            }
-                        }
-
-                        if(InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
-                            Debug.Log("inventory full pl1");
-                            InventoryManager.Instance.inventoryIsFullPlayerOne = true;
-                        } 
-                    }
-
-                    // PLAYER TWO
-                    if (playerToBeThrown = Player2.Instance){
-                    // could be the player itself not the item, not quite sure
-                    // GridManager.Instance.GetSpawnTile(playerSpawnTileX, playerSpawnTileY).DestroyUnit();     
-                       MenuManager.Instance.RotateModalsToPlayer2();
-                        for (int k = 0; k < InventoryManager.Instance.slotsPlayerTwo.Count; k++)
-                        {
-                            if(InventoryManager.Instance.isFullPlayerTwo[k] == false ){ // item can be added to inventory
-                                // parented to slots[k]
-                                Instantiate(InventoryManager.Instance.inventoryPoint, InventoryManager.Instance.slotsPlayerTwo[k].transform, false);
-                                InventoryManager.Instance.isFullPlayerTwo[k] = true;
-                                InventoryManager.Instance.inventoryPlayerTwo[k] = InventoryManager.Instance.lastDestroyedItem;
-                                break;
-                            }
-                        }
-
-                        if(InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){
-                            Debug.Log("inventory full pl1");
-                            InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
-                        }
-                    }
-                ItemManager.Instance.ChangeModal();
-                AnimationManager.Instance.AnimateItemModal();
-                } else if (InventoryManager.Instance.inventoryIsFullPlayerOne == true && GameManager.Instance.GameState == GameState.Player2Turn ||
-                     InventoryManager.Instance.inventoryIsFullPlayerTwo == true && GameManager.Instance.GameState == GameState.Player1Turn ){
-                // if inventory is full
+        if ( i == 1){
+            GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(Player1.Instance);
+            Player1.Instance.posx = UnitManager.Instance.xPlayerOneSpawnTile;
+            Player1.Instance.posy = UnitManager.Instance.yPlayerOneSpawnTile;
+        } else if(i == 2){
+            GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(Player2.Instance);
+            Player2.Instance.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
+            Player2.Instance.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
+        }
+        
+        if (OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Door){
+                        DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
+                        DoorManager.Instance.DoorCollision();
                 }
-                Debug.Log(" jetzt isser auf ein item beim schmeißen");
-                
-                                
-            }
-            if(playerToBeThrown = Player1.Instance){
-                                GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(playerToBeThrown);
-                                GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).OccupiedUnit = playerToBeThrown;
-                                playerToBeThrown.posx = UnitManager.Instance.xPlayerOneSpawnTile;
-                                playerToBeThrown.posy = UnitManager.Instance.yPlayerOneSpawnTile;
-            }
-                            if(playerToBeThrown = Player2.Instance){
-                                GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(playerToBeThrown);
-                                GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).OccupiedUnit = playerToBeThrown;
-                                playerToBeThrown.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
-                                playerToBeThrown.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
-                                // is das nicht einfach set unit?
-                            }
-                        SetUnit(UnitManager.Instance.SelectedPlayer);
-                        UnitManager.Instance.SetSelectedPlayer(null);
 
-                            // dehighlight all
-                            
-                            ChangePlayerTurn();
-                        
-    }
+        if (OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Item){
+                Debug.Log("ther is an item underneath");
+        }
 
     }
 
-    public void ThrowPlayer1ByPatrol(){
-        AudioManager.Instance.Play("throw");
-        GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(Player1.Instance);
-        Player1.Instance.posx = UnitManager.Instance.xPlayerOneSpawnTile;
-        Player1.Instance.posy = UnitManager.Instance.yPlayerOneSpawnTile;
-        GridManager.Instance.AddHoleTile();
-    }
-
-    public void ThrowPlayer2ByPatrol(){
-        AudioManager.Instance.Play("throw");
-        GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(Player2.Instance);
-        Player2.Instance.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
-        Player2.Instance.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
-        GridManager.Instance.AddHoleTile();
-
-                        // here auch noch wenn item daheim lieggt
-                        // oder ein anderer Spieler
-    }
+ 
 
     public void SetUnit(BaseUnit unit){
-        Debug.Log("set unit" + unit.gameObject);
         if(unit.OccupiedTile != null) unit.OccupiedTile.OccupiedUnit = null;
         unit.transform.position =transform.position;
         OccupiedUnit = unit;
