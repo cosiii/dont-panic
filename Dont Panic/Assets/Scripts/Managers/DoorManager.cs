@@ -80,6 +80,7 @@ public Tile doorUnderPlayer1Tile, doorUnderPlayer2Tile;
     // ROTATING AND SHOWING MODAL AND HIDING ITEMS
      MenuManager.Instance.ShowDoorModal();
      
+    UIManager.Instance.textWriter.AddWriter(UIManager.Instance.TextToWrite, UIManager.Instance.messageText , 0.07f, true);
   }
 
 public void ShuffleDoors() {
