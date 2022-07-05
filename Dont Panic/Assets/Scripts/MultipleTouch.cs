@@ -40,13 +40,16 @@ public class multipleTouch : MonoBehaviour {
 
             if(i == 0){
                 t1 = t;
+             touches.Add(new touchLocation(t.fingerId, createCircle(t)));
             }
             
             if(i == 1){
                t2 = t;
+             touches.Add(new touchLocation(t.fingerId, createCircle(t)));
+             touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
             }
 
-            float dist = Vector3.Distance(t.position, t1.position);
+        float dist = Vector3.Distance(t.position, t1.position);
                 
         float dist2 = Vector3.Distance(t1.position, t2.position);
                 
@@ -55,21 +58,18 @@ public class multipleTouch : MonoBehaviour {
             if(i == 2){                    
 
              if(t.phase == TouchPhase.Began){
-             //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
-             //touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
-             //touches.Add(new touchLocation(t2.fingerId, createCircle(t2)));
+             touches.Add(new touchLocation(t.fingerId, createCircle(t)));
+             touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
+             touches.Add(new touchLocation(t2.fingerId, createCircle(t2)));
             } else if(t.phase == TouchPhase.Moved){
         
                 UpdatePosition(dist, dist2, dist3);
         
             } else if(t.phase == TouchPhase.Ended){
-               // touches.Clear();
+               touches.Clear();
         
             }
             }
-
-            
-        
 
             ++i;
 	}
@@ -111,10 +111,10 @@ public class multipleTouch : MonoBehaviour {
               //Debug.Log("c: " + c + "farestT: " + farestT.position.x + " / " + farestT.position.y);
 
               // ROTATE ALL TO X INSTEAD OD +
-              touch3ObjectLeft = false;
+            touch3ObjectLeft = false;
             touch3ObjectRight = false;
             touch3ObjectUp = false;
-                    touch3ObjectDown = false;
+            touch3ObjectDown = false;
 
                 if(c.x >= farestT.position.x && c.y <= farestT.position.y ){
                     touch3ObjectRight = true;
@@ -132,7 +132,6 @@ public class multipleTouch : MonoBehaviour {
 
                 if(c.x >= farestT.position.x && c.y >= farestT.position.y ){
                     touch3ObjectUp = true;
-                    
                     Debug.Log("up");
                 } 
 

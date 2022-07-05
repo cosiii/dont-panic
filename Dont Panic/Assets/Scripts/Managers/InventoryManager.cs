@@ -129,7 +129,6 @@ public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> 
 
         spawnedItem.transform.rotation = Quaternion.identity;
         spawnTileAroundPlayer.SetUnit(spawnedItem);
-        Debug.Log(spawnTileAroundPlayer);
         lastDroppedItem = "";
     }
 }

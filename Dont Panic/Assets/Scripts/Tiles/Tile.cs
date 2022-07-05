@@ -42,7 +42,6 @@ public abstract class Tile : MonoBehaviour
             // FACTION PLAYER
             if(OccupiedUnit.Faction == Faction.Player){
                 MenuManager.Instance.HideHelpers();
-
                 // CLICKING ON ONESELF
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1"  && Player1.Instance.deciding == true){
                     Debug.Log("pl1 clicked on himself");
@@ -65,28 +64,20 @@ public abstract class Tile : MonoBehaviour
                     
                 } 
 
-                // THROWING PLAYER 1 
+                 // THROWING PLAYER 1 
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" && isWalkable == true){
-                    InventoryManager.Instance.DropOneItemPl1();
+                    InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
                     ThrowPlayer(1);
+                    ChangePlayerTurn();
                 }
 
-                // THROWING PLAYER 2 
-                // auf sich selbst klicken
-                if(OccupiedUnit.Faction == Faction.Player && OccupiedUnit != UnitManager.Instance.SelectedPlayer){
-                    
-                    if(OccupiedUnit.UnitName == "player 1"){
-                    InventoryManager.Instance.DropOneItemPl1();
-                    ThrowPlayer(1);
-                    }
-
-                    if(OccupiedUnit.UnitName == "player 2"){
-                    InventoryManager.Instance.DropOneItemPl2();
+                // THROWING PLAYER 2
+                else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
+                    Debug.Log("plyaer2 wird geworfen");
+                    InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
                     ThrowPlayer(2);
-                    }
+                    ChangePlayerTurn();
                 }
-
-                
 
             } 
             else { 
@@ -96,6 +87,7 @@ public abstract class Tile : MonoBehaviour
                     // COLLISION ITEM
                     if(OccupiedUnit.Faction == Faction.Item){ // or occupiedUnit2, maybe extra? || OccupiedUnit2.Faction == Faction.Item
 
+                        RotateModals();
                         // PL1s INVENTORY IS FULL AND NOT COLLECTING ITEM
                         if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
                             InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.UnitName;
@@ -127,7 +119,6 @@ public abstract class Tile : MonoBehaviour
                         // PLAYERS INVENTORY IS FULL
                         if (InventoryManager.Instance.inventoryIsFullPlayerOne == true ||
                         InventoryManager.Instance.inventoryIsFullPlayerTwo == true ){
-                            RotateModals();
                             MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "Your Inventory is Full";
                             AnimationManager.Instance.AnimatePlayerText();
 
@@ -164,6 +155,7 @@ public abstract class Tile : MonoBehaviour
             } 
         }
         else {
+            AudioManager.Instance.Play("set");
 
             // NOT WALKABLE TILE
             if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Hole"){
@@ -181,12 +173,9 @@ public abstract class Tile : MonoBehaviour
                     DoorManager.Instance.DoorCollision();
                 }
                 
-                AudioManager.Instance.Play("set");
-
-               
-
                 // IF ITEM WAS UNDER A PLAYER
                 PutItemBackInPlace(); 
+
                 ChangePlayerTurn();
             } else {
                 // YOURE NOT ON THE HIGHLIGHT
@@ -239,6 +228,9 @@ public abstract class Tile : MonoBehaviour
         if (OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Item){
                 Debug.Log("ther is an item underneath");
         }
+
+        SetUnit(UnitManager.Instance.SelectedPlayer);
+        UnitManager.Instance.SetSelectedPlayer(null);
 
     }
 

@@ -24,16 +24,13 @@ void Awake(){
 
 // muss auch grade begehbar sein
 public void AddHoleTile(){
-    Debug.Log("holetile added");
+    holeTileCount++;
     // DELETE ALL EXISTING
-    if(holeTileCount > 1 ){
-        for (int x = 0; x < holeTileCount; x++){
-    GameObject hole = GameObject.Find("Hole Tile(Clone)");
+    for (int x = 0; x < holeTileCount; x++){
+    var hole = GameObject.Find("Hole Tile(Clone)");
     Destroy(hole);
     }
 
-    }
-   
     // MAKING NEW ONES
     for (int x = 0; x < holeTileCount; x++){
         int randomXSpot = Random.Range(0, _width );

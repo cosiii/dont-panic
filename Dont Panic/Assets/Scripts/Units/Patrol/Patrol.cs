@@ -31,11 +31,14 @@ public class Patrol : BasePatrol
    public void OnCollisionEnter(Collision col){
     if (col.gameObject.name == "playerone(Clone)"){
       Tile.Instance.ThrowPlayer(1);
+      // Tile.Instance.ShowWalkableTiles(Player1.Instance);
     } 
     if (col.gameObject.name == "playertwo(Clone)"){
       Tile.Instance.ThrowPlayer(2);
+      //Tile.Instance.ShowWalkableTiles(Player2.Instance);
     }
       GridManager.Instance.AddHoleTile();
+     
   }
 
     void Update(){
