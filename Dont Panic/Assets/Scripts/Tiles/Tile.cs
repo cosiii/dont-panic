@@ -68,6 +68,8 @@ public abstract class Tile : MonoBehaviour
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" && isWalkable == true){
                     InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
                     ThrowPlayer(1);
+                    SetUnit(UnitManager.Instance.SelectedPlayer);
+                    UnitManager.Instance.SetSelectedPlayer(null);
                     ChangePlayerTurn();
                 }
 
@@ -76,6 +78,8 @@ public abstract class Tile : MonoBehaviour
                     Debug.Log("plyaer2 wird geworfen");
                     InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
                     ThrowPlayer(2);
+                    SetUnit(UnitManager.Instance.SelectedPlayer);
+                    UnitManager.Instance.SetSelectedPlayer(null);
                     ChangePlayerTurn();
                 }
 
@@ -85,47 +89,8 @@ public abstract class Tile : MonoBehaviour
                 // WALK ON ANOTHER OCCUPIED UNIT
 
                     // COLLISION ITEM
-                    if(OccupiedUnit.Faction == Faction.Item){ // or occupiedUnit2, maybe extra? || OccupiedUnit2.Faction == Faction.Item
-
-                        RotateModals();
-                        // PL1s INVENTORY IS FULL AND NOT COLLECTING ITEM
-                        if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
-                            InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.UnitName;
-                            InventoryManager.Instance.itemUnderPlayer1 = true;
-                            InventoryManager.Instance.itemUnderPlayer1Tile = this;
-                            InventoryManager.Instance.inventoryIsFullPlayerOne = true;
-                            OccupiedUnit2 = OccupiedUnit;
-                        } 
-                        // PL2s INVENTORY IS FULL AND NOT COLLECTING ITEM
-                        else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2" && InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){ 
-                            InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.UnitName;
-                            InventoryManager.Instance.itemUnderPlayer2 = true;
-                            InventoryManager.Instance.itemUnderPlayer2Tile = this;
-                            InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
-                            OccupiedUnit2 = OccupiedUnit;
-                        }
-
-                        // PLAYERS INVENTORY IS NOT FULL
-                        if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
-                        InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn){
-            	        Debug.Log("destroy unit " + OccupiedUnit.gameObject);
-                        DestroyUnit(); // muss hier oben sein
-                        InventoryManager.Instance.ItemCollision();
-                        AnimationManager.Instance.AnimateInventoryPoint();
-                        } 
-
-
-
-                        // PLAYERS INVENTORY IS FULL
-                        if (InventoryManager.Instance.inventoryIsFullPlayerOne == true ||
-                        InventoryManager.Instance.inventoryIsFullPlayerTwo == true ){
-                            MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "Your Inventory is Full";
-                            AnimationManager.Instance.AnimatePlayerText();
-
-                            // RESET EVERYTHING
-                            InventoryManager.Instance.inventoryIsFullPlayerOne = false;
-                            InventoryManager.Instance.inventoryIsFullPlayerTwo = false; 
-                        }
+                    if(OccupiedUnit.Faction == Faction.Item){ 
+                        CollisionWithItem(OccupiedUnit, OccupiedUnit2);
                     }   
 
                     // COLLISION DOOR
@@ -148,14 +113,11 @@ public abstract class Tile : MonoBehaviour
                     } 
                 
                 AudioManager.Instance.Play("set");
-               
-
                 }
 
             } 
         }
         else {
-            AudioManager.Instance.Play("set");
 
             // NOT WALKABLE TILE
             if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Hole"){
@@ -163,6 +125,7 @@ public abstract class Tile : MonoBehaviour
             }
             // WALK ONLY
             if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Floor"){
+            AudioManager.Instance.Play("set");
                  //deselect selected Unit
                 SetUnit(UnitManager.Instance.SelectedPlayer);
                 UnitManager.Instance.SetSelectedPlayer(null);
@@ -206,6 +169,46 @@ public abstract class Tile : MonoBehaviour
             }
     }
    
+   public void CollisionWithItem(BaseUnit OccupiedUnit, BaseUnit OccupiedUnit2){
+    RotateModals();
+    // PL1s INVENTORY IS FULL AND NOT COLLECTING ITEM
+    if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
+        InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.UnitName;
+        InventoryManager.Instance.itemUnderPlayer1 = true;
+        InventoryManager.Instance.itemUnderPlayer1Tile = this;
+        InventoryManager.Instance.inventoryIsFullPlayerOne = true;
+        OccupiedUnit2 = OccupiedUnit;
+    } 
+    // PL2s INVENTORY IS FULL AND NOT COLLECTING ITEM
+    else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2" && InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){ 
+        InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.UnitName;
+        InventoryManager.Instance.itemUnderPlayer2 = true;
+        InventoryManager.Instance.itemUnderPlayer2Tile = this;
+        InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
+        OccupiedUnit2 = OccupiedUnit;
+    }
+
+    // PLAYERS INVENTORY IS NOT FULL
+    if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
+    InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn){
+    Debug.Log("destroy unit " + OccupiedUnit.gameObject);
+    DestroyUnit(); // muss hier oben sein
+    InventoryManager.Instance.ItemCollision();
+    AnimationManager.Instance.AnimateInventoryPoint();
+    } 
+
+    // PLAYERS INVENTORY IS FULL
+    if (InventoryManager.Instance.inventoryIsFullPlayerOne == true ||
+    InventoryManager.Instance.inventoryIsFullPlayerTwo == true ){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "Your Inventory is Full";
+        AnimationManager.Instance.AnimatePlayerText();
+
+        // RESET EVERYTHING
+        InventoryManager.Instance.inventoryIsFullPlayerOne = false;
+        InventoryManager.Instance.inventoryIsFullPlayerTwo = false; 
+    }
+
+   }
     public void ThrowPlayer(int i){
 
         AudioManager.Instance.Play("throw");
@@ -226,11 +229,10 @@ public abstract class Tile : MonoBehaviour
                 }
 
         if (OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Item){
-                Debug.Log("ther is an item underneath");
+             CollisionWithItem(OccupiedUnit2, OccupiedUnit);
         }
 
-        SetUnit(UnitManager.Instance.SelectedPlayer);
-        UnitManager.Instance.SetSelectedPlayer(null);
+        
 
     }
 

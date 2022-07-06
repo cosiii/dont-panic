@@ -35,7 +35,10 @@ public class Patrol : BasePatrol
     } 
     if (col.gameObject.name == "playertwo(Clone)"){
       Tile.Instance.ThrowPlayer(2);
-      //Tile.Instance.ShowWalkableTiles(Player2.Instance);
+      if(Player2.Instance.deciding){
+        Debug.Log("palyer2 deciding");
+      Tile.Instance.ShowWalkableTiles(Player2.Instance);
+      }
     }
       GridManager.Instance.AddHoleTile();
      
