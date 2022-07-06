@@ -22,6 +22,7 @@ public bool TextIsPlaying;
  public string messageText;
 
 
+
 public void Awake(){
 	Instance = this;
 

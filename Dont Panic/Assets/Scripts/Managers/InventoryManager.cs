@@ -23,12 +23,24 @@ public string lastDroppedItem;
 public bool inventoryIsFullPlayerOne;
 public bool inventoryIsFullPlayerTwo;
 
+public Animation itemCollAnim;
+
+public bool twoItemCollisions;
 public GameObject inventoryPoint;
 List <int> nineTiles =  new List<int>{-1, 0, 1};
 
 void Awake(){
         Instance = this;
     }
+
+public void Update(){
+    
+    if (twoItemCollisions){
+        // GET THE ANIMATOR TO BEGINNING
+         AnimationManager.Instance.itemModal.GetComponent<Animator>().Rebind();
+         AnimationManager.Instance.itemModal.GetComponent<Animator>().Update(0f);
+    }
+}
 
  public void ItemCollision(){
 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
@@ -64,9 +76,24 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
 
     ItemManager.Instance.ChangeModal();
     AudioManager.Instance.Play("collect");
-    AnimationManager.Instance.AnimateItemModal();
 
+    // SET ONGOING ANIMATION TO ZERO (IF THERE IS ONE)
+    AnimationManager.Instance.itemModal.GetComponent<Animator>().Rebind();
+    AnimationManager.Instance.itemModal.GetComponent<Animator>().Update(0f);
+   
+    // ACTUAL ANIMATION      
+    AnimationManager.Instance.AnimateItemModal();
 }
+
+IEnumerator WaitforAnimationToFinish()
+{
+    Animator animation = AnimationManager.Instance.itemModal.GetComponent<Animator>();
+    Debug.Log("animation should be finished");
+    yield return new WaitForSeconds(animation.GetCurrentAnimatorStateInfo (0).length);
+    Debug.Log("animation should be finished");
+    // Start Animation Again if you want...
+}
+
 public void DropOneItemPl1(){
     DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
     Tile.Instance.ChangePlayerTurn();
