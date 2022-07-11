@@ -28,7 +28,7 @@ public class multipleTouch : MonoBehaviour {
     }
 
     public void Update(){
-        UpdateToken();
+        if(standsInPlace) UpdateToken();
     }
 	// Update is called once per frame
 	public void UpdateToken () {
