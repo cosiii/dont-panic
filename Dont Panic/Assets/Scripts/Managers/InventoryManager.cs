@@ -19,13 +19,13 @@ public bool itemUnderPlayer1, itemUnderPlayer2;
 
 public Tile itemUnderPlayer1Tile, itemUnderPlayer2Tile;
 
+ // RANDOM TILE POS AROUNG THE PLAYER
+    int randomx, randomy;
+
 public string lastDroppedItem;
 public bool inventoryIsFullPlayerOne;
 public bool inventoryIsFullPlayerTwo;
 
-public Animation itemCollAnim;
-
-public bool twoItemCollisions;
 public GameObject inventoryPoint;
 List <int> nineTiles =  new List<int>{-1, 0, 1};
 
@@ -34,11 +34,8 @@ void Awake(){
     }
 
 public void Update(){
-    
-    if (twoItemCollisions){
-        // GET THE ANIMATOR TO BEGINNING
-         AnimationManager.Instance.itemModal.GetComponent<Animator>().Rebind();
-         AnimationManager.Instance.itemModal.GetComponent<Animator>().Update(0f);
+    if (lastDestroyedItem == lastNotDestroyedItem){
+        Debug.Log("last destroyed and last not destroyed are the same, is there any bug?");
     }
 }
 
@@ -102,27 +99,38 @@ public void DropOneItemPl2(){
     DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);
     Tile.Instance.ChangePlayerTurn();
 }
-public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> isFull, List <string> inventory, bool inventoryIsFull){
-    // RANDOM TILE POS AROUNG THE PLAYER
-    int randomx = nineTiles[Random.Range(0,nineTiles.Count)];
-    int randomy = nineTiles[Random.Range(0,nineTiles.Count)];
 
-    // IN CASE of 0 0
+public void SetNewItemSpawnTile(){
+    Debug.Log("set new item spawn tile");
+ // RANDOM TILE POS AROUNG THE PLAYER
+     randomx = nineTiles[Random.Range(0,nineTiles.Count)];
+     randomy = nineTiles[Random.Range(0,nineTiles.Count)];
+     // IN CASE of 0 0
     if (randomx == 0 && randomy == 0){
         randomx = 1;
     }
+}
+public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> isFull, List <string> inventory, bool inventoryIsFull){
 
-    // die tiles ausenrum walkabel
-    var spawnTileAroundPlayer = GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy);
+   SetNewItemSpawnTile();
 
+/*
     // if the item has space
     if(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit == null){
         //Debug.Log("it is walkable here");
     } else if(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null){
         Debug.Log("it is not walkable here");
-        // respawn items
+        SetNewItemSpawnTile();
+    } */
+
+    // Does this work
+    while(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null){
+        SetNewItemSpawnTile();
     }
-    
+
+    var spawnTileAroundPlayer = GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy);
+
+    // Destroy the Slot Object
         for (int i = 0; i < slots.Count; i++)
         { 
             if(isFull[slots.Count-1 -i] == true){ 

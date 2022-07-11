@@ -17,7 +17,7 @@ public abstract class Tile : MonoBehaviour
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
     public int playerSpawnTileX;
     public int playerSpawnTileY;
-
+    public Color recentColor = Color.black;
     void Awake(){
         Instance = this;
     }
@@ -215,10 +215,19 @@ public abstract class Tile : MonoBehaviour
 
         if ( i == 1){
             GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(Player1.Instance);
+
+            if (GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).TileName == "Hole"){
+                Debug.Log("player1 landed on a hole");
+
+            }
             Player1.Instance.posx = UnitManager.Instance.xPlayerOneSpawnTile;
             Player1.Instance.posy = UnitManager.Instance.yPlayerOneSpawnTile;
         } else if(i == 2){
             GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(Player2.Instance);
+            if (GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).TileName == "Hole"){
+                Debug.Log("player2 landed on a hole");
+
+            }
             Player2.Instance.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
             Player2.Instance.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
         }
@@ -309,7 +318,6 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void ShowWalkableTiles(BasePlayer player){
-       var recentColor = Color.black;
        if(Player1.Instance.deciding){
         recentColor =  GridManager.Instance.colorPlayer1;
        } else if(Player2.Instance.deciding){
