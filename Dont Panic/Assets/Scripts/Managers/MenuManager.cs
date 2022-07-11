@@ -12,7 +12,7 @@ public static MenuManager Instance;
 
 [SerializeField] public Image doorFoundModalImage;
 
-[SerializeField] public GameObject  itemText, inventoryIsFullText, itemImage, TemporaryModals; 
+[SerializeField] public GameObject  itemText, TemporaryModals; 
 [SerializeField] public GameObject PlayerText, DoorNameText; 
 [SerializeField] public GameObject TextForPlayerModal;
 [SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 

@@ -210,7 +210,18 @@ public abstract class Tile : MonoBehaviour
 
    }
     public void ThrowPlayer(int i){
+        if( this == GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile) || 
+        this == GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile)){
+            if (i == 1){
+                UnitManager.Instance.xPlayerOneSpawnTile = UnitManager.Instance.xPlayerTwoSpawnTile;
+                UnitManager.Instance.yPlayerOneSpawnTile = UnitManager.Instance.yPlayerTwoSpawnTile;
+            }
 
+            if (i == 2){
+                UnitManager.Instance.xPlayerTwoSpawnTile = UnitManager.Instance.xPlayerOneSpawnTile;
+                UnitManager.Instance.yPlayerTwoSpawnTile = UnitManager.Instance.yPlayerOneSpawnTile;
+            }
+        }
         AudioManager.Instance.Play("throw");
 
         if ( i == 1){
@@ -238,9 +249,16 @@ public abstract class Tile : MonoBehaviour
                 }
 
         if (OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Item){
-             CollisionWithItem(OccupiedUnit2, OccupiedUnit);
+             //CollisionWithItem(OccupiedUnit2, OccupiedUnit);
+             Debug.Log("there is an item underneath");
         }
 
+        // RESET
+        UnitManager.Instance.xPlayerOneSpawnTile = 1;
+        UnitManager.Instance.yPlayerOneSpawnTile = 1;
+            
+        UnitManager.Instance.xPlayerTwoSpawnTile = 6;
+        UnitManager.Instance.yPlayerTwoSpawnTile = 4;
         
 
     }

@@ -34,9 +34,6 @@ void Awake(){
     }
 
 public void Update(){
-    if (lastDestroyedItem == lastNotDestroyedItem){
-        Debug.Log("last destroyed and last not destroyed are the same, is there any bug?");
-    }
 }
 
  public void ItemCollision(){
@@ -80,6 +77,12 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
    
     // ACTUAL ANIMATION      
     AnimationManager.Instance.AnimateItemModal();
+
+
+
+    if (lastDestroyedItem == lastNotDestroyedItem){
+        Debug.Log("last destroyed and last not destroyed are the same, is there any bug?");
+    }
 }
 
 IEnumerator WaitforAnimationToFinish()
@@ -113,17 +116,6 @@ public void SetNewItemSpawnTile(){
 public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> isFull, List <string> inventory, bool inventoryIsFull){
 
    SetNewItemSpawnTile();
-
-/*
-    // if the item has space
-    if(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit == null){
-        //Debug.Log("it is walkable here");
-    } else if(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null){
-        Debug.Log("it is not walkable here");
-        SetNewItemSpawnTile();
-    } */
-
-    // Does this work
     while(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null){
         SetNewItemSpawnTile();
     }
