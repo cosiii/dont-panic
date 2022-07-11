@@ -40,10 +40,10 @@ public Tile doorUnderPlayer1Tile, doorUnderPlayer2Tile;
 
         SetItemsToDoors();
 
-    if (keyItems1[0] == keyItems1[1] || keyItems2[0] == keyItems2[1] || keyItems3[0] == keyItems3[1] || keyItems4[0] == keyItems4[1] || keyItems5[0] == keyItems5[1]){
-        Debug.Log("a door has the same items");
+
+    // IF THEY ARE THE SAME ITEMS
+    while (keyItems1[0] == keyItems1[1] || keyItems2[0] == keyItems2[1] || keyItems3[0] == keyItems3[1] || keyItems4[0] == keyItems4[1] || keyItems5[0] == keyItems5[1]){
         SetItemsToDoors();
-        // solange bis es halt passt
       }
 
 
