@@ -9,7 +9,7 @@ public class multipleTouch : MonoBehaviour {
     
     public static multipleTouch Instance;
 
-    public bool obejectOneIsMoving, objectTwoIsMoving;
+    public bool standsInPlace;
 
      bool touch3ObjectRight, touch3ObjectLeft, touch3ObjectUp, touch3ObjectDown;
 
@@ -55,7 +55,8 @@ public class multipleTouch : MonoBehaviour {
                 
         float dist3 = Vector3.Distance(t2.position, t.position);
 
-            if(i == 2){                    
+            if(i == 2){ 
+                  
 
              if(t.phase == TouchPhase.Began){
              touches.Add(new touchLocation(t.fingerId, createCircle(t)));
@@ -69,7 +70,7 @@ public class multipleTouch : MonoBehaviour {
                touches.Clear();
         
             }
-            }
+            } 
 
             ++i;
 	}

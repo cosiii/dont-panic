@@ -20,18 +20,14 @@ public abstract class Tile : MonoBehaviour
     void Awake(){
         Instance = this;
     }
+
+    void Update(){
+    }
     public virtual void Init(int x, int y)  // will run on every tile, but each individula tile has the option to overwrite it
     {
       
     }
 
-
-    public void OnTouchDrag(){  //works only on clicks now
-    
-    } 
-
-    void OnMouseExit(){ //works only on clicks now
-    }
 
     void OnMouseDown(){    
         //InventoryManager.Instance.DropItemPl1();
@@ -43,11 +39,11 @@ public abstract class Tile : MonoBehaviour
                 MenuManager.Instance.HideHelpers();
                 // CLICKING ON ONESELF
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1"  && Player1.Instance.deciding == true){
-                    Debug.Log("pl1 clicked on himself");
+                    multipleTouch.Instance.standsInPlace = true;
                 }  
 
                 if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 2" && Player2.Instance.deciding == true){
-                    Debug.Log("pl2 clicked on himself");
+                    multipleTouch.Instance.standsInPlace = true;
                 }  
 
                 // CLICKING FOR MAKING TURN
@@ -86,7 +82,8 @@ public abstract class Tile : MonoBehaviour
             else { 
                 if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){ // if we have a selected player AND we click on another occupied unit 
                 // WALK ON ANOTHER OCCUPIED UNIT
-
+                    
+                    multipleTouch.Instance.standsInPlace = false;
                     // COLLISION ITEM
                     if(OccupiedUnit.Faction == Faction.Item){ 
                         CollisionWithItem(OccupiedUnit, OccupiedUnit2);
@@ -117,7 +114,8 @@ public abstract class Tile : MonoBehaviour
             } 
         }
         else {
-
+            
+            multipleTouch.Instance.standsInPlace = false;
             // NOT WALKABLE TILE
             if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Hole"){
                 AudioManager.Instance.Play("error");
@@ -141,6 +139,8 @@ public abstract class Tile : MonoBehaviour
                 ChangePlayerTurn();
             } else {
                 // YOURE NOT ON THE HIGHLIGHT
+                
+                multipleTouch.Instance.standsInPlace = false;
                 AnimationManager.Instance.AnimateHighlightTiles();
             }
         }
