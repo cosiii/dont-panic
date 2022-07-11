@@ -115,6 +115,9 @@ public void SetNewItemSpawnTile(){
 }
 public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> isFull, List <string> inventory, bool inventoryIsFull){
 
+if (GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy) == null){
+    Debug.Log("ist null");
+}
    SetNewItemSpawnTile();
     while(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null){
         SetNewItemSpawnTile();

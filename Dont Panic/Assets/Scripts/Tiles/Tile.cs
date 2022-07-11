@@ -15,8 +15,7 @@ public abstract class Tile : MonoBehaviour
     
     public BaseUnit OccupiedUnit, OccupiedUnit2;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
-    public int playerSpawnTileX;
-    public int playerSpawnTileY;
+
     public Color recentColor = Color.black;
     void Awake(){
         Instance = this;
@@ -177,7 +176,7 @@ public abstract class Tile : MonoBehaviour
         InventoryManager.Instance.itemUnderPlayer1 = true;
         InventoryManager.Instance.itemUnderPlayer1Tile = this;
         InventoryManager.Instance.inventoryIsFullPlayerOne = true;
-        OccupiedUnit2 = OccupiedUnit;
+        //OccupiedUnit2 = OccupiedUnit;
     } 
     // PL2s INVENTORY IS FULL AND NOT COLLECTING ITEM
     else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2" && InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){ 
@@ -185,7 +184,7 @@ public abstract class Tile : MonoBehaviour
         InventoryManager.Instance.itemUnderPlayer2 = true;
         InventoryManager.Instance.itemUnderPlayer2Tile = this;
         InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
-        OccupiedUnit2 = OccupiedUnit;
+        //OccupiedUnit2 = OccupiedUnit;
     }
 
     // PLAYERS INVENTORY IS NOT FULL
@@ -210,61 +209,68 @@ public abstract class Tile : MonoBehaviour
 
    }
     public void ThrowPlayer(int i){
-        if( this == GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile) || 
-        this == GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile)){
-            if (i == 1){
-                UnitManager.Instance.xPlayerOneSpawnTile = UnitManager.Instance.xPlayerTwoSpawnTile;
-                UnitManager.Instance.yPlayerOneSpawnTile = UnitManager.Instance.yPlayerTwoSpawnTile;
+    // AUDIO
+    AudioManager.Instance.Play("throw");
+    // RESET 
+    int xSpawnTile = 0;
+    int ySpawnTile = 0;
+ 
+        if (i == 1){
+            xSpawnTile = UnitManager.Instance.xPlayerOneSpawnTile;
+            ySpawnTile = UnitManager.Instance.yPlayerOneSpawnTile;
+        }
+        if (i == 2){
+            xSpawnTile = UnitManager.Instance.xPlayerTwoSpawnTile;
+            ySpawnTile = UnitManager.Instance.yPlayerTwoSpawnTile;
+        }
+
+        // WHEN THIS TILE IS THE PLAYER TO BE THROWN S SPAWNING TILE
+        if( this == GridManager.Instance.GetSpawnTile(xSpawnTile, ySpawnTile)){
+            if (i == 1){ // SWITCH
+                xSpawnTile = UnitManager.Instance.xPlayerTwoSpawnTile;
+                ySpawnTile = UnitManager.Instance.yPlayerTwoSpawnTile;
             }
 
-            if (i == 2){
-                UnitManager.Instance.xPlayerTwoSpawnTile = UnitManager.Instance.xPlayerOneSpawnTile;
-                UnitManager.Instance.yPlayerTwoSpawnTile = UnitManager.Instance.yPlayerOneSpawnTile;
+            if (i == 2){ // SWITCH
+                xSpawnTile = UnitManager.Instance.xPlayerOneSpawnTile;
+                ySpawnTile = UnitManager.Instance.yPlayerOneSpawnTile;
             }
         }
-        AudioManager.Instance.Play("throw");
 
-        if ( i == 1){
-            GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).SetUnit(Player1.Instance);
-
-            if (GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile).TileName == "Hole"){
-                Debug.Log("player1 landed on a hole");
-
-            }
-            Player1.Instance.posx = UnitManager.Instance.xPlayerOneSpawnTile;
-            Player1.Instance.posy = UnitManager.Instance.yPlayerOneSpawnTile;
-        } else if(i == 2){
-            GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).SetUnit(Player2.Instance);
-            if (GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile).TileName == "Hole"){
-                Debug.Log("player2 landed on a hole");
-
-            }
-            Player2.Instance.posx = UnitManager.Instance.xPlayerTwoSpawnTile;
-            Player2.Instance.posy = UnitManager.Instance.yPlayerTwoSpawnTile;
-        }
-        
+        // WHEN PLAYER TO BE THROWN IS OVER A DOOR
         if (OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Door){
                         DoorManager.Instance.lastVisitedDoor = OccupiedUnit2.UnitName;
                         DoorManager.Instance.DoorCollision();
                 }
 
+        // WHEN PLAYER TO BE THROWN IS OVER AN ITEM
         if (OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Item){
              //CollisionWithItem(OccupiedUnit2, OccupiedUnit);
              Debug.Log("there is an item underneath");
         }
+        // SET PLAYER ONE
+        if ( i == 1){
+            GridManager.Instance.GetSpawnTile(xSpawnTile, ySpawnTile).SetUnit(Player1.Instance);
+            Player1.Instance.posx = xSpawnTile;
+            Player1.Instance.posy = ySpawnTile;
 
-        // RESET
-        UnitManager.Instance.xPlayerOneSpawnTile = 1;
-        UnitManager.Instance.yPlayerOneSpawnTile = 1;
-            
-        UnitManager.Instance.xPlayerTwoSpawnTile = 6;
-        UnitManager.Instance.yPlayerTwoSpawnTile = 4;
+        // SET PLAYER TWO
+        } else if(i == 2){
+            GridManager.Instance.GetSpawnTile(xSpawnTile, ySpawnTile).SetUnit(Player2.Instance);
+            Player2.Instance.posx = xSpawnTile;
+            Player2.Instance.posy = ySpawnTile;
+        }
         
-
+        // WHEN THE SPAWNING TILE IS OCCUPIED
+        // HOLE
+        if (GridManager.Instance.GetSpawnTile(xSpawnTile, ySpawnTile).TileName == "Hole"){
+                Debug.Log("player landed on a hole");
+            }
+        // ITEM
+         if (GridManager.Instance.GetSpawnTile(xSpawnTile, ySpawnTile).OccupiedUnit.Faction == Faction.Item){
+                Debug.Log("player landed on an item");
+             }
     }
-
- 
-
     public void SetUnit(BaseUnit unit){
         if(unit.OccupiedTile != null) unit.OccupiedTile.OccupiedUnit = null;
         unit.transform.position =transform.position;
@@ -301,10 +307,6 @@ public abstract class Tile : MonoBehaviour
     player.posx = cx -48;
     player.posy = cy -48;
     }
-
-
-
-
     public void WalkLeft(BasePlayer player, int intLeft, Color recentColor){
         if(player.posx - intLeft >= 0){
         GridManager.Instance.tiles[new Vector2(player.posx - intLeft, player.posy)].highlight.GetComponent<SpriteRenderer>().color = recentColor;
