@@ -36,7 +36,8 @@ void Awake(){
 public void Update(){
 }
 
- public void ItemCollision(){
+ public void AddItemToInventory(){
+    Debug.Log("InventoryManager.AddItemToInventory");
 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
     // PLAYER ONE
     for (int i = 0; i < slotsPlayerOne.Count; i++)
@@ -80,19 +81,9 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
 
 
 
-    if (lastDestroyedItem == lastNotDestroyedItem){
-        Debug.Log("last destroyed and last not destroyed are the same, is there any bug?");
-    }
+    
 }
 
-IEnumerator WaitforAnimationToFinish()
-{
-    Animator animation = AnimationManager.Instance.itemModal.GetComponent<Animator>();
-    Debug.Log("animation should be finished");
-    yield return new WaitForSeconds(animation.GetCurrentAnimatorStateInfo (0).length);
-    Debug.Log("animation should be finished");
-    // Start Animation Again if you want...
-}
 
 public void DropOneItemPl1(){
     DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);

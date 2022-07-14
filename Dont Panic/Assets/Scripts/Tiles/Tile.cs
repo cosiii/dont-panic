@@ -85,13 +85,21 @@ public abstract class Tile : MonoBehaviour
                     
                     multipleTouch.Instance.standsInPlace = false;
                     // COLLISION ITEM
-                    if(OccupiedUnit.Faction == Faction.Item){ 
-                        CollisionWithItem(OccupiedUnit, OccupiedUnit2);
+                    if(OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Item){ 
+                        //CollisionWithItemOnOcc2();
                     }   
 
+                    if(OccupiedUnit.Faction == Faction.Item){ 
+                        Debug.Log("your on an item");
+                        CollisionWithItem(OccupiedUnit, OccupiedUnit2);
+                    } 
+
+                    // hier is occ1 noch item
+                    Debug.Log(OccupiedUnit + " " + OccupiedUnit2);
+                    Destroy(OccupiedUnit.gameObject);
                     // COLLISION DOOR
                     // wird nur beim ersten mal ausgeführt
-                    if(OccupiedUnit.Faction == Faction.Door){
+                    if(OccupiedUnit != null && OccupiedUnit.Faction == Faction.Door){
                         OccupiedUnit2 = OccupiedUnit;
                         DoorManager.Instance.lastVisitedDoor = OccupiedUnit.UnitName;
                         DoorManager.Instance.DoorCollision();
@@ -101,6 +109,7 @@ public abstract class Tile : MonoBehaviour
                     UnitManager.Instance.SetSelectedPlayer(null);
                     ChangePlayerTurn();
 
+                    // hier dann nicht mehr
                     // PANTRY FEATURE CHANGE TURNS AGAIN
                     if(DoorManager.Instance.pantryFeatureP1 == true || DoorManager.Instance.pantryFeatureP2 == true ){
                         ChangePlayerTurn();
@@ -168,35 +177,45 @@ public abstract class Tile : MonoBehaviour
             }
     }
    
-   public void CollisionWithItem(BaseUnit OccupiedUnit, BaseUnit OccupiedUnit2){
+   public void CollisionWithItem(BaseUnit occ1, BaseUnit occ2){
     RotateModals();
-    // PL1s INVENTORY IS FULL AND NOT COLLECTING ITEM
+    if (InventoryManager.Instance.lastDestroyedItem == InventoryManager.Instance.lastNotDestroyedItem){
+        Debug.Log("last destroyed and last not destroyed are the same, is there any bug?");
+    }
+
+    // PL1s INVENTORY IS FULL AND NOT COLLECTING ITEM ON OCCUNIT1
     if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
-        InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.UnitName;
+        InventoryManager.Instance.lastNotDestroyedItem = occ1.UnitName;
         InventoryManager.Instance.itemUnderPlayer1 = true;
         InventoryManager.Instance.itemUnderPlayer1Tile = this;
         InventoryManager.Instance.inventoryIsFullPlayerOne = true;
-        //OccupiedUnit2 = OccupiedUnit;
+        occ2 = occ1;
+        SetUnit2(occ2);
+        Debug.Log(occ1 + " " + occ2);
     } 
-    // PL2s INVENTORY IS FULL AND NOT COLLECTING ITEM
+    // PL2s INVENTORY IS FULL AND NOT COLLECTING ITEM ON OCCUNIT1
     else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2" && InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){ 
         InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit.UnitName;
         InventoryManager.Instance.itemUnderPlayer2 = true;
         InventoryManager.Instance.itemUnderPlayer2Tile = this;
         InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
-        //OccupiedUnit2 = OccupiedUnit;
+        occ2 = occ1;
+        SetUnit2(occ2);
+        Debug.Log(occ1 + " " + occ2);
     }
 
     // PLAYERS INVENTORY IS NOT FULL
     if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
     InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn){
-    Debug.Log("destroy unit " + OccupiedUnit.gameObject);
-    DestroyUnit(); // muss hier oben sein
-    InventoryManager.Instance.ItemCollision();
+    occ1.OccupiedTile = null;
+    DestroyUnit(); // muss hier oben sein 
+    Destroy(occ1.gameObject);
+
+    InventoryManager.Instance.AddItemToInventory();
     AnimationManager.Instance.AnimateInventoryPoint();
     } 
 
-    // PLAYERS INVENTORY IS FULL
+    // PLAYERS INVENTORY IS FULL TEXT
     if (InventoryManager.Instance.inventoryIsFullPlayerOne == true ||
     InventoryManager.Instance.inventoryIsFullPlayerTwo == true ){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "Your Inventory is Full";
@@ -207,7 +226,52 @@ public abstract class Tile : MonoBehaviour
         InventoryManager.Instance.inventoryIsFullPlayerTwo = false; 
     }
 
+        // hier wird mir noch eins angezeigt wenn eigentlich gelöscht sein soll
+        Debug.Log("occ1: " + occ1 + " occ 2: " + OccupiedUnit2);
    }
+
+// setzt schon ein wenn noch nichts auf occ2 drauf ist
+   public void CollisionWithItemOnOcc2(){
+    if (InventoryManager.Instance.lastDestroyedItem == InventoryManager.Instance.lastNotDestroyedItem){
+        Debug.Log("last destroyed and last not destroyed are the same, is there any bug?");
+    }
+
+    Debug.Log("Collision with item with occ2");
+    RotateModals();
+     // PL1s INVENTORY IS FULL AND NOT COLLECTING ITEM ON OCCUNIT2
+    if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
+        InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit2.UnitName;
+        InventoryManager.Instance.itemUnderPlayer1 = true;
+        InventoryManager.Instance.itemUnderPlayer1Tile = this;
+        InventoryManager.Instance.inventoryIsFullPlayerOne = true;
+    } 
+    // PL2s INVENTORY IS FULL AND NOT COLLECTING ITEM ON OCCUNIT1
+    else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2" && InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){ 
+        InventoryManager.Instance.lastNotDestroyedItem = OccupiedUnit2.UnitName;
+        InventoryManager.Instance.itemUnderPlayer2 = true;
+        InventoryManager.Instance.itemUnderPlayer2Tile = this;
+        InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
+    }
+
+    // PLAYERS INVENTORY IS NOT FULL
+    if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
+    InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn){
+    Debug.Log("destroy unit2 ");
+    DestroyUnit2(); // muss hier oben sein  oder UNIT2
+    InventoryManager.Instance.AddItemToInventory();
+    AnimationManager.Instance.AnimateInventoryPoint();
+    } 
+// PLAYERS INVENTORY IS FULL TEXT
+    if (InventoryManager.Instance.inventoryIsFullPlayerOne == true ||
+    InventoryManager.Instance.inventoryIsFullPlayerTwo == true ){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "Your Inventory is Full";
+        AnimationManager.Instance.AnimatePlayerText();
+
+        // RESET EVERYTHING
+        InventoryManager.Instance.inventoryIsFullPlayerOne = false;
+        InventoryManager.Instance.inventoryIsFullPlayerTwo = false; 
+    }
+}
     public void ThrowPlayer(int i){
     // AUDIO
     AudioManager.Instance.Play("throw");
@@ -278,10 +342,23 @@ public abstract class Tile : MonoBehaviour
         unit.OccupiedTile = this;
     }
 
+    public void SetUnit2(BaseUnit unit){
+        if(unit.OccupiedTile != null) unit.OccupiedTile.OccupiedUnit2 = null;
+        unit.transform.position =transform.position;
+        OccupiedUnit2 = unit;
+        unit.OccupiedTile = this;
+    }
+
     public void DestroyUnit(){
-        // destroyed das nicht weil item6 clone dasteht und nicht item6 clone (item)
+        Debug.Log("destroy Unit " + OccupiedUnit);
         Destroy(OccupiedUnit.gameObject);
         InventoryManager.Instance.lastDestroyedItem = OccupiedUnit.UnitName;
+    }
+
+    public void DestroyUnit2(){
+        // destroyed das nicht weil item6 clone dasteht und nicht item6 clone (item)
+        Destroy(OccupiedUnit2.gameObject);
+        InventoryManager.Instance.lastDestroyedItem = OccupiedUnit2.UnitName;
     }
 
     public void ChangePlayerTurn(){
