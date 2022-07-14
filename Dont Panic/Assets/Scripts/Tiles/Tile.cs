@@ -86,17 +86,17 @@ public abstract class Tile : MonoBehaviour
                     multipleTouch.Instance.standsInPlace = false;
                     // COLLISION ITEM
                     if(OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Item){ 
-                        //CollisionWithItemOnOcc2();
+                        CollisionWithItemOnOcc2();
                     }   
 
                     if(OccupiedUnit.Faction == Faction.Item){ 
-                        Debug.Log("your on an item");
                         CollisionWithItem(OccupiedUnit, OccupiedUnit2);
-                    } 
-
-                    // hier is occ1 noch item
+                        // hier is occ1 noch item
                     Debug.Log(OccupiedUnit + " " + OccupiedUnit2);
                     Destroy(OccupiedUnit.gameObject);
+                    } 
+
+                    
                     // COLLISION DOOR
                     // wird nur beim ersten mal ausgeführt
                     if(OccupiedUnit != null && OccupiedUnit.Faction == Faction.Door){
@@ -209,7 +209,7 @@ public abstract class Tile : MonoBehaviour
     InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn){
     occ1.OccupiedTile = null;
     DestroyUnit(); // muss hier oben sein 
-    Destroy(occ1.gameObject);
+    //Destroy(occ1.gameObject);
 
     InventoryManager.Instance.AddItemToInventory();
     AnimationManager.Instance.AnimateInventoryPoint();
@@ -225,9 +225,6 @@ public abstract class Tile : MonoBehaviour
         InventoryManager.Instance.inventoryIsFullPlayerOne = false;
         InventoryManager.Instance.inventoryIsFullPlayerTwo = false; 
     }
-
-        // hier wird mir noch eins angezeigt wenn eigentlich gelöscht sein soll
-        Debug.Log("occ1: " + occ1 + " occ 2: " + OccupiedUnit2);
    }
 
 // setzt schon ein wenn noch nichts auf occ2 drauf ist
@@ -265,6 +262,11 @@ public abstract class Tile : MonoBehaviour
     if (InventoryManager.Instance.inventoryIsFullPlayerOne == true ||
     InventoryManager.Instance.inventoryIsFullPlayerTwo == true ){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "Your Inventory is Full";
+
+    // SET ONGOING ANIMATION TO ZERO (IF THERE IS ONE) 
+    AnimationManager.Instance.TextForPlayerModal.GetComponent<Animator>().Rebind();
+    AnimationManager.Instance.TextForPlayerModal.GetComponent<Animator>().Update(0f);
+
         AnimationManager.Instance.AnimatePlayerText();
 
         // RESET EVERYTHING

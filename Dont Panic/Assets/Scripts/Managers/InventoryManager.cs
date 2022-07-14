@@ -72,7 +72,8 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
     ItemManager.Instance.ChangeModal();
     AudioManager.Instance.Play("collect");
 
-    // SET ONGOING ANIMATION TO ZERO (IF THERE IS ONE)
+
+    // SET ONGOING ANIMATION TO ZERO (IF THERE IS ONE) 
     AnimationManager.Instance.itemModal.GetComponent<Animator>().Rebind();
     AnimationManager.Instance.itemModal.GetComponent<Animator>().Update(0f);
    

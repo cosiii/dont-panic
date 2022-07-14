@@ -248,6 +248,9 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
 // CHANGE LEFT DOOR ITEM IMAGE
     ItemManager.Instance.ChangeDoorItemImageLeft(keyItem[0]);
             
+// SET ONGOING ANIMATION TO ZERO (IF THERE IS ONE) 
+    AnimationManager.Instance.doorModal.GetComponent<Animator>().Rebind();
+    AnimationManager.Instance.doorModal.GetComponent<Animator>().Update(0f);
 
 // CHOOSE ANIMATION
     if (firstUnlocked == true){
