@@ -27,6 +27,8 @@ public string doorHeading, doorText;
 public bool doorUnderPlayer1, doorUnderPlayer2;
 public Tile doorUnderPlayer1Tile, doorUnderPlayer2Tile;
 
+public string itemOne,itemToHaveNext ;
+
 [SerializeField] public GameObject Player1Slot4, Player2Slot4; 
 
   void Awake(){
@@ -150,9 +152,15 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
             UIManager.Instance.TextIsPlaying = true;
         }
         if( secondUnlocked == true){
-            doorHeading = "The Exit";
-            doorText = "You see a bright light and walk towards it. It looks like you have made it! This is the sunlight. That sunlight, you have dreamed of for such a long time. The one that gave you pure happiness as a kid and lets you think about times where everything was alright. Maybe now you can go back to feel this happiness again and become a better person to yourself.The bright light is fading and you can vaguely see the doctor pointing at your eyes with a flashlight. Seems like you faded out. You look around and see these same walls you've been seeing for so long. You are still in your cell, you always have been..WANNA PLAY AGAIN? :)";
-            GameManager.Instance.GameState = GameState.GameWon;
+            doorHeading = "";
+            doorText = " ";
+
+            
+            UIManager.Instance.messageText = MenuManager.Instance.ExitText.GetComponent<Text>().text;
+            UIManager.Instance.TextToWrite = MenuManager.Instance.ExitText.GetComponent<Text>();
+            UIManager.Instance.TextIsPlaying = true;
+            MenuManager.Instance.doorFoundModal.SetActive(false);
+            MenuManager.Instance.ShowExitText();
         }
     } 
     // PANTRY: OPPONENT IS POISONED

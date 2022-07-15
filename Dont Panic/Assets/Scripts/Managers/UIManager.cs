@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,9 @@ public static UIManager Instance;
  private float Timer;
  [SerializeField] public TextWriter textWriter;
  public Text TextToWrite, BeginnerText1, BeginnerText2;
- public GameObject pauseMenu;
+ public GameObject pauseMenu, HelpFeatures, HelpMenu, HelpFeaturesRotate;
+
+ public List <GameObject> HelpFeaturesRotateItself = new List<GameObject>();
  public Button PauseButton;
  public bool pauseMenuOpen;
 
@@ -62,6 +65,32 @@ void Start(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
         Debug.Log("twoback");
     }
+
+	public void CloseFeatures(){
+		HelpFeatures.SetActive(false);
+    }
+
+	public void OpenFeatures(){
+		HelpFeatures.SetActive(true);
+    }
+
+	public void OpenHelpMenu(){
+		HelpMenu.SetActive(true);
+    }
+
+	public void CloseHelpMenu(){
+		HelpMenu.SetActive(false);
+    }
+
+	public void RotateFeatures(){
+		foreach (GameObject x in HelpFeaturesRotateItself){
+			x.transform.Rotate(0, 0, 180);
+		}
+
+		HelpFeaturesRotate.transform.Rotate(0,0,180);
+
+    }
+
 
 	public void PauseMenu(){
 		if(pauseMenuOpen == true){

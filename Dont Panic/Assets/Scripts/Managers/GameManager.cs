@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
                  MenuManager.Instance.ShowPlayersTurn();
                 break;
             case GameState.GameWon:
+                MenuManager.Instance.ShowExitText();
                 break;
             default: 
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);

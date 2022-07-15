@@ -12,13 +12,13 @@ public static MenuManager Instance;
 
 [SerializeField] public Image doorFoundModalImage;
 
-[SerializeField] public GameObject  itemText, TemporaryModals; 
+[SerializeField] public GameObject itemText, TemporaryModals; 
 [SerializeField] public GameObject PlayerText, DoorNameText; 
 [SerializeField] public GameObject TextForPlayerModal;
 [SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 
 
 [SerializeField] public GameObject AdditionalInventory1, AdditionalInventory2; 
-[SerializeField] public GameObject GameWonModal;
+[SerializeField] public GameObject ExitTextModal, ExitText;
 
 
 [SerializeField] public Image pl1PantryFeature, pl1DiningFeature, pl1HallwayFeature, pl1SurgeryFeature;
@@ -27,13 +27,12 @@ public static MenuManager Instance;
 [SerializeField] public bool TemporaryModalsRotated = false;
 void Awake(){
     Instance = this;
-   // NameTextPlayerOne.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText1.text;
-    //NameTextPlayerTwo.GetComponentInChildren<TextMeshProUGUI>().text= Buttons.Instance.nameText2.text;
 }
 
 // GAME WON
-public void ShowGameWonModal(){
-GameWonModal.SetActive(true);
+public void ShowExitText(){
+    Debug.Log("exit found");
+ExitTextModal.SetActive(true);
 }
 public void HideHelpers(){
 //helpers.SetActive(false);
