@@ -66,7 +66,9 @@ public class multipleTouch : MonoBehaviour {
         
                 UpdatePosition(dist, dist2, dist3);
         
-            } else if(t.phase == TouchPhase.Ended){
+            } 
+            
+            if(t.phase == TouchPhase.Ended){
                touches.Clear();
         
             }
