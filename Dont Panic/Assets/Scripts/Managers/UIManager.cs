@@ -13,9 +13,11 @@ public static UIManager Instance;
  private float Timer;
  [SerializeField] public TextWriter textWriter;
  public Text TextToWrite, BeginnerText1, BeginnerText2;
- public GameObject pauseMenu, HelpFeatures, HelpMenu, HelpFeaturesRotate;
+ public GameObject pauseMenu, HelpMenu, HelpFeatures, HelpFeaturesRotate, HelpItems, HelpItemsRotate, HelpGuard, HelpGuardRotate;
 
- public List <GameObject> HelpFeaturesRotateItself = new List<GameObject>();
+ public List <GameObject> HelpFeaturesRotateThemself = new List<GameObject>();
+ public List <GameObject> HelpItemsRotateThemself = new List<GameObject>();
+ public List <GameObject> HelpGuardRotateHimself = new List<GameObject>();
  public Button PauseButton;
  public bool pauseMenuOpen;
 
@@ -66,6 +68,9 @@ void Start(){
         Debug.Log("twoback");
     }
 
+	public void CloseHelpMenu(){
+		HelpMenu.SetActive(false);
+    }	
 	public void CloseFeatures(){
 		HelpFeatures.SetActive(false);
     }
@@ -78,12 +83,10 @@ void Start(){
 		HelpMenu.SetActive(true);
     }
 
-	public void CloseHelpMenu(){
-		HelpMenu.SetActive(false);
-    }
+	
 
 	public void RotateFeatures(){
-		foreach (GameObject x in HelpFeaturesRotateItself){
+		foreach (GameObject x in HelpFeaturesRotateThemself){
 			x.transform.Rotate(0, 0, 180);
 		}
 
@@ -91,6 +94,34 @@ void Start(){
 
     }
 
+	public void CloseItems(){
+		HelpItems.SetActive(false);
+    }
+
+	public void OpenItems(){
+		HelpItems.SetActive(true);
+    }
+	public void RotateItems(){
+		foreach (GameObject x in HelpItemsRotateThemself){
+			x.transform.Rotate(0, 0, 180);
+		}
+		HelpItemsRotate.transform.Rotate(0,0,180);
+    }
+
+	public void CloseGuard(){
+		HelpGuard.SetActive(false);
+    }
+
+	public void OpenGuard(){
+		HelpGuard.SetActive(true);
+    }
+
+	public void RotateGuard(){
+		foreach (GameObject x in HelpGuardRotateHimself){
+			x.transform.Rotate(0, 0, 180);
+		}
+		HelpGuardRotate.transform.Rotate(0,0,180);
+    }
 
 	public void PauseMenu(){
 		if(pauseMenuOpen == true){
