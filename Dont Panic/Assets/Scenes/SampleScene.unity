@@ -4000,7 +4000,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1025.7, y: 428.6}
+  m_AnchoredPosition: {x: -760, y: 732}
   m_SizeDelta: {x: 73.4395, y: 73.4395}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &444514807
@@ -4534,6 +4534,9 @@ MonoBehaviour:
   touch3ObjectLeftTwo: 0
   touch3ObjectUpTwo: 0
   touch3ObjectDownTwo: 0
+  dist: 0
+  dist2: 0
+  dist3: 0
   c: {x: 0, y: 0}
   c2: {x: 0, y: 0}
 --- !u!1 &520194054
@@ -5067,44 +5070,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571755918}
   m_CullTransparentMesh: 1
---- !u!1 &576859263
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 576859264}
-  m_Layer: 5
-  m_Name: Suicide Note
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &576859264
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576859263}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1268134972}
-  - {fileID: 1122971730}
-  m_Father: {fileID: 835605101}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -119.3, y: -15.6}
-  m_SizeDelta: {x: 152.9146, y: 51.4943}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &620242348
 GameObject:
   m_ObjectHideFlags: 0
@@ -6423,7 +6388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1028, y: -467}
+  m_AnchoredPosition: {x: 751, y: -742}
   m_SizeDelta: {x: 73.4395, y: 73.4395}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &795670364
@@ -7011,7 +6976,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1127812336}
-  - {fileID: 576859264}
+  - {fileID: 1122971730}
   m_Father: {fileID: 2090101910}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9331,13 +9296,13 @@ RectTransform:
   m_LocalScale: {x: 0.35971218, y: 0.35971218, z: 0.35971218}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 576859264}
+  m_Father: {fileID: 835605101}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000031471, y: -16.284}
-  m_SizeDelta: {x: 152.91, y: 18.927}
+  m_AnchoredPosition: {x: -137.7, y: -25.9}
+  m_SizeDelta: {x: 152.91, y: 129.5303}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1122971731
 MonoBehaviour:
@@ -9359,7 +9324,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: A way too pretty suicide letter
+  m_text: The Guard has no guided route, but walks only the way like it is marked
+    on the picture. At each turningpoint he chooses between the three different options.
+    When you collide with the guard, you will be placed at your beginning tile.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2d217919ae3c37f438495a9fd6ee268c, type: 2}
   m_sharedMaterial: {fileID: -2455633828595862287, guid: 2d217919ae3c37f438495a9fd6ee268c, type: 2}
@@ -9422,7 +9389,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -126.08734, y: -15.330017, z: -132.5133, w: -15.330017}
+  m_margin: {x: -126.08734, y: -106.23236, z: -132.5133, w: -121.519714}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -9650,8 +9617,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1045.9536, y: -455.9}
-  m_SizeDelta: {x: 131.3604, y: 76.7751}
+  m_AnchoredPosition: {x: 769.01807, y: -741.88086}
+  m_SizeDelta: {x: 429.0197, y: 383.8759}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1139931693
 MonoBehaviour:
@@ -9666,14 +9633,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9137255, g: 0.6431373, b: 0.16862746, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1243683e4d98fd5429fa192e6aa692b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10475,141 +10442,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1231471150}
   m_CullTransparentMesh: 1
---- !u!1 &1268134971
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1268134972}
-  - component: {fileID: 1268134974}
-  - component: {fileID: 1268134973}
-  m_Layer: 0
-  m_Name: Suicide Note
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1268134972
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1268134971}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35971218, y: 0.35971218, z: 0.35971218}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 576859264}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000038146973, y: 8.2022}
-  m_SizeDelta: {x: 90.6966, y: 52.8791}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1268134973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1268134971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Suicide Note
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2d217919ae3c37f438495a9fd6ee268c, type: 2}
-  m_sharedMaterial: {fileID: -2455633828595862287, guid: 2d217919ae3c37f438495a9fd6ee268c, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: -79.942444, y: -44.694824, z: -84.39221, w: -44.694763}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1268134974
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1268134971}
-  m_CullTransparentMesh: 1
 --- !u!1 &1275658337
 GameObject:
   m_ObjectHideFlags: 0
@@ -10635,18 +10467,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275658337}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 807105261}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1050.794, y: 424.9}
-  m_SizeDelta: {x: 131.3604, y: 59.5871}
+  m_AnchoredPosition: {x: -771, y: 730.2883}
+  m_SizeDelta: {x: 433.5191, y: 324.5026}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1275658339
 MonoBehaviour:
@@ -10661,14 +10493,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9137255, g: 0.6431373, b: 0.16862746, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1243683e4d98fd5429fa192e6aa692b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13835,7 +13667,7 @@ MonoBehaviour:
   - {fileID: 1463670385}
   HelpGuardRotateHimself:
   - {fileID: 1127812335}
-  - {fileID: 576859263}
+  - {fileID: 0}
   PauseButton: {fileID: 1119833985}
   pauseMenuOpen: 0
   pause: {fileID: 21300000, guid: 23b5d35441ec84e4ca9beee9be790091, type: 3}

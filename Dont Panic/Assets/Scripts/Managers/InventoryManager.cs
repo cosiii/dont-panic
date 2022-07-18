@@ -27,6 +27,9 @@ public bool inventoryIsFullPlayerOne;
 public bool inventoryIsFullPlayerTwo;
 
 public GameObject inventoryPoint;
+
+int k =0;
+int l =0;
 List <int> nineTiles =  new List<int>{-1, 0, 1};
 
 void Awake(){
@@ -37,11 +40,13 @@ public void Update(){
 }
 
  public void AddItemToInventory(){
-    Debug.Log("InventoryManager.AddItemToInventory");
 if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
+
+    if(DoorManager.Instance.diningFeatureP1) k =1;
     // PLAYER ONE
-    for (int i = 0; i < slotsPlayerOne.Count; i++)
+    for (int i = 0; i < slotsPlayerOne.Count+ k; i++)
     {
+        Debug.Log("item added, slots count: " + slotsPlayerOne.Count + " inventory player one: " + inventoryPlayerOne[2] );
         if(isFullPlayerOne[i] == false ){ 
         // ITEM WILL BE ADDED TO INVENTORY
         // parented to slots[i]
@@ -54,9 +59,12 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
     }
 
 } else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2"){ 
+    
+    if(DoorManager.Instance.diningFeatureP2) l =1;
     //PLAYER TWO
-    for (int i = 0; i < slotsPlayerTwo.Count; i++)
+    for (int i = 0; i < slotsPlayerTwo.Count+l; i++)
     {
+        Debug.Log("item added, slots count: " + slotsPlayerOne.Count + " inventory player two: " + inventoryPlayerTwo);
         if(isFullPlayerTwo[i] == false){ 
         // ITEM WILL BE ADDED TO INVENTORY
         // parented to slots[i]

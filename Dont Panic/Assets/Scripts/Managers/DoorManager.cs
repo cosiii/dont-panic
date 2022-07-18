@@ -192,14 +192,14 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
             MenuManager.Instance.doorFoundModalImage.sprite = diningIcon.sprite;
             doorHeading = "Dining Hall";
             doorText = "The dining hall glows with the best food you have ever seen and nobody is even here. Go ahead and eat as much as you can! You gained a lot of power. Therefore you can carry one more item with you. Yay!";
-            if (GameManager.Instance.GameState == GameState.Player1Turn){
+            if (GameManager.Instance.GameState == GameState.Player1Turn && diningFeatureP1 == false){
             MenuManager.Instance.ShowAdditionalInventory1();
             InventoryManager.Instance.inventoryPlayerOne.Add("");
             InventoryManager.Instance.slotsPlayerOne.Add(Player1Slot4);
             InventoryManager.Instance.isFullPlayerOne.Add(false);
             diningFeatureP1 = true;
             MenuManager.Instance.pl1DiningFeature.sprite = diningIcon.sprite;
-            } else if (GameManager.Instance.GameState == GameState.Player2Turn){
+            } else if (GameManager.Instance.GameState == GameState.Player2Turn && diningFeatureP2 == false){
             MenuManager.Instance.ShowAdditionalInventory2();
             InventoryManager.Instance.inventoryPlayerTwo.Add("");
             InventoryManager.Instance.slotsPlayerTwo.Add(Player2Slot4);
