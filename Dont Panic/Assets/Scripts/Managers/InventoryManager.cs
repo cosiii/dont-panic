@@ -96,15 +96,8 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
 
 public void DropOneItemPl1(){
     if(GameManager.Instance.GameState == GameState.Player1Turn){
-
-        // IF PLAYER IS ON AN EDGE
-        if(Player1.Instance.posx == 0 || Player1.Instance.posx == GridManager.Instance._width -1||
-        Player1.Instance.posy == 0 || Player1.Instance.posy == GridManager.Instance._height -1 ){
-        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You can't drop items on edges";
-        AnimationManager.Instance.AnimatePlayerText();
-        } 
         // IF PLAYER DOESNT HAVE ITEMS
-        else if(isFullPlayerOne[0] == false) {
+        if(isFullPlayerOne[0] == false) {
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You don't have items to drop";
         AnimationManager.Instance.AnimatePlayerText();
         }
@@ -122,15 +115,8 @@ public void DropOneItemPl1(){
 }
 public void DropOneItemPl2(){
     if(GameManager.Instance.GameState == GameState.Player2Turn){
-
-        // IF PLAYER IS ON AN EDGE
-        if(Player2.Instance.posx == 0 || Player2.Instance.posx == GridManager.Instance._width -1||
-        Player2.Instance.posy == 0 || Player2.Instance.posy == GridManager.Instance._height -1 ){
-        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You can't drop items on edges";
-        AnimationManager.Instance.AnimatePlayerText();
-        } 
         // IF PLAYER DOESNT HAVE ITEMS
-        else if(isFullPlayerTwo[0] == false) {
+        if(isFullPlayerTwo[0] == false) {
         MenuManager.Instance.RotateModalsToPlayer2();
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You don't have items to drop";
         AnimationManager.Instance.AnimatePlayerText();
@@ -165,15 +151,12 @@ randomy = 0;
     // SET SPAWNTILE
    SetNewItemSpawnTile();
 
-  
-    while(player.posx + randomx < 0 || player.posx + randomx >= GridManager.Instance._width || player.posy + randomy < 0 || player.posy + randomy >= GridManager.Instance._height){
-        Debug.Log( "tile is not on board");
+    // ON AN EDGE? OR OCCUPIED
+    while(player.posx + randomx < 0 || player.posx + randomx >= GridManager.Instance._width || player.posy + randomy < 0 || player.posy + randomy >= GridManager.Instance._height ||
+    GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null ){
+        Debug.Log( "redo itemspawntile");
         SetNewItemSpawnTile();
     }
-    //while(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null){
-      //  Debug.Log("itsnull");
-       // SetNewItemSpawnTile();
-    //}
 
     var spawnTileAroundPlayer = GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy);
 

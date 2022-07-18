@@ -63,7 +63,6 @@ public abstract class Tile : MonoBehaviour
 
                  // THROWING PLAYER 1 
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" && isWalkable == true){
-                    
                     InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
                     ThrowPlayer(1);
                     SetUnit(UnitManager.Instance.SelectedPlayer);
