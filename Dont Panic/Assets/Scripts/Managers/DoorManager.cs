@@ -172,7 +172,7 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
         if( secondUnlocked == true){
             MenuManager.Instance.doorFoundModalImage.sprite = pantryIcon.sprite;
             doorHeading = "Pantry";
-            doorText = "The pantry is normally a nice place. I mean.. FOOD. But it looks like nobody was here for a while. There is mold everywhere. Even the mold has another layer of mold. You find a not so okay but okay enough looking apple and offer it to your opponent.It wasn't the best idea to be honest. Your opponent is very weak and waits two turns until the apple is fully digested.";
+            doorText = "The pantry is normally a nice place. I mean.. FOOD. But it looks like nobody was here for a while. There is mold everywhere. Even the mold has another layer of mold. You find a not so okay but okay enough looking apple and offer it to your opponent.It wasn't the best idea to be honest. Your opponent is very weak and waits a turn until the apple is fully digested.";
             if (GameManager.Instance.GameState == GameState.Player1Turn){
                 pantryFeatureP1 = true;
                 MenuManager.Instance.pl1PantryFeature.sprite = pantryIcon.sprite;
@@ -239,13 +239,13 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
         if( secondUnlocked == true){
             MenuManager.Instance.doorFoundModalImage.sprite = surgeryIcon.sprite;
             doorHeading = "Surgery Room";
-            doorText = "You have found the surgery room! It looks quite weird in here.. But you find some utensils, which may help you knock out your opponent. Maybe you can cut off your opponent's arm. As you run towards him you notice that the knife isn't even sharp in any kind of way. It doesn't hurt your opponent at all. Now you are fighting like two girls in puberty. Nevermind. At least your opponent has lost all the items s/he had.";
-            if (GameManager.Instance.GameState == GameState.Player1Turn){
-            // InventoryManager.Instance.DropOneItem(Player2.Instance);
+            doorText = "You have found the surgery room! It looks quite weird in here.. But you find some utensils, which may help you knock out your opponent. Maybe you can cut off your opponent's arm. As you run towards him you notice that the knife isn't even sharp in any kind of way. It doesn't hurt your opponent at all. Now you are fighting like two girls in puberty. Nevermind. At least your opponent has lost one item.";
+            if (GameManager.Instance.GameState == GameState.Player1Turn && surgeryFeatureP1 == false){
+            InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);
             surgeryFeatureP1 = true;
             MenuManager.Instance.pl1SurgeryFeature.sprite = surgeryIcon.sprite;
-            } else if (GameManager.Instance.GameState == GameState.Player2Turn){
-            // InventoryManager.Instance.DropOneItem(Player1.Instance);
+            } else if (GameManager.Instance.GameState == GameState.Player2Turn && surgeryFeatureP2 == false){
+            InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
             surgeryFeatureP2 = true;
             MenuManager.Instance.pl2SurgeryFeature.sprite = surgeryIcon.sprite;
         }
