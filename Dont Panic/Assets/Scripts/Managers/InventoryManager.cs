@@ -150,7 +150,6 @@ public void DropOneItemPl2(){
 }
 
 public void SetNewItemSpawnTile(){
-    Debug.Log("set new item spawn tile");
  // RANDOM TILE POS AROUNG THE PLAYER
      randomx = nineTiles[Random.Range(0,nineTiles.Count)];
      randomy = nineTiles[Random.Range(0,nineTiles.Count)];
@@ -161,13 +160,20 @@ public void SetNewItemSpawnTile(){
 }
 public void DropOneItem(BasePlayer player, List <GameObject> slots, List <bool> isFull, List <string> inventory, bool inventoryIsFull){
 
-if (GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy) == null){
-    Debug.Log("ist null");
-}
+randomx = 0;
+randomy = 0;
+    // SET SPAWNTILE
    SetNewItemSpawnTile();
-    while(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null){
+
+  
+    while(player.posx + randomx < 0 || player.posx + randomx >= GridManager.Instance._width || player.posy + randomy < 0 || player.posy + randomy >= GridManager.Instance._height){
+        Debug.Log( "tile is not on board");
         SetNewItemSpawnTile();
     }
+    //while(GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null){
+      //  Debug.Log("itsnull");
+       // SetNewItemSpawnTile();
+    //}
 
     var spawnTileAroundPlayer = GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy);
 
