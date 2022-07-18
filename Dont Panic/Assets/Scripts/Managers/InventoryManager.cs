@@ -96,14 +96,56 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
 
 public void DropOneItemPl1(){
     if(GameManager.Instance.GameState == GameState.Player1Turn){
-    DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
-    Tile.Instance.ChangePlayerTurn();
+
+        // IF PLAYER IS ON AN EDGE
+        if(Player1.Instance.posx == 0 || Player1.Instance.posx == GridManager.Instance._width -1||
+        Player1.Instance.posy == 0 || Player1.Instance.posy == GridManager.Instance._height -1 ){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You can't drop items on edges";
+        AnimationManager.Instance.AnimatePlayerText();
+        } 
+        // IF PLAYER DOESNT HAVE ITEMS
+        else if(isFullPlayerOne[0] == false) {
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You don't have items to drop";
+        AnimationManager.Instance.AnimatePlayerText();
+        }
+        // DROP ITEM
+        else {
+        DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
+        Tile.Instance.ChangePlayerTurn();
+        }
+    }
+    // ITS NOT YOUR TURN
+    else {
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "It's not your turn";
+        AnimationManager.Instance.AnimatePlayerText();
     }
 }
 public void DropOneItemPl2(){
     if(GameManager.Instance.GameState == GameState.Player2Turn){
-    DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);
-    Tile.Instance.ChangePlayerTurn();
+
+        // IF PLAYER IS ON AN EDGE
+        if(Player2.Instance.posx == 0 || Player2.Instance.posx == GridManager.Instance._width -1||
+        Player2.Instance.posy == 0 || Player2.Instance.posy == GridManager.Instance._height -1 ){
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You can't drop items on edges";
+        AnimationManager.Instance.AnimatePlayerText();
+        } 
+        // IF PLAYER DOESNT HAVE ITEMS
+        else if(isFullPlayerTwo[0] == false) {
+        MenuManager.Instance.RotateModalsToPlayer2();
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You don't have items to drop";
+        AnimationManager.Instance.AnimatePlayerText();
+        }
+        // DROP ITEM
+        else{
+        DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);
+        Tile.Instance.ChangePlayerTurn();
+        }
+    } 
+    // ITS NOT YOUR TURN
+    else {
+        MenuManager.Instance.RotateModalsToPlayer2();
+        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "It's not your turn";
+        AnimationManager.Instance.AnimatePlayerText();
     }
 }
 
