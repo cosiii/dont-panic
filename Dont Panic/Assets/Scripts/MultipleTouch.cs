@@ -17,6 +17,8 @@ public class multipleTouch : MonoBehaviour {
     
      public bool touch3ObjectRightTwo, touch3ObjectLeftTwo, touch3ObjectUpTwo, touch3ObjectDownTwo;
 
+     public float dist, dist2, dist3;
+
 
     public Touch t, t1, t2, farestT;
 
@@ -40,32 +42,28 @@ public class multipleTouch : MonoBehaviour {
 
             if(i == 0){
                 t1 = t;
-             touches.Add(new touchLocation(t.fingerId, createCircle(t)));
+             //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
             }
             
             if(i == 1){
                t2 = t;
-             touches.Add(new touchLocation(t.fingerId, createCircle(t)));
-             touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
+             //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
+             //touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
             }
 
-        float dist = Vector3.Distance(t.position, t1.position);
+         dist = Vector3.Distance(t.position, t1.position);
                 
-        float dist2 = Vector3.Distance(t1.position, t2.position);
+         dist2 = Vector3.Distance(t1.position, t2.position);
                 
-        float dist3 = Vector3.Distance(t2.position, t.position);
+         dist3 = Vector3.Distance(t2.position, t.position);
 
             if(i == 2){ 
-                  
-
+            UpdatePosition(dist, dist2, dist3);
              if(t.phase == TouchPhase.Began){
              touches.Add(new touchLocation(t.fingerId, createCircle(t)));
              touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
              touches.Add(new touchLocation(t2.fingerId, createCircle(t2)));
             } else if(t.phase == TouchPhase.Moved){
-        
-                UpdatePosition(dist, dist2, dist3);
-        
             } 
             
             if(t.phase == TouchPhase.Ended){
@@ -76,6 +74,7 @@ public class multipleTouch : MonoBehaviour {
 
             ++i;
 	}
+
     }
     // GET TOUCH POSITION IN WORLD SPACE
     Vector2 getTouchPosition(Vector2 touchPosition){
@@ -138,7 +137,7 @@ public class multipleTouch : MonoBehaviour {
                     Debug.Log("up");
                 } 
 
-                 if (GameManager.Instance.GameState == GameState.Player1Turn ){ // && Player1.Instance.deciding == true
+    if (GameManager.Instance.GameState == GameState.Player1Turn ){ // && Player1.Instance.deciding == true
             touch3ObjectRightOne = touch3ObjectRight;
             touch3ObjectLeftOne = touch3ObjectLeft; 
             touch3ObjectUpOne = touch3ObjectUp;

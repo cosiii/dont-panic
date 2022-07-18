@@ -56,7 +56,7 @@ public class TextWriterSingle {
 				} */
 				string text = TextBlockToWrite.Substring(0, charIndex);
 				if(invisibleChar){
-					// text += "<color=#00000000>" + TextBlockToWrite.Substring(charIndex) + "</color>";
+				// text += "<<color=#00000000>" + TextBlockToWrite.Substring(charIndex) + "</color>>"; // <<#FFFF00>style="H1"</color>>
 				}
 				
 				uiText.text = text;

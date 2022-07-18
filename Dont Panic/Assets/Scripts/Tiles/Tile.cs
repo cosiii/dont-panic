@@ -429,6 +429,9 @@ public abstract class Tile : MonoBehaviour
             {
                 // DOWN
                 if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_down" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_down" ){
+                    WalkLeft(player, 2, recentColor);
+                    WalkRight(player, 2, recentColor);
+                    WalkUp(player, 2, recentColor);
                     WalkLeft(player, 1, recentColor);
                     WalkRight(player, 1, recentColor);
                     WalkUp(player, 1, recentColor);
@@ -436,8 +439,8 @@ public abstract class Tile : MonoBehaviour
                  } 
                  //UP
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_up" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_up"){
-                   WalkLeft(player, 1, recentColor);
-                    WalkRight(player, 1, recentColor);
+                   WalkLeft(player, 0, recentColor);
+                    WalkRight(player, 0, recentColor);
                     WalkUp(player, y, recentColor);
                     WalkDown(player, 0, recentColor);
                  } 
@@ -445,15 +448,15 @@ public abstract class Tile : MonoBehaviour
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_left" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_left"){
                     WalkLeft(player, y, recentColor);
                     WalkRight(player, 0, recentColor);
-                    WalkUp(player, 1, recentColor);
-                    WalkDown(player, 1, recentColor);
+                    WalkUp(player, 0, recentColor);
+                    WalkDown(player, 0, recentColor);
                  }
                  //RIGHT
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_right" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_right"){
                     WalkLeft(player, 0, recentColor);
                     WalkRight(player, y, recentColor);
-                    WalkUp(player, 1, recentColor);
-                    WalkDown(player, 1, recentColor);
+                    WalkUp(player, 0, recentColor);
+                    WalkDown(player, 0, recentColor);
                  }                
             }
     }
