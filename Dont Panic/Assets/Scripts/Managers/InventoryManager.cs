@@ -87,12 +87,16 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
 
 
 public void DropOneItemPl1(){
+    if(GameManager.Instance.GameState == GameState.Player1Turn){
     DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
     Tile.Instance.ChangePlayerTurn();
+    }
 }
 public void DropOneItemPl2(){
+    if(GameManager.Instance.GameState == GameState.Player2Turn){
     DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);
     Tile.Instance.ChangePlayerTurn();
+    }
 }
 
 public void SetNewItemSpawnTile(){
