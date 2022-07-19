@@ -151,9 +151,12 @@ randomy = 0;
     // SET SPAWNTILE
    SetNewItemSpawnTile();
 
-    // ON AN EDGE? OR OCCUPIED?
+    // ON AN EDGE? OR OCCUPIED? OR THE SPAWNPOINT OF A PLAYER?
     while(player.posx + randomx < 0 || player.posx + randomx >= GridManager.Instance._width || player.posy + randomy < 0 || player.posy + randomy >= GridManager.Instance._height ||
-    GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null || GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit2 != null ){
+    GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit != null || GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy).OccupiedUnit2 != null ||
+    GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy) ==  GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile) ||
+    GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy) ==  GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile)
+    ){
         Debug.Log( "redo itemspawntile");
         SetNewItemSpawnTile();
     }
