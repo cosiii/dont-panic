@@ -12,7 +12,7 @@ public static UIManager Instance;
  public bool playing;
  private float Timer;
  [SerializeField] public TextWriter textWriter;
- public Text TextToWrite, BeginnerText1, BeginnerText2;
+ public Text TextToWrite, BeginnerText1, BeginnerText2, EndText;
  public GameObject pauseMenu, HelpMenu, HelpFeatures, HelpFeaturesRotate, HelpItems, HelpItemsRotate, HelpGuard, HelpGuardRotate;
 
  public List <GameObject> HelpFeaturesRotateThemself = new List<GameObject>();
@@ -30,21 +30,19 @@ public bool TextIsPlaying;
 
 public void Awake(){
 	Instance = this;
+	if( TextIsPlaying == true){
+	messageText = BeginnerText1.text;
+	textWriter.AddWriter(BeginnerText1.GetComponent<Text>(), messageText , 0.07f, true);
+	textWriter.AddWriter(BeginnerText2.GetComponent<Text>(), messageText , 0.07f, true);
+	}
 
 }
 
 void Start(){
-	//messageText.text = "Haaaaalllo";
-	//textWriter.AddWriter(textWriterText.GetComponent<Text>(), "haaaallloooooo", 1f);
 }
 
 
  void Update () {
-	if( TextIsPlaying == true){
-	//	messageText = BeginnerText1.text;
-	//textWriter.AddWriter(BeginnerText1.GetComponent<Text>(), messageText , 0.07f, true);
-	//textWriter.AddWriter(BeginnerText2.GetComponent<Text>(), messageText , 0.07f, true);
-	}
 
 // NORMAL TIMER
  	if(playing == true){

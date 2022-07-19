@@ -56,6 +56,7 @@ public Tile doorUnderPlayer1Tile, doorUnderPlayer2Tile;
   public void DoorCollision(){
     AudioManager.Instance.Play("door");
     UIManager.Instance.TextToWrite = MenuManager.Instance.DoorNameText.GetComponent<Text>();
+    Debug.Log(UIManager.Instance.messageText.Length);
       // SETUPS FOR EACH DOOR
         if (lastVisitedDoor == "door1"){
             UIManager.Instance.messageText = "This is Door 1";
@@ -153,10 +154,14 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
         if( secondUnlocked == true){
             MenuManager.Instance.doorFoundModalHeading.SetActive(false);
             MenuManager.Instance.doorFoundModalImage.color = new Color(0,0,0,0);
-            // modal auf true und dann für immer bleiben
-            //MenuManager.Instance.ExitText.SetActive(true);
-            gamewon = true;
+            
+            var TextToWrite2 = UIManager.Instance.EndText;
+            var messageText2 = UIManager.Instance.EndText.GetComponentInChildren<Text>().text;
+            UIManager.Instance.textWriter.AddWriter(TextToWrite2, messageText2, 0.07f, true);
+
             AnimationManager.Instance.doorModal.GetComponent<Animator>().SetBool("End", true);
+            gamewon = true;
+            UIManager.Instance.TextIsPlaying = true;
         }
     } 
     // PANTRY: OPPONENT IS POISONED

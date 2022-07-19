@@ -6,11 +6,10 @@ using UnityEngine.UI;
 
 public class TextWriter : MonoBehaviour
 {
-private List<TextWriterSingle> textWriterSingleList;
+private List<TextWriterSingle> textWriterSingleList = new List <TextWriterSingle>();
 
 
 public void Awake(){
-	textWriterSingleList = new List <TextWriterSingle>();
 }
 
 public void AddWriter(Text uiText, string TextBlockToWrite, float timePerChar, bool invisibleChar){
@@ -52,16 +51,11 @@ public class TextWriterSingle {
 				// DISPLAY NEXT CHARACTER
 				timer +=  timePerChar;
 				charIndex++;
-				/*if (charIndex <= TextBlockToWrite.Length){
+				if (charIndex <= TextBlockToWrite.Length){
 					uiText.text = TextBlockToWrite.Substring(0, charIndex);
-				} */
-				string text = TextBlockToWrite.Substring(0, charIndex);
-				if(invisibleChar){
-				// text += "<<color=#00000000>" + TextBlockToWrite.Substring(charIndex) + "</color>>"; // <<#FFFF00>style="H1"</color>>
-				}
-				
-				uiText.text = text;
+				} 
 			}
+			Debug.Log(charIndex);
 
 			if(charIndex >= TextBlockToWrite.Length){
 					// ENTIRE STRING DISPLAYED
