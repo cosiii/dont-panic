@@ -17,8 +17,6 @@ public abstract class Tile : MonoBehaviour
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
 
     public Color recentColor = Color.black;
-
-    bool playerOneOnEdge, playerTwoOnEdge;
     void Awake(){
         Instance = this;
     }
@@ -74,12 +72,10 @@ public abstract class Tile : MonoBehaviour
                 else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
                     if(Player2.Instance.posx == 0 || Player2.Instance.posx == GridManager.Instance._width -1||
                     Player2.Instance.posy == 0 || Player2.Instance.posy == GridManager.Instance._height -1 ){
-                        playerTwoOnEdge = true;
                         MenuManager.Instance.RotateModalsToPlayer1();
                         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You can't throw players on edges";
                         AnimationManager.Instance.AnimatePlayerText();
                     } else {
-                        playerTwoOnEdge = false;
                     InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
                     ThrowPlayer(2);
                     SetUnit(UnitManager.Instance.SelectedPlayer);

@@ -41,9 +41,9 @@ void Start(){
 
  void Update () {
 	if( TextIsPlaying == true){
-		messageText = BeginnerText1.text;
-	textWriter.AddWriter(BeginnerText1.GetComponent<Text>(), messageText , 0.07f, true);
-	textWriter.AddWriter(BeginnerText2.GetComponent<Text>(), messageText , 0.07f, true);
+	//	messageText = BeginnerText1.text;
+	//textWriter.AddWriter(BeginnerText1.GetComponent<Text>(), messageText , 0.07f, true);
+	//textWriter.AddWriter(BeginnerText2.GetComponent<Text>(), messageText , 0.07f, true);
 	}
 
 // NORMAL TIMER

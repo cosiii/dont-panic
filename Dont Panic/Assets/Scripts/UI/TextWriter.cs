@@ -14,6 +14,7 @@ public void Awake(){
 }
 
 public void AddWriter(Text uiText, string TextBlockToWrite, float timePerChar, bool invisibleChar){
+	Debug.Log("Added writer");
 	textWriterSingleList.Add(new TextWriterSingle(uiText,  TextBlockToWrite,  timePerChar, invisibleChar));
 }
 

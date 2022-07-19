@@ -8,6 +8,7 @@ public class DoorManager : MonoBehaviour
   public static DoorManager Instance;
   public string lastVisitedDoor;
 
+public bool gamewon;
   public string[] keyItems1, keyItems2, keyItems3, keyItems4, keyItems5;
 
   public string doorName1, doorName2, doorName3, doorName4, doorName5;
@@ -26,8 +27,6 @@ public string doorHeading, doorText;
 
 public bool doorUnderPlayer1, doorUnderPlayer2;
 public Tile doorUnderPlayer1Tile, doorUnderPlayer2Tile;
-
-public string itemOne,itemToHaveNext ;
 
 [SerializeField] public GameObject Player1Slot4, Player2Slot4; 
 
@@ -152,15 +151,12 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
             UIManager.Instance.TextIsPlaying = true;
         }
         if( secondUnlocked == true){
-            doorHeading = "";
-            doorText = " ";
-
-            
-            UIManager.Instance.messageText = MenuManager.Instance.ExitText.GetComponent<Text>().text;
-            UIManager.Instance.TextToWrite = MenuManager.Instance.ExitText.GetComponent<Text>();
-            UIManager.Instance.TextIsPlaying = true;
-            MenuManager.Instance.doorFoundModal.SetActive(false);
-            MenuManager.Instance.ShowExitText();
+            MenuManager.Instance.doorFoundModalHeading.SetActive(false);
+            MenuManager.Instance.doorFoundModalImage.color = new Color(0,0,0,0);
+            // modal auf true und dann für immer bleiben
+            //MenuManager.Instance.ExitText.SetActive(true);
+            gamewon = true;
+            AnimationManager.Instance.doorModal.GetComponent<Animator>().SetBool("End", true);
         }
     } 
     // PANTRY: OPPONENT IS POISONED
@@ -253,18 +249,22 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
         
     }
 
-// CHANGE LEFT DOOR ITEM IMAGE
-    ItemManager.Instance.ChangeDoorItemImageLeft(keyItem[0]);
-            
 // SET ONGOING ANIMATION TO ZERO (IF THERE IS ONE) 
     AnimationManager.Instance.doorModal.GetComponent<Animator>().Rebind();
     AnimationManager.Instance.doorModal.GetComponent<Animator>().Update(0f);
+    
+// CHANGE LEFT DOOR ITEM IMAGE
+    ItemManager.Instance.ChangeDoorItemImageLeft(keyItem[0]);
+            
 
 // CHOOSE ANIMATION
     if (firstUnlocked == true){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().fontSize = 18;
         ItemManager.Instance.ChangeDoorItemImageRight(keyItem[1]);
-        if (secondUnlocked == true){
+        if(secondUnlocked == true && gamewon == true){
+                AnimationManager.Instance.AnimateDoorModal("End"); 
+        }
+        else if (secondUnlocked == true){
             AnimationManager.Instance.AnimateDoorModal("DoorModalCheckRight");
             MenuManager.Instance.UpdateDoorFoundModal(doorHeading, doorText);
             } else {

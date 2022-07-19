@@ -18,7 +18,7 @@ public static MenuManager Instance;
 [SerializeField] public GameObject NameTextPlayerOne, NameTextPlayerTwo; 
 
 [SerializeField] public GameObject AdditionalInventory1, AdditionalInventory2; 
-[SerializeField] public GameObject ExitTextModal, ExitText;
+[SerializeField] public GameObject ExitModal;
 
 
 [SerializeField] public Image pl1PantryFeature, pl1DiningFeature, pl1HallwayFeature, pl1SurgeryFeature;
@@ -29,13 +29,12 @@ void Awake(){
     Instance = this;
 }
 
-// GAME WON
-public void ShowExitText(){
-    Debug.Log("exit found");
-ExitTextModal.SetActive(true);
-}
 public void HideHelpers(){
 //helpers.SetActive(false);
+}
+
+public void ShowExitModal(){
+    ExitModal.SetActive(true);
 }
 // DOOR MODAL
 public void ShowDoorModal(){
