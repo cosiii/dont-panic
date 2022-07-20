@@ -13,7 +13,7 @@ public static UIManager Instance;
  private float Timer;
  [SerializeField] public TextWriter textWriter;
  public Text TextToWrite, BeginnerText1, BeginnerText2, EndText;
- public GameObject pauseMenu, HelpMenu, HelpFeatures, HelpFeaturesRotate, HelpItems, HelpItemsRotate, HelpGuard, HelpGuardRotate;
+ public GameObject pauseMenu, HelpMenu, HelpFeatures, HelpFeaturesRotate, HelpItems, HelpItemsRotate, HelpGuard, HelpGuardRotate, BeginnerTextModal;
 
  public List <GameObject> HelpFeaturesRotateThemself = new List<GameObject>();
  public List <GameObject> HelpItemsRotateThemself = new List<GameObject>();
@@ -81,6 +81,9 @@ void Start(){
 		HelpMenu.SetActive(true);
     }
 
+	public void CloseBeginnerText(){
+	BeginnerTextModal.SetActive(false);
+	}
 	
 
 	public void RotateFeatures(){

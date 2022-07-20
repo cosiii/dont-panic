@@ -61,19 +61,32 @@ public abstract class Tile : MonoBehaviour
 
                  // THROWING PLAYER 1 
                  if(GameManager.Instance.GameState == GameState.Player2Turn && OccupiedUnit.UnitName == "player 1" && isWalkable == true){
+                    
+                    if(Player1.Instance.posx == 0 && Player1.Instance.posy == 0 || 
+                    Player1.Instance.posx == GridManager.Instance._width -1 && Player1.Instance.posy == GridManager.Instance._height -1  ||
+                    Player1.Instance.posx == GridManager.Instance._width -1 && Player1.Instance.posy == 0 ||
+                    Player1.Instance.posx == 0 &&  Player1.Instance.posy == GridManager.Instance._height -1 ){
+                        MenuManager.Instance.RotateModalsToPlayer2();
+                        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You can't throw players in corners";
+                        AnimationManager.Instance.AnimatePlayerText();
+                    } else {
                     InventoryManager.Instance.DropOneItem(Player1.Instance, InventoryManager.Instance.slotsPlayerOne, InventoryManager.Instance.isFullPlayerOne, InventoryManager.Instance.inventoryPlayerOne,InventoryManager.Instance.inventoryIsFullPlayerOne);
                     ThrowPlayer(1);
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                     UnitManager.Instance.SetSelectedPlayer(null);
                     ChangePlayerTurn();
+                    }
+                    
                 }
 
                 // THROWING PLAYER 2
                 else if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 2" && isWalkable == true ){
-                    if(Player2.Instance.posx == 0 || Player2.Instance.posx == GridManager.Instance._width -1||
-                    Player2.Instance.posy == 0 || Player2.Instance.posy == GridManager.Instance._height -1 ){
+                    if(Player2.Instance.posx == 0 && Player2.Instance.posy == 0 || Player2.Instance.posx == GridManager.Instance._width -1 &&
+                     Player2.Instance.posy == GridManager.Instance._height -1 ||
+                     Player2.Instance.posx == GridManager.Instance._width -1 && Player2.Instance.posy == 0 ||
+                     Player2.Instance.posx == 0 &&  Player2.Instance.posy == GridManager.Instance._height -1  ){
                         MenuManager.Instance.RotateModalsToPlayer1();
-                        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You can't throw players on edges";
+                        MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "You can't throw players in corners";
                         AnimationManager.Instance.AnimatePlayerText();
                     } else {
                     InventoryManager.Instance.DropOneItem(Player2.Instance, InventoryManager.Instance.slotsPlayerTwo, InventoryManager.Instance.isFullPlayerTwo, InventoryManager.Instance.inventoryPlayerTwo,InventoryManager.Instance.inventoryIsFullPlayerTwo);                 
@@ -90,7 +103,7 @@ public abstract class Tile : MonoBehaviour
                 if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){ // if we have a selected player AND we click on another occupied unit 
                 // WALK ON ANOTHER OCCUPIED UNIT
                     
-                    multipleTouch.Instance.standsInPlace = false;
+                    //multipleTouch.Instance.standsInPlace = false;
                     // COLLISION ITEM
                     if(OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Item){ 
                         CollisionWithItemOnOcc2();
@@ -131,7 +144,7 @@ public abstract class Tile : MonoBehaviour
         }
         else {
             
-            multipleTouch.Instance.standsInPlace = false;
+            //multipleTouch.Instance.standsInPlace = false;
             // NOT WALKABLE TILE
             if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true && TileName == "Hole"){
                 AudioManager.Instance.Play("error");
