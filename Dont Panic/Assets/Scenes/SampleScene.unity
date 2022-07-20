@@ -5900,8 +5900,8 @@ MonoBehaviour:
     Are you still in the same asylum as yesterday? Where are these tiny white walls
     that have been compressing you for six years? Is the person in front of you just
     an illusion, an enemy or a doctor? Nevermind, the thing is: YOU CAN GET OUT OF
-    HERE! I think there are doors nearby! Try getting out of here by opening the
-    doors with items.
+    HERE! I think there are doors nearby! Try to get out of here by opening the doors
+    with items.
 
     How? Let''s find out!
 
@@ -10010,12 +10010,12 @@ MonoBehaviour:
 
     The bright light is fading
     and you can vaguely see the doctor pointing at your eyes with a flashlight. Seems
-    like you faded out. You look around and see these same walls you''ve been seeing
-    for so long. You are still in your cell, you always have been..
+    like you have fought with yourself and then faded out. You look around and see
+    these same walls you''ve been seeing for so long: You are still in your cell,
+    you always have been..
 
 
-    WANNA PLAY
-    AGAIN? :)
+    WANNA PLAY AGAIN? :)
 
 '
 --- !u!222 &1231471153
@@ -10793,7 +10793,7 @@ MonoBehaviour:
     an illusion, an enemy or a doctor?
 
     Nevermind, the thing is: YOU CAN GET
-    OUT OF HERE! I think there are doors nearby. Try getting out of here by opening
+    OUT OF HERE! I think there are doors nearby. Try to get out of here by opening
     the doors with items.
 
     How? Let''s find out :O
