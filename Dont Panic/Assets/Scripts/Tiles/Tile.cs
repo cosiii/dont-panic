@@ -446,24 +446,15 @@ public abstract class Tile : MonoBehaviour
                  } 
                  //UP
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_up" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_up"){
-                   WalkLeft(player, 0, recentColor);
-                    WalkRight(player, 0, recentColor);
                     WalkUp(player, y, recentColor);
-                    WalkDown(player, 0, recentColor);
                  } 
                  //LEFT
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_left" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_left"){
                     WalkLeft(player, y, recentColor);
-                    WalkRight(player, 0, recentColor);
-                    WalkUp(player, 0, recentColor);
-                    WalkDown(player, 0, recentColor);
                  }
                  //RIGHT
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_right" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_right"){
-                    WalkLeft(player, 0, recentColor);
                     WalkRight(player, y, recentColor);
-                    WalkUp(player, 0, recentColor);
-                    WalkDown(player, 0, recentColor);
                  }                
             }
     }
