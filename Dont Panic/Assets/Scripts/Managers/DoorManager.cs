@@ -153,6 +153,7 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
         }
         if( secondUnlocked == true){
             MenuManager.Instance.doorFoundModalHeading.SetActive(false);
+            MenuManager.Instance.doorFoundModalText.SetActive(false);
             MenuManager.Instance.doorFoundModalImage.color = new Color(0,0,0,0);
             
             var TextToWrite2 = UIManager.Instance.EndText;
@@ -162,6 +163,15 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
             AnimationManager.Instance.doorModal.GetComponent<Animator>().SetBool("End", true);
             gamewon = true;
             UIManager.Instance.TextIsPlaying = true;
+
+            while(UIManager.Instance.TextIsPlaying){
+               Debug.Log("hide button");
+                // hide button
+            }
+
+            while(UIManager.Instance.TextIsPlaying == false){
+               Debug.Log("show button");
+            }
         }
     } 
     // PANTRY: OPPONENT IS POISONED

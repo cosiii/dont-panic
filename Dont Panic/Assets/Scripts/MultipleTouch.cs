@@ -36,6 +36,7 @@ public class multipleTouch : MonoBehaviour {
 	public void UpdateToken () {
         UnitManager.Instance.UpdatePlayerOne();
         UnitManager.Instance.UpdatePlayerTwo();
+        AudioManager.Instance.Play("rotate");
         int i = 0;
         while(i < Input.touchCount){
             t = Input.GetTouch(i);
