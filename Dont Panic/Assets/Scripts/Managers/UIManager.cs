@@ -70,6 +70,7 @@ public void SpeedSoundUp(string sound)
   public void TwoBack(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
 		AudioManager.Instance.Play("click");
+		Time.timeScale = 1.0f;
         Debug.Log("twoback");
     }
 
