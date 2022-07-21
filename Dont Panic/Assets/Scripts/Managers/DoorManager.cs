@@ -163,7 +163,7 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
             AnimationManager.Instance.doorModal.GetComponent<Animator>().SetBool("End", true);
             gamewon = true;
             UIManager.Instance.TextIsPlaying = true;
-
+/*
             while(UIManager.Instance.TextIsPlaying){
                Debug.Log("hide button");
                 // hide button
@@ -171,7 +171,7 @@ MenuManager.Instance.doorFoundModal.SetActive(false);
 
             while(UIManager.Instance.TextIsPlaying == false){
                Debug.Log("show button");
-            }
+            } */
         }
     } 
     // PANTRY: OPPONENT IS POISONED

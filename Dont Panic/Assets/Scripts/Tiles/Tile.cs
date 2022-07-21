@@ -29,7 +29,10 @@ public abstract class Tile : MonoBehaviour
     }
 
 
-    void OnMouseDown(){    
+    void OnMouseDown(){ 
+        
+        multipleTouch.Instance.UpdatePosition(multipleTouch.Instance.dist, multipleTouch.Instance.dist2, multipleTouch.Instance.dist3);
+        if(multipleTouch.Instance.standsInPlace) multipleTouch.Instance.UpdateToken();   
         //InventoryManager.Instance.DropItemPl1();
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied
@@ -449,13 +452,10 @@ public abstract class Tile : MonoBehaviour
             {
                 // DOWN
                 if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_down" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_down" ){
-                    WalkLeft(player, 2, recentColor);
-                    WalkRight(player, 2, recentColor);
-                    WalkUp(player, 2, recentColor);
-                    WalkLeft(player, 1, recentColor);
-                    WalkRight(player, 1, recentColor);
-                    WalkUp(player, 1, recentColor);
                     WalkDown(player, y, recentColor);
+                    WalkUp(player, y, recentColor);
+                    WalkLeft(player, y, recentColor);
+                    WalkRight(player, y, recentColor);
                  } 
                  //UP
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_up" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_up"){

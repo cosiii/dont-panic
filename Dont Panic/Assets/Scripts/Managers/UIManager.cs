@@ -58,31 +58,38 @@ void Start(){
 
   public void OneBack(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+		AudioManager.Instance.Play("click");
         Debug.Log("oneback");
     }
 
   public void TwoBack(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+		AudioManager.Instance.Play("click");
         Debug.Log("twoback");
     }
 
 	public void CloseHelpMenu(){
 		HelpMenu.SetActive(false);
+		AudioManager.Instance.Play("click");
     }	
 	public void CloseFeatures(){
 		HelpFeatures.SetActive(false);
+		AudioManager.Instance.Play("click");
     }
 
 	public void OpenFeatures(){
 		HelpFeatures.SetActive(true);
+		AudioManager.Instance.Play("click");
     }
 
 	public void OpenHelpMenu(){
 		HelpMenu.SetActive(true);
+		AudioManager.Instance.Play("click");
     }
 
 	public void CloseBeginnerText(){
 	BeginnerTextModal.SetActive(false);
+	AudioManager.Instance.Play("click");
 	}
 	
 
@@ -92,29 +99,35 @@ void Start(){
 		}
 
 		HelpFeaturesRotate.transform.Rotate(0,0,180);
+		AudioManager.Instance.Play("click");
 
     }
 
 	public void CloseItems(){
 		HelpItems.SetActive(false);
+		AudioManager.Instance.Play("click");
     }
 
 	public void OpenItems(){
 		HelpItems.SetActive(true);
+		AudioManager.Instance.Play("click");
     }
 	public void RotateItems(){
 		foreach (GameObject x in HelpItemsRotateThemself){
 			x.transform.Rotate(0, 0, 180);
 		}
 		HelpItemsRotate.transform.Rotate(0,0,180);
+		AudioManager.Instance.Play("click");
     }
 
 	public void CloseGuard(){
 		HelpGuard.SetActive(false);
+		AudioManager.Instance.Play("click");
     }
 
 	public void OpenGuard(){
 		HelpGuard.SetActive(true);
+		AudioManager.Instance.Play("click");
     }
 
 	public void RotateGuard(){
@@ -122,6 +135,7 @@ void Start(){
 			x.transform.Rotate(0, 0, 180);
 		}
 		HelpGuardRotate.transform.Rotate(0,0,180);
+		AudioManager.Instance.Play("click");
     }
 
 	public void PauseMenu(){
@@ -138,6 +152,7 @@ void Start(){
 		}
 
 		pauseMenuOpen = !pauseMenuOpen;
+		AudioManager.Instance.Play("click");
     }	
 
 }

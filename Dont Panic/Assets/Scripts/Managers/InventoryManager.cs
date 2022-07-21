@@ -150,6 +150,7 @@ randomx = 0;
 randomy = 0;
     // SET SPAWNTILE
    SetNewItemSpawnTile();
+   AudioManager.Instance.Play("drop");
 
     // ON AN EDGE? OR OCCUPIED? OR THE SPAWNPOINT OF A PLAYER?
     while(player.posx + randomx < 0 || player.posx + randomx >= GridManager.Instance._width || player.posy + randomy < 0 || player.posy + randomy >= GridManager.Instance._height ||
