@@ -77,38 +77,26 @@ public void UpdatePlayerOne(){
     playerOneSpriteObject.transform.localScale = new Vector3(1, 1, 1);
     if (multipleTouch.Instance.touch3ObjectDownOne == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteDown;
-        AudioManager.Instance.Play("rotate");
     } 
-    
     if (multipleTouch.Instance.touch3ObjectUpOne == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteUp;
-        AudioManager.Instance.Play("rotate");
     } 
-    
     if (multipleTouch.Instance.touch3ObjectLeftOne == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteLeft;
-        AudioManager.Instance.Play("rotate");
     } 
     if (multipleTouch.Instance.touch3ObjectRightOne == true){
         playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite = playerOneSpriteRight;
-        AudioManager.Instance.Play("rotate");
     }  
 
     // CLICK SOUND  oder machen
         //AudioManager.Instance.Play("rotate");
     if (multipleTouch.Instance.touch3ObjectDownOne == true && playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite != playerOneSpriteDown){
-        AudioManager.Instance.Play("rotate");
     } 
-    
     if (multipleTouch.Instance.touch3ObjectUpOne == true && playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite != playerOneSpriteUp){
-        AudioManager.Instance.Play("rotate");
     } 
-    
     if (multipleTouch.Instance.touch3ObjectLeftOne == true && playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite != playerOneSpriteLeft){
-        AudioManager.Instance.Play("rotate");
     } 
     if (multipleTouch.Instance.touch3ObjectRightOne == true && playerOneSpriteObject.GetComponent<SpriteRenderer>().sprite != playerOneSpriteRight){
-        AudioManager.Instance.Play("rotate");
     }  
 }
 
