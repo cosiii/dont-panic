@@ -55,7 +55,6 @@ public class TextWriterSingle {
 					uiText.text = TextBlockToWrite.Substring(0, charIndex);
 				} 
 			}
-			Debug.Log(charIndex);
 
 			if(charIndex >= TextBlockToWrite.Length){
 					// ENTIRE STRING DISPLAYED

@@ -78,8 +78,10 @@ public void RotateModalsToPlayer2(){
 public void ShowPlayersTurn(){
     if( GameManager.Instance.GameState == GameState.Player1Turn){
         Player1.Instance.highlight.SetActive(true);
+        multipleTouch.Instance.recentColor =  GridManager.Instance.colorPlayer1;
     } else if( GameManager.Instance.GameState == GameState.Player2Turn){
         Player2.Instance.highlight.SetActive(true);
+        multipleTouch.Instance.recentColor =  GridManager.Instance.colorPlayer2;
     }
 }
 

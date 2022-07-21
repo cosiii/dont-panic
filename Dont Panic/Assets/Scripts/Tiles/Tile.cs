@@ -16,7 +16,6 @@ public abstract class Tile : MonoBehaviour
     public BaseUnit OccupiedUnit, OccupiedUnit2;
     public bool Walkable => isWalkable && OccupiedUnit == null; // checks if tile is walkable and not occupied
 
-    public Color recentColor = Color.black;
     void Awake(){
         Instance = this;
     }
@@ -31,8 +30,8 @@ public abstract class Tile : MonoBehaviour
 
     void OnMouseDown(){ 
         
-        multipleTouch.Instance.UpdatePosition(multipleTouch.Instance.dist, multipleTouch.Instance.dist2, multipleTouch.Instance.dist3);
-        if(multipleTouch.Instance.standsInPlace) multipleTouch.Instance.UpdateToken();   
+       // multipleTouch.Instance.UpdatePosition(multipleTouch.Instance.dist, multipleTouch.Instance.dist2, multipleTouch.Instance.dist3);
+         
         //InventoryManager.Instance.DropItemPl1();
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied
@@ -440,34 +439,25 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void ShowWalkableTiles(BasePlayer player){
-       if(Player1.Instance.deciding){
-        recentColor =  GridManager.Instance.colorPlayer1;
-       } else if(Player2.Instance.deciding){
-        recentColor =  GridManager.Instance.colorPlayer2;
-       }
-
         HideWalkableTiles();
        
             for (int y = 1; y < player.walkingDistance; y++)
             {
                 // DOWN
                 if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_down" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_down" ){
-                    WalkDown(player, y, recentColor);
-                    WalkUp(player, y, recentColor);
-                    WalkLeft(player, y, recentColor);
-                    WalkRight(player, y, recentColor);
+                    WalkDown(player, y, multipleTouch.Instance.recentColor);
                  } 
                  //UP
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_up" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_up"){
-                    WalkUp(player, y, recentColor);
+                    WalkUp(player, y, multipleTouch.Instance.recentColor);
                  } 
                  //LEFT
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_left" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_left"){
-                    WalkLeft(player, y, recentColor);
+                    WalkLeft(player, y, multipleTouch.Instance.recentColor);
                  }
                  //RIGHT
                  else if (player.GetComponent<SpriteRenderer>().sprite.name == "playerone_right" || player.GetComponent<SpriteRenderer>().sprite.name == "playertwo_right"){
-                    WalkRight(player, y, recentColor);
+                    WalkRight(player, y, multipleTouch.Instance.recentColor);
                  }                
             }
     }

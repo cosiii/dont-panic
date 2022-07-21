@@ -11,8 +11,6 @@ public class multipleTouch : MonoBehaviour {
 
     public bool standsInPlace;
 
-    public float Distance1, Distance2, Distance3;
-
      bool touch3ObjectRight, touch3ObjectLeft, touch3ObjectUp, touch3ObjectDown;
 
      public bool touch3ObjectRightOne, touch3ObjectLeftOne, touch3ObjectUpOne, touch3ObjectDownOne;
@@ -24,6 +22,8 @@ public class multipleTouch : MonoBehaviour {
 
     public Touch t, t1, t2, farestT;
 
+    public Color recentColor = Color.black;
+
 
     public Vector2 c, c2;
 
@@ -32,10 +32,55 @@ public class multipleTouch : MonoBehaviour {
     }
 
     public void Update(){
+        if (standsInPlace){
+        UpdatePosition(dist,dist2,dist3);
+        UpdateToken();
+
+        }
     }
 	// Update is called once per frame
 	public void UpdateToken () {
-    
+        UnitManager.Instance.UpdatePlayerOne();
+        UnitManager.Instance.UpdatePlayerTwo();
+        int i = 0;
+        while(i < Input.touchCount){
+            t = Input.GetTouch(i);
+
+            if(i == 0){
+                t1 = t;
+             //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
+            }
+            
+            if(i == 1){
+               t2 = t;
+             //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
+             //touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
+            }
+
+         
+
+            if(i == 2){ 
+            dist = Vector3.Distance(t.position, t1.position);
+                
+            dist2 = Vector3.Distance(t1.position, t2.position);
+                
+            dist3 = Vector3.Distance(t2.position, t.position);
+            UpdatePosition(dist, dist2, dist3);
+             if(t.phase == TouchPhase.Began){
+             //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
+             //touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
+             //touches.Add(new touchLocation(t2.fingerId, createCircle(t2)));
+            } else if(t.phase == TouchPhase.Moved){
+            } 
+            
+            if(t.phase == TouchPhase.Ended){
+               //touches.Clear();
+        
+            }
+            } 
+            // touches bleiben solange bis neue 3
+            ++i;
+	}
 
     }
     // GET TOUCH POSITION IN WORLD SPACE
@@ -50,37 +95,7 @@ public class multipleTouch : MonoBehaviour {
         return c;
     }
 
-    public void UpdatePosition(float D1, float D2, float D3){  
-    
-
-        int i = 0;
-        while(i < Input.touchCount){
-            t = Input.GetTouch(i);
-
-            if(i == 0){
-                t1 = t;
-            }
-            
-            if(i == 1){
-               t2 = t;
-            }
-
-         dist = Vector3.Distance(t.position, t1.position);
-                
-         dist2 = Vector3.Distance(t1.position, t2.position);
-                
-         dist3 = Vector3.Distance(t2.position, t.position);
-
-            if(i == 2){ 
-                // UPDATE TOKEN SPRITES
-                UnitManager.Instance.UpdatePlayerOne();
-                UnitManager.Instance.UpdatePlayerTwo();
-            } 
-            // touches bleiben solange bis neue 3 da sind
-            ++i;
-	}              
-
-
+    public void UpdatePosition(float D1, float D2, float D3){                
                 // shortest dist
                 float shortestDist = Mathf.Min(Mathf.Min(D1, D2), D3);
                 // Debug.Log(shortestDist);

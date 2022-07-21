@@ -4630,6 +4630,7 @@ MonoBehaviour:
   dist: 0
   dist2: 0
   dist3: 0
+  recentColor: {r: 0, g: 0, b: 0, a: 1}
   c: {x: 0, y: 0}
   c2: {x: 0, y: 0}
 --- !u!1 &520194054
@@ -7800,7 +7801,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: door
-    clip: {fileID: 8300000, guid: 91161cc5db12c6044b7865244231f598, type: 3}
+    clip: {fileID: 8300000, guid: 484551c98eab0a74eab99253c6978da7, type: 3}
     volume: 0.212
     volumeVariance: 0.485
     pitch: 1
@@ -7826,8 +7827,17 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: rotate
+  - name: click
     clip: {fileID: 8300000, guid: 02bcb1898271f15488ea4b9aa0a6fb0f, type: 3}
+    volume: 0.212
+    volumeVariance: 0.485
+    pitch: 1
+    pitchVariance: 0.13
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: drop
+    clip: {fileID: 8300000, guid: 484551c98eab0a74eab99253c6978da7, type: 3}
     volume: 0.212
     volumeVariance: 0.485
     pitch: 1

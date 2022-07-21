@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -40,9 +41,13 @@ public void Awake(){
 
 void Start(){
 }
-
+public void SpeedSoundUp(string sound)
+{
+		Sound s = Array.Find(AudioManager.Instance.sounds, item => item.name == sound);
+}
 
  void Update () {
+	
 
 // NORMAL TIMER
  	if(playing == true){
@@ -90,6 +95,7 @@ void Start(){
 	public void CloseBeginnerText(){
 	BeginnerTextModal.SetActive(false);
 	AudioManager.Instance.Play("click");
+	TextIsPlaying = false;
 	}
 	
 
