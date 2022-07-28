@@ -26,7 +26,7 @@ private void Update(){
 
 
 public class TextWriterSingle {
-    private Text uiText; // evtl später public und dann jeweiliges einfügen
+    private Text uiText;
     private string TextBlockToWrite;
     private float timePerChar;
     private float timer;
@@ -62,7 +62,6 @@ public class TextWriterSingle {
 					UIManager.Instance.TextIsPlaying = false;
 					charIndex = 0;
 					return;
-					// funktion eigentlich aufhören
 				}
 			}
 			

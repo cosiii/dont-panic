@@ -41,8 +41,6 @@ public class GameManager : MonoBehaviour
                 break;
             default: 
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
-             
-        
         }
     }
 }

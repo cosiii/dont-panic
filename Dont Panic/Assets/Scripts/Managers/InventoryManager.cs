@@ -20,8 +20,7 @@ public bool itemUnderPlayer1, itemUnderPlayer2;
 public Tile itemUnderPlayer1Tile, itemUnderPlayer2Tile;
 
  // RANDOM TILE POS AROUNG THE PLAYER
-    int randomx, randomy;
-
+int randomx, randomy;
 public string lastDroppedItem;
 public bool inventoryIsFullPlayerOne;
 public bool inventoryIsFullPlayerTwo;
@@ -46,7 +45,6 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
     // PLAYER ONE
     for (int i = 0; i < slotsPlayerOne.Count+ k; i++)
     {
-        Debug.Log("item added, slots count: " + slotsPlayerOne.Count + " inventory player one: " + inventoryPlayerOne[2] );
         if(isFullPlayerOne[i] == false ){ 
         // ITEM WILL BE ADDED TO INVENTORY
         // parented to slots[i]
@@ -64,7 +62,6 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
     //PLAYER TWO
     for (int i = 0; i < slotsPlayerTwo.Count+l; i++)
     {
-        Debug.Log("item added, slots count: " + slotsPlayerOne.Count + " inventory player two: " + inventoryPlayerTwo);
         if(isFullPlayerTwo[i] == false){ 
         // ITEM WILL BE ADDED TO INVENTORY
         // parented to slots[i]
@@ -80,17 +77,12 @@ if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" ){
     ItemManager.Instance.ChangeModal();
     AudioManager.Instance.Play("collect");
 
-
     // SET ONGOING ANIMATION TO ZERO (IF THERE IS ONE) 
     AnimationManager.Instance.itemModal.GetComponent<Animator>().Rebind();
     AnimationManager.Instance.itemModal.GetComponent<Animator>().Update(0f);
    
     // ACTUAL ANIMATION      
     AnimationManager.Instance.AnimateItemModal();
-
-
-
-    
 }
 
 
@@ -158,7 +150,6 @@ randomy = 0;
     GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy) ==  GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerOneSpawnTile, UnitManager.Instance.yPlayerOneSpawnTile) ||
     GridManager.Instance.GetSpawnTile(player.posx + randomx, player.posy + randomy) ==  GridManager.Instance.GetSpawnTile(UnitManager.Instance.xPlayerTwoSpawnTile, UnitManager.Instance.yPlayerTwoSpawnTile)
     ){
-        Debug.Log( "redo itemspawntile");
         SetNewItemSpawnTile();
     }
 

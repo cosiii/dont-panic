@@ -45,20 +45,12 @@ public class multipleTouch : MonoBehaviour {
         int i = 0;
         while(i < Input.touchCount){
             t = Input.GetTouch(i);
-
             if(i == 0){
                 t1 = t;
-             //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
             }
-            
             if(i == 1){
                t2 = t;
-             //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
-             //touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
             }
-
-         
-
             if(i == 2){ 
             dist = Vector3.Distance(t.position, t1.position);
                 
@@ -66,19 +58,7 @@ public class multipleTouch : MonoBehaviour {
                 
             dist3 = Vector3.Distance(t2.position, t.position);
             UpdatePosition(dist, dist2, dist3);
-             if(t.phase == TouchPhase.Began){
-             //touches.Add(new touchLocation(t.fingerId, createCircle(t)));
-             //touches.Add(new touchLocation(t1.fingerId, createCircle(t1)));
-             //touches.Add(new touchLocation(t2.fingerId, createCircle(t2)));
-            } else if(t.phase == TouchPhase.Moved){
             } 
-            
-            if(t.phase == TouchPhase.Ended){
-               //touches.Clear();
-        
-            }
-            } 
-            // touches bleiben solange bis neue 3
             ++i;
 	}
 

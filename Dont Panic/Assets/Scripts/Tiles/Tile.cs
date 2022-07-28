@@ -29,16 +29,11 @@ public abstract class Tile : MonoBehaviour
 
 
     void OnMouseDown(){ 
-        
-       // multipleTouch.Instance.UpdatePosition(multipleTouch.Instance.dist, multipleTouch.Instance.dist2, multipleTouch.Instance.dist3);
-         
-        //InventoryManager.Instance.DropItemPl1();
         // when its occupied by a player or anything else
         if( OccupiedUnit != null ){ //when tile is occupied
 
             // FACTION PLAYER
             if(OccupiedUnit.Faction == Faction.Player){
-                MenuManager.Instance.HideHelpers();
                 // CLICKING ON ONESELF
                 if(GameManager.Instance.GameState == GameState.Player1Turn && OccupiedUnit.UnitName == "player 1"  && Player1.Instance.deciding == true){
                     multipleTouch.Instance.standsInPlace = true;
@@ -104,8 +99,6 @@ public abstract class Tile : MonoBehaviour
             else { 
                 if(UnitManager.Instance.SelectedPlayer != null && isWalkable == true){ // if we have a selected player AND we click on another occupied unit 
                 // WALK ON ANOTHER OCCUPIED UNIT
-                    
-                    //multipleTouch.Instance.standsInPlace = false;
                     // COLLISION ITEM
                     if(OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Item){ 
                         CollisionWithItemOnOcc2();
@@ -130,8 +123,6 @@ public abstract class Tile : MonoBehaviour
                     SetUnit(UnitManager.Instance.SelectedPlayer);
                     UnitManager.Instance.SetSelectedPlayer(null);
                     ChangePlayerTurn();
-
-                    // hier dann nicht mehr
                     // PANTRY FEATURE CHANGE TURNS AGAIN
                     if(DoorManager.Instance.pantryFeatureP1 == true || DoorManager.Instance.pantryFeatureP2 == true ){
                         ChangePlayerTurn();
@@ -170,7 +161,6 @@ public abstract class Tile : MonoBehaviour
                 ChangePlayerTurn();
             } else {
                 // YOURE NOT ON THE HIGHLIGHT
-                
                 multipleTouch.Instance.standsInPlace = false;
                 AnimationManager.Instance.AnimateHighlightTiles();
             }
@@ -201,10 +191,6 @@ public abstract class Tile : MonoBehaviour
    
    public void CollisionWithItem(BaseUnit occ1, BaseUnit occ2){
     RotateModals();
-    if (InventoryManager.Instance.lastDestroyedItem == InventoryManager.Instance.lastNotDestroyedItem){
-        Debug.Log("last destroyed and last not destroyed are the same, is there any bug?");
-    }
-
     // PL1s INVENTORY IS FULL AND NOT COLLECTING ITEM ON OCCUNIT1
     if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
         InventoryManager.Instance.lastNotDestroyedItem = occ1.UnitName;
@@ -213,7 +199,6 @@ public abstract class Tile : MonoBehaviour
         InventoryManager.Instance.inventoryIsFullPlayerOne = true;
         occ2 = occ1;
         SetUnit2(occ2);
-        Debug.Log(occ1 + " " + occ2);
     } 
     // PL2s INVENTORY IS FULL AND NOT COLLECTING ITEM ON OCCUNIT1
     else if(UnitManager.Instance.SelectedPlayer.UnitName == "player 2" && InventoryManager.Instance.isFullPlayerTwo[InventoryManager.Instance.slotsPlayerTwo.Count -1] == true){ 
@@ -223,7 +208,6 @@ public abstract class Tile : MonoBehaviour
         InventoryManager.Instance.inventoryIsFullPlayerTwo = true;
         occ2 = occ1;
         SetUnit2(occ2);
-        Debug.Log(occ1 + " " + occ2);
     }
 
     // PLAYERS INVENTORY IS NOT FULL
@@ -231,8 +215,6 @@ public abstract class Tile : MonoBehaviour
     InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn){
     occ1.OccupiedTile = null;
     DestroyUnit(); // muss hier oben sein 
-    //Destroy(occ1.gameObject);
-
     InventoryManager.Instance.AddItemToInventory();
     AnimationManager.Instance.AnimateInventoryPoint();
     } 
@@ -242,7 +224,6 @@ public abstract class Tile : MonoBehaviour
     InventoryManager.Instance.inventoryIsFullPlayerTwo == true ){
         MenuManager.Instance.PlayerText.GetComponentInChildren<Text>().text = "Your Inventory is Full";
         AnimationManager.Instance.AnimatePlayerText();
-
         // RESET EVERYTHING
         InventoryManager.Instance.inventoryIsFullPlayerOne = false;
         InventoryManager.Instance.inventoryIsFullPlayerTwo = false; 
@@ -251,11 +232,6 @@ public abstract class Tile : MonoBehaviour
 
 // setzt schon ein wenn noch nichts auf occ2 drauf ist
    public void CollisionWithItemOnOcc2(){
-    if (InventoryManager.Instance.lastDestroyedItem == InventoryManager.Instance.lastNotDestroyedItem){
-        Debug.Log("last destroyed and last not destroyed are the same, is there any bug?");
-    }
-
-    Debug.Log("Collision with item with occ2");
     RotateModals();
      // PL1s INVENTORY IS FULL AND NOT COLLECTING ITEM ON OCCUNIT2
     if(UnitManager.Instance.SelectedPlayer.UnitName == "player 1" && InventoryManager.Instance.isFullPlayerOne[InventoryManager.Instance.slotsPlayerOne.Count -1] == true){
@@ -275,8 +251,7 @@ public abstract class Tile : MonoBehaviour
     // PLAYERS INVENTORY IS NOT FULL
     if(InventoryManager.Instance.inventoryIsFullPlayerOne == false && GameManager.Instance.GameState == GameState.Player1Turn ||
     InventoryManager.Instance.inventoryIsFullPlayerTwo == false && GameManager.Instance.GameState == GameState.Player2Turn){
-    Debug.Log("destroy unit2 ");
-    DestroyUnit2(); // muss hier oben sein  oder UNIT2
+    DestroyUnit2(); 
     InventoryManager.Instance.AddItemToInventory();
     AnimationManager.Instance.AnimateInventoryPoint();
     } 
@@ -331,11 +306,6 @@ public abstract class Tile : MonoBehaviour
                         DoorManager.Instance.DoorCollision();
                 }
 
-        // WHEN PLAYER TO BE THROWN IS OVER AN ITEM
-        if (OccupiedUnit2 != null && OccupiedUnit2.Faction == Faction.Item){
-             //CollisionWithItem(OccupiedUnit2, OccupiedUnit);
-             Debug.Log("there is an item underneath");
-        }
         // SET PLAYER ONE
         if ( i == 1){
             GridManager.Instance.GetSpawnTile(xSpawnTile, ySpawnTile).SetUnit(Player1.Instance);
@@ -348,16 +318,6 @@ public abstract class Tile : MonoBehaviour
             Player2.Instance.posx = xSpawnTile;
             Player2.Instance.posy = ySpawnTile;
         }
-        
-        // WHEN THE SPAWNING TILE IS OCCUPIED
-        // HOLE
-        if (GridManager.Instance.GetSpawnTile(xSpawnTile, ySpawnTile).TileName == "Hole"){
-                Debug.Log("player landed on a hole");
-            }
-        // ITEM
-         if (GridManager.Instance.GetSpawnTile(xSpawnTile, ySpawnTile).OccupiedUnit.Faction == Faction.Item){
-                Debug.Log("player landed on an item");
-             }
     }
     public void SetUnit(BaseUnit unit){
         if(unit.OccupiedTile != null) unit.OccupiedTile.OccupiedUnit = null;
@@ -374,13 +334,11 @@ public abstract class Tile : MonoBehaviour
     }
 
     public void DestroyUnit(){
-        Debug.Log("destroy Unit " + OccupiedUnit);
         Destroy(OccupiedUnit.gameObject);
         InventoryManager.Instance.lastDestroyedItem = OccupiedUnit.UnitName;
     }
 
     public void DestroyUnit2(){
-        // destroyed das nicht weil item6 clone dasteht und nicht item6 clone (item)
         Destroy(OccupiedUnit2.gameObject);
         InventoryManager.Instance.lastDestroyedItem = OccupiedUnit2.UnitName;
     }
@@ -479,12 +437,6 @@ public abstract class Tile : MonoBehaviour
     public void IsTokenOnSelectedPlayer(){
         GameObject playerone = GameObject.Find("playerone(Clone)");
         GameObject playertwo = GameObject.Find("playertwo(Clone)");
-        Debug.Log(playerone.GetComponent<Player1>().posx + "" + playerone.GetComponent<Player1>().posy);
-
-
-       // wenn t, t1, t2 zumindest einer von denen auf dem Tile is
-
-       // fürn anfang: wenn die 3 touches drauf sind mach highlight
     }
 
     public BaseItem MakeStringIntoItem(string lastnotdestroyed){

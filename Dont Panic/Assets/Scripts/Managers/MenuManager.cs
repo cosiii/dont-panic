@@ -29,10 +29,6 @@ void Awake(){
     Instance = this;
 }
 
-public void HideHelpers(){
-//helpers.SetActive(false);
-}
-
 public void ShowExitModal(){
     ExitModal.SetActive(true);
 }

@@ -28,7 +28,7 @@ public class AnimationManager : MonoBehaviour
         }
     }
 
-    public void AnimateInventoryPoint(){
+ public void AnimateInventoryPoint(){
         Animator inv = SlotToAnimate.GetComponentInChildren<Animator>();
         inv.SetTrigger("onCollect");
     }
@@ -49,6 +49,4 @@ public void AnimatePlayerText(){
     Animator animation = TextForPlayerModal.GetComponent<Animator>();
     animation.SetTrigger("TextNeeded");
 }
-
-    
 }

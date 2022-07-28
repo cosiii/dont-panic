@@ -21,13 +21,6 @@ public class Patrol : BasePatrol
       waitTime = startWaitTime;
       randomSpot = Random.Range(0, moveSpots.Length);
     }
-
-  public void OnMouseDown(){
-    Debug.Log("clicked on patrol");
-  }
-
-
-
    public void OnCollisionEnter(Collision col){
     if (col.gameObject.name == "playerone(Clone)"){
       Tile.Instance.ThrowPlayer(1);
@@ -43,7 +36,6 @@ public class Patrol : BasePatrol
     }
      
   }
-
     void Update(){
       // transform.position is recent position
       transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
@@ -56,14 +48,5 @@ public class Patrol : BasePatrol
           waitTime -= Time.deltaTime;
         }
       }
-
-      
-
-     /* if (multipleTouch.onTablet == true){
-        speed = 0;
-      } else if (multipleTouch.onTablet == false){
-        speed = 1;   // am besten das was am anfang wäre
-      } */
-
     }
 }
